@@ -61,7 +61,7 @@ var pobj_1 = require("./pobj");
         switch (_a.label) {
             case 0:
                 ngin.eventHandler = new InputHandler(ngin);
-                d = fs.readFileSync('/Users/danielkim/test/planes0.tmj', 'utf8');
+                d = fs.readFileSync('planes0.tmj', 'utf8');
                 j = JSON.parse(d);
                 tiles = j.layers[0];
                 objlayer = j.layers[1];
@@ -220,9 +220,6 @@ var InputHandler = /** @class */ (function (_super) {
                         console.log(value);
                         return [4 /*yield*/, this.ngin.forward(101, new pobj_1.Pos(10, 0))];
                     case 3:
-                        _b.sent();
-                        return [4 /*yield*/, this.ngin.follow(100)];
-                    case 4:
                         _b.sent();
                         return [2 /*return*/];
                 }

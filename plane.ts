@@ -5,7 +5,7 @@ import {Pos, Size, BodyType, BodyShape, TilesInfo, Pobj, Pbody, Stage, JoystickD
 
 main('daniel', 4040, async (ngin) =>  {
     ngin.eventHandler = new InputHandler(ngin);
-    const d = fs.readFileSync('/Users/danielkim/test/planes0.tmj', 'utf8');
+    const d = fs.readFileSync('planes0.tmj', 'utf8');
     const j = JSON.parse(d);
   
     const tiles = j.layers[0];
