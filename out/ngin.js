@@ -243,14 +243,15 @@ var Ngin = /** @class */ (function () {
     }
     Ngin.prototype.init = function (root) {
         this.root = root;
+        this.CObject = root.lookupType("commander.CObject");
         this.BodyShape = root.lookupEnum("commander.BodyShape");
         this.BodyType = root.lookupEnum("commander.BodyType");
         this.BodyOpInfo = root.lookupType("commander.BodyOpInfo");
         this.BodyOp = root.lookupEnum("commander.BodyOp");
-        this.BodySkinInfo = root.lookupType("commander.BodySkinInfo");
-        this.BodySkin = root.lookupEnum("commander.BodySkin");
-        this.BodySkinType = root.lookupEnum("commander.BodySkinType");
-        this.BodySkinExtra = root.lookupEnum("commander.BodySkinExtra");
+        this.CActionInfo = root.lookupType("commander.CActionInfo");
+        this.CAction = root.lookupEnum("commander.CAction");
+        this.CActionType = root.lookupEnum("commander.CActionType");
+        this.CActionExtra = root.lookupEnum("commander.CActionExtra");
         this.ContactType = root.lookupEnum("commander.ContactType");
         this.EventType = root.lookupEnum("commander.EventType");
         this.KeyType = root.lookupEnum("commander.KeyType");
@@ -315,6 +316,34 @@ var Ngin = /** @class */ (function () {
                         buf_body = this.BodyInfo.encode(info).finish();
                         //console.log(info.bid, info);  
                         return [4 /*yield*/, this.send(buf_body, this.Head.values.bodyinfo)];
+                    case 1:
+                        //console.log(info.bid, info);  
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Ngin.prototype.addCObjectInternal = function (cobj) {
+        return __awaiter(this, void 0, void 0, function () {
+            var i, a, buf_cobj;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if ('visible' in cobj) {
+                            cobj.visible.current = this.CAction.values[cobj.visible.current];
+                            for (i = 0; i < cobj.visible.animations.length; i++) {
+                                a = cobj.visible.animations[i];
+                                a.action = this.CAction.values[a.action];
+                            }
+                        }
+                        if ('physical' in cobj) {
+                            cobj.physical.shape = this.BodyShape.values[cobj.physical.shape];
+                            cobj.physical.type = this.BodyType.values[cobj.physical.type];
+                        }
+                        buf_cobj = this.CObject.encode(cobj).finish();
+                        //console.log(info.bid, info);  
+                        return [4 /*yield*/, this.send(buf_cobj, this.Head.values.cobject)];
                     case 1:
                         //console.log(info.bid, info);  
                         _a.sent();
@@ -401,7 +430,7 @@ var Ngin = /** @class */ (function () {
             });
         });
     };
-    Ngin.prototype.setBodySkinInternal = function (bid, skin, facingLeft, skinType) {
+    Ngin.prototype.setCActionInternal = function (bid, skin, facingLeft, skinType) {
         return __awaiter(this, void 0, void 0, function () {
             var extra, info, buf_body;
             return __generator(this, function (_a) {
@@ -410,19 +439,19 @@ var Ngin = /** @class */ (function () {
                         extra = 0;
                         if (facingLeft != undefined) {
                             if (facingLeft) {
-                                extra = this.BodySkinExtra.values.left;
+                                extra = this.CActionExtra.values.left;
                             }
                             else {
-                                extra = this.BodySkinExtra.values.right;
+                                extra = this.CActionExtra.values.right;
                             }
                         }
                         info = {
                             bid: bid,
-                            skin: this.BodySkin.values[skin],
-                            type: skinType ? this.BodySkinType.values[skinType] : 0,
+                            skin: this.CAction.values[skin],
+                            type: skinType ? this.CActionType.values[skinType] : 0,
                             extra: extra,
                         };
-                        buf_body = this.BodySkinInfo.encode(info).finish();
+                        buf_body = this.CActionInfo.encode(info).finish();
                         return [4 /*yield*/, this.send(buf_body, this.Head.values.bodystatus)];
                     case 1:
                         _a.sent();

@@ -4,7 +4,8 @@ var {EventHandler, mainInternal} = require("./ngin");
 var {NginX} = require("./nginx");
 const EventEmitter = require('events');
 //var {Pos, Size, BodyType, BodyShape, TilesInfo, Pobj, Stage, JoystickDirectionals} = require("./pobj");
-import {Pos, Size, BodyType, BodyShape, TilesInfo, Pobj, Pbody, Stage, JoystickDirectionals, Image} from "./pobj";
+//import {Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./pobj";
+import {CObject, CAction, CAnimation, CPhysical, CVisible, Buildable, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./cobj";
 
 export class Gngin extends NginX {
     constructor(root){
@@ -12,21 +13,20 @@ export class Gngin extends NginX {
         //this.init(root);
     }
 
-    async sendObj(obj:Pobj) {
-        if (obj instanceof Pbody) {
-            await this.addBody(obj.build());
+
+    async sendObj(obj:Buildable) {
+        if (obj instanceof CObject) {
+            await this.addCObjectInternal(obj.build());
         } else if (obj instanceof Stage) {
             await this.initScreen(obj.build());
-        } else if (obj instanceof Image) {
-            await this.command(obj.build());
         }
     }
 
-    async sendObjWait(obj:Pobj) {
+    async sendObjWait(obj:Buildable) {
         this.ackEmitter = new EventEmitter();         
         await this.sendObj(obj);
         return await EventEmitter.once(this.ackEmitter, 'ack');
-    }
+    }    
     
     async forward(id:number, pos:Pos) {
         await this.command({

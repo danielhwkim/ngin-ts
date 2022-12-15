@@ -58,7 +58,8 @@ var _a = require("./ngin"), EventHandler = _a.EventHandler, mainInternal = _a.ma
 var NginX = require("./nginx").NginX;
 var EventEmitter = require('events');
 //var {Pos, Size, BodyType, BodyShape, TilesInfo, Pobj, Stage, JoystickDirectionals} = require("./pobj");
-var pobj_1 = require("./pobj");
+//import {Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./pobj";
+var cobj_1 = require("./cobj");
 var Gngin = /** @class */ (function (_super) {
     __extends(Gngin, _super);
     function Gngin(root) {
@@ -70,24 +71,18 @@ var Gngin = /** @class */ (function (_super) {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (!(obj instanceof pobj_1.Pbody)) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.addBody(obj.build())];
+                        if (!(obj instanceof cobj_1.CObject)) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this.addCObjectInternal(obj.build())];
                     case 1:
                         _a.sent();
-                        return [3 /*break*/, 6];
+                        return [3 /*break*/, 4];
                     case 2:
-                        if (!(obj instanceof pobj_1.Stage)) return [3 /*break*/, 4];
+                        if (!(obj instanceof cobj_1.Stage)) return [3 /*break*/, 4];
                         return [4 /*yield*/, this.initScreen(obj.build())];
                     case 3:
                         _a.sent();
-                        return [3 /*break*/, 6];
-                    case 4:
-                        if (!(obj instanceof pobj_1.Image)) return [3 /*break*/, 6];
-                        return [4 /*yield*/, this.command(obj.build())];
-                    case 5:
-                        _a.sent();
-                        _a.label = 6;
-                    case 6: return [2 /*return*/];
+                        _a.label = 4;
+                    case 4: return [2 /*return*/];
                 }
             });
         });

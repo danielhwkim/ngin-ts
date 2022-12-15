@@ -11,6 +11,8 @@ enum Head {
     query = 0xFF04;
     bodyinfoquery = 0xFF05;
 
+    cobject = 0xFF06;
+
     contact = 0xF0F0;
     event = 0xF0F1;
     key = 0xF0F2;
@@ -93,7 +95,7 @@ message BodyInfo {
     repeated float floats = 23;
 }
 
-enum BodySkin {
+enum CAction {
     idle = 0;
     run = 1;
     jump = 2;
@@ -110,24 +112,25 @@ enum BodySkin {
     hitRight = 13;
     hitBottom = 14;
     noChange = 15;
+    tiles = 16;
 }
 
-enum BodySkinType {
+enum CActionType {
     loop = 0;
     once = 1;
     notify = 2;
 }
 
-enum BodySkinExtra {
+enum CActionExtra {
     left = 0;
     right = 1;
 }
 
-message BodySkinInfo {
+message CActionInfo {
     uint32 bid = 1;
-    BodySkin skin = 2;
-    BodySkinType type = 3;
-    BodySkinExtra extra = 4;
+    CAction skin = 2;
+    CActionType type = 3;
+    CActionExtra extra = 4;
 }
 
 enum BodyOp {
@@ -324,4 +327,61 @@ message Cmd {
 	repeated int32 ints = 2;
 	repeated float floats = 3;
 	repeated string strings = 4;
+    Cmd sub = 5;
+}
+
+
+//================================================
+
+
+message CObject {
+    uint32 id = 1;
+    CPhysical physical = 2;
+    CVisible visible = 3;
+    uint32 tid = 4;    
+}
+
+message CVisible {
+    CAction current	= 1;
+    uint32	priority = 2;	
+    double	x = 3;
+    double	y = 4;
+    double	width = 5;	
+    double	height = 6;
+    double	scaleX = 7;	
+    double	scaleY = 8;
+    double anchorX = 9;
+    double anchorY = 10; 
+    repeated CAnimation	animations = 11;
+}
+
+message CAnimation {
+    string	path = 1;
+    double	tileSizeX = 2;
+    double	tileSizeY = 3;
+    repeated uint32	indices = 4;
+    double	stepTime = 5;
+    CAction action = 6;
+    bool repeat = 7;
+}
+
+message CPhysical {
+    string name = 1;
+    BodyShape shape = 2;
+    float x = 3;
+    float y = 4;
+    float width = 5;
+    float height = 6;
+    float restitution = 7;
+    float friction = 8;
+    float density = 9;
+    float angle = 10;
+    bool isSensor = 11;
+    uint32 categoryBits = 12;
+    uint32 maskBits = 13;
+    bool fixedRotation = 14;
+    BodyType type = 15;
+    bool trackable = 16;
+    bool contactReport = 17;
+    repeated float floats = 18;
 }

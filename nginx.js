@@ -62,9 +62,9 @@ class NginX extends Ngin {
       await this.addBodyInternal(info);
   }
 
-  async setBodySkin(bid, skin, skinType, facingLeft) {
+  async setCAction(bid, skin, skinType, facingLeft) {
       //const obj = this.getObj(bid);
-      await this.setBodySkinInternal(bid, skin, facingLeft, skinType);
+      await this.setCActionInternal(bid, skin, facingLeft, skinType);
   }
 
 
@@ -131,30 +131,30 @@ class NginX extends Ngin {
 
 
   async playNoChange(bid, facingLeft) {
-      await this.setBodySkin(bid, 'noChange', 'loop', facingLeft);
+      await this.setCAction(bid, 'noChange', 'loop', facingLeft);
     }
   
     async playRun(bid, facingLeft) {
-      await this.setBodySkin(bid, 'run', 'loop', facingLeft);
+      await this.setCAction(bid, 'run', 'loop', facingLeft);
     }
   
     async playJump(bid, facingLeft) {
-      await this.setBodySkin(bid, 'jump', 'loop', facingLeft);
+      await this.setCAction(bid, 'jump', 'loop', facingLeft);
     }  
   
     async playDoubleJumpNotify(bid, facingLeft) {
-      await this.setBodySkin(bid, 'doubleJump', 'notify', facingLeft);
+      await this.setCAction(bid, 'doubleJump', 'notify', facingLeft);
     }  
     
     async playIdle(bid, facingLeft) {
-      await this.setBodySkin(bid, 'idle', 'loop', facingLeft);
+      await this.setCAction(bid, 'idle', 'loop', facingLeft);
     }  
   
     async playHitNotify(bid, facingLeft) {
-      await this.setBodySkin(bid, 'hit', 'notify', facingLeft);
+      await this.setCAction(bid, 'hit', 'notify', facingLeft);
     }
     async playHitOnce(bid, facingLeft) {
-      await this.setBodySkin(bid, 'hit', 'once', facingLeft);
+      await this.setCAction(bid, 'hit', 'once', facingLeft);
     }  
   
     async opVel(bid, x, y) {

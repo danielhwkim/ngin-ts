@@ -142,16 +142,17 @@ class EventHandler {
 }
 
 class Ngin {
+  CObject;
   BodyInfo;
   InitInfo;
   BodyShape;
   BodyType;
   BodyOpInfo;
   BodyOp;
-  BodySkinInfo;
-  BodySkin;
-  BodySkinType;
-  BodySkinExtra;
+  CActionInfo;
+  CAction;
+  CActionType;
+  CActionExtra;
   ContactType;
   EventType;
   KeyType;
@@ -178,15 +179,15 @@ class Ngin {
 
   init(root) {
     this.root = root;
-
+    this.CObject = root.lookupType("commander.CObject");
     this.BodyShape = root.lookupEnum("commander.BodyShape");
     this.BodyType = root.lookupEnum("commander.BodyType");
     this.BodyOpInfo = root.lookupType("commander.BodyOpInfo");    
     this.BodyOp = root.lookupEnum("commander.BodyOp");    
-    this.BodySkinInfo = root.lookupType("commander.BodySkinInfo");
-    this.BodySkin = root.lookupEnum("commander.BodySkin");
-    this.BodySkinType = root.lookupEnum("commander.BodySkinType");
-    this.BodySkinExtra = root.lookupEnum("commander.BodySkinExtra");         
+    this.CActionInfo = root.lookupType("commander.CActionInfo");
+    this.CAction = root.lookupEnum("commander.CAction");
+    this.CActionType = root.lookupEnum("commander.CActionType");
+    this.CActionExtra = root.lookupEnum("commander.CActionExtra");         
     this.ContactType = root.lookupEnum("commander.ContactType");  
     this.EventType = root.lookupEnum("commander.EventType");    
     this.KeyType = root.lookupEnum("commander.KeyType"); 
@@ -244,6 +245,26 @@ class Ngin {
     //console.log(info.bid, info);  
     await this.send(buf_body, this.Head.values.bodyinfo);
   }
+
+  async addCObjectInternal(cobj) {
+    if ('visible' in cobj) {
+      cobj.visible.current = this.CAction.values[cobj.visible.current];
+      for (var i = 0; i < cobj.visible.animations.length; i++) {
+        var a = cobj.visible.animations[i];
+        a.action = this.CAction.values[a.action];
+      }
+    }
+
+    if ('physical' in cobj) {
+      cobj.physical.shape = this.BodyShape.values[cobj.physical.shape];
+      cobj.physical.type = this.BodyType.values[cobj.physical.type];
+    }
+    const buf_cobj = this.CObject.encode(cobj).finish();
+
+    //console.log(info.bid, info);  
+    await this.send(buf_cobj, this.Head.values.cobject);
+
+  }
   
   async initScreen(info) {
     if (info.joystickPrecision) {
@@ -299,23 +320,23 @@ class Ngin {
     }
   }
 
-  async setBodySkinInternal(bid, skin, facingLeft, skinType) {
+  async setCActionInternal(bid, skin, facingLeft, skinType) {
     let extra = 0;
     if (facingLeft != undefined) {
       if (facingLeft) {
-        extra = this.BodySkinExtra.values.left;
+        extra = this.CActionExtra.values.left;
       } else {
-        extra = this.BodySkinExtra.values.right;        
+        extra = this.CActionExtra.values.right;        
       }
     }
     const info = {
       bid:bid,
-      skin:this.BodySkin.values[skin],
-      type:skinType? this.BodySkinType.values[skinType]:0,
+      skin:this.CAction.values[skin],
+      type:skinType? this.CActionType.values[skinType]:0,
       extra:extra,
     };
     //console.log(info);
-    const buf_body = this.BodySkinInfo.encode(info).finish();
+    const buf_body = this.CActionInfo.encode(info).finish();
     await this.send(buf_body, this.Head.values.bodystatus);
   }
 

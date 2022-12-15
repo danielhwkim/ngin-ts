@@ -141,13 +141,13 @@ var NginX = /** @class */ (function (_super) {
             });
         });
     };
-    NginX.prototype.setBodySkin = function (bid, skin, skinType, facingLeft) {
+    NginX.prototype.setCAction = function (bid, skin, skinType, facingLeft) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: 
                     //const obj = this.getObj(bid);
-                    return [4 /*yield*/, this.setBodySkinInternal(bid, skin, facingLeft, skinType)];
+                    return [4 /*yield*/, this.setCActionInternal(bid, skin, facingLeft, skinType)];
                     case 1:
                         //const obj = this.getObj(bid);
                         _a.sent();
@@ -244,7 +244,7 @@ var NginX = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.setBodySkin(bid, 'noChange', 'loop', facingLeft)];
+                    case 0: return [4 /*yield*/, this.setCAction(bid, 'noChange', 'loop', facingLeft)];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -256,7 +256,7 @@ var NginX = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.setBodySkin(bid, 'run', 'loop', facingLeft)];
+                    case 0: return [4 /*yield*/, this.setCAction(bid, 'run', 'loop', facingLeft)];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -268,7 +268,7 @@ var NginX = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.setBodySkin(bid, 'jump', 'loop', facingLeft)];
+                    case 0: return [4 /*yield*/, this.setCAction(bid, 'jump', 'loop', facingLeft)];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -280,7 +280,7 @@ var NginX = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.setBodySkin(bid, 'doubleJump', 'notify', facingLeft)];
+                    case 0: return [4 /*yield*/, this.setCAction(bid, 'doubleJump', 'notify', facingLeft)];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -292,7 +292,7 @@ var NginX = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.setBodySkin(bid, 'idle', 'loop', facingLeft)];
+                    case 0: return [4 /*yield*/, this.setCAction(bid, 'idle', 'loop', facingLeft)];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -304,7 +304,7 @@ var NginX = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.setBodySkin(bid, 'hit', 'notify', facingLeft)];
+                    case 0: return [4 /*yield*/, this.setCAction(bid, 'hit', 'notify', facingLeft)];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -316,7 +316,7 @@ var NginX = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.setBodySkin(bid, 'hit', 'once', facingLeft)];
+                    case 0: return [4 /*yield*/, this.setCAction(bid, 'hit', 'once', facingLeft)];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
