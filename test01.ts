@@ -1,7 +1,7 @@
-var {run, Util, Stopwatch} = require("./testutil.js");
+import {run, TestUtil, Stopwatch} from "./testutil.js";
 
-async function test01(ngin, width, height, margin, func, stopwatch) {
-    var util = new Util(ngin);
+export async function test01(ngin, width, height, margin, func, stopwatch) {
+    var util = new TestUtil(ngin);
     const set = new Set();
     let nothing_to_delete = 0;
 

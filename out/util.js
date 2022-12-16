@@ -123,7 +123,10 @@ var NginEx = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.nginx.opRemove(id, 0, 0)];
+                    case 0: return [4 /*yield*/, this.nginx.command({
+                            strings: ['remove'],
+                            ints: [id],
+                        })];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -156,8 +159,15 @@ var NginEx = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.nginx.setBodyOp(id, 'angularVelocity', value, 0)];
+                    case 0: 
+                    //await this.nginx.setBodyOp(id, 'angularVelocity', value, 0);
+                    return [4 /*yield*/, this.nginx.command({
+                            strings: ['angular'],
+                            ints: [id],
+                            floats: [value]
+                        })];
                     case 1:
+                        //await this.nginx.setBodyOp(id, 'angularVelocity', value, 0);
                         _a.sent();
                         return [2 /*return*/];
                 }
@@ -185,7 +195,7 @@ var NginEx = /** @class */ (function () {
                         obj = new cobj_1.CObject(id);
                         obj.info = "fruit";
                         obj.physical = new cobj_1.CPhysical(cobj_1.BodyShape.circle, new cobj_1.Pos(x, y), cobj_1.BodyType.static);
-                        a1 = new cobj_1.CAnimation('Items/Fruits/' + fruit + '.png', new cobj_1.Size(32, 32), [ /*0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16*/], cobj_1.CAction.idle);
+                        a1 = new cobj_1.CAction('Items/Fruits/' + fruit + '.png', new cobj_1.Size(32, 32), [ /*0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16*/], cobj_1.CActionType.idle);
                         a1.stepTime = 50 / 1000;
                         obj.visible = new cobj_1.CVisible([a1]);
                         obj.visible.scale = new cobj_1.Pos(1.5, 1.5);
@@ -206,8 +216,8 @@ var NginEx = /** @class */ (function () {
                         data = [];
                         l1(width, height, data);
                         obj = new cobj_1.CObject(bid);
-                        obj.visible = new cobj_1.CVisible([new cobj_1.CAnimation('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new cobj_1.Size(16, 16), data, cobj_1.CAction.idle)]);
-                        obj.visible.current = cobj_1.CAction.tiles;
+                        obj.visible = new cobj_1.CVisible([new cobj_1.CAction('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new cobj_1.Size(16, 16), data, cobj_1.CActionType.idle)]);
+                        obj.visible.current = cobj_1.CActionType.tiles;
                         obj.visible.pos = new cobj_1.Pos(x, y);
                         obj.visible.size = new cobj_1.Size(width, height);
                         obj.visible.anchor = new cobj_1.Pos(0, 0);
@@ -219,7 +229,7 @@ var NginEx = /** @class */ (function () {
                         data = [];
                         l2(width, height, data);
                         obj.visible.priority = 1;
-                        obj.visible.animations[0].indices = data;
+                        obj.visible.actions[0].indices = data;
                         return [4 /*yield*/, this.sendObj(obj)];
                     case 2:
                         _a.sent();
@@ -279,7 +289,7 @@ var NginEx = /** @class */ (function () {
                         obj.info = "spike";
                         obj.physical = new cobj_1.CPhysical(cobj_1.BodyShape.rectangle, new cobj_1.Pos(x, y), cobj_1.BodyType.static);
                         //obj.physical.isSensor = true;
-                        obj.visible = new cobj_1.CVisible([new cobj_1.CAnimation('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new cobj_1.Size(16, 16), [929, 930, 931, 932, 931, 930], cobj_1.CAction.idle)]);
+                        obj.visible = new cobj_1.CVisible([new cobj_1.CAction('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new cobj_1.Size(16, 16), [929, 930, 931, 932, 931, 930], cobj_1.CActionType.idle)]);
                         return [4 /*yield*/, this.sendObj(obj)];
                     case 1:
                         _a.sent();
@@ -298,7 +308,7 @@ var NginEx = /** @class */ (function () {
                         obj.info = "coin";
                         obj.physical = new cobj_1.CPhysical(cobj_1.BodyShape.rectangle, new cobj_1.Pos(x, y), cobj_1.BodyType.static);
                         //obj.physical.isSensor = true;
-                        obj.visible = new cobj_1.CVisible([new cobj_1.CAnimation('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new cobj_1.Size(16, 16), [403, 404, 405, 406], cobj_1.CAction.idle)]);
+                        obj.visible = new cobj_1.CVisible([new cobj_1.CAction('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new cobj_1.Size(16, 16), [403, 404, 405, 406], cobj_1.CActionType.idle)]);
                         return [4 /*yield*/, this.sendObj(obj)];
                     case 1:
                         _a.sent();
@@ -313,28 +323,48 @@ var NginEx = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        hx = 0.25 / 2;
-                        hy = 0.25 / 2;
+                        hx = 0.25;
+                        hy = 0.25;
                         obj = new cobj_1.CObject(id);
                         obj.info = "actor";
-                        obj.physical = new cobj_1.CPhysical(cobj_1.BodyShape.rectangle, new cobj_1.Pos(x, y), cobj_1.BodyType.dynamic);
+                        obj.physical = new cobj_1.CPhysical(cobj_1.BodyShape.polygon, new cobj_1.Pos(x, y), cobj_1.BodyType.dynamic);
+                        obj.physical.floats = [-hx, -hy, -hx, hy, hx, hy, hx, -hy];
+                        //obj.physical.size = new Size(0.5, 0.5);
                         obj.visible = new cobj_1.CVisible([
-                            new cobj_1.CAnimation('Main Characters/' + character + '/Idle (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CAction.idle),
-                            new cobj_1.CAnimation('Main Characters/' + character + '/Run (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CAction.run),
-                            new cobj_1.CAnimation('Main Characters/' + character + '/Jump (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CAction.jump),
-                            new cobj_1.CAnimation('Main Characters/' + character + '/Hit (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CAction.hit),
-                            new cobj_1.CAnimation('Main Characters/' + character + '/Fall (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CAction.fall),
-                            new cobj_1.CAnimation('Main Characters/' + character + '/Wall Jump (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CAction.wallJump),
-                            new cobj_1.CAnimation('Main Characters/' + character + '/Double Jump (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CAction.doubleJump),
+                            new cobj_1.CAction('Main Characters/' + character + '/Idle (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CActionType.idle),
+                            new cobj_1.CAction('Main Characters/' + character + '/Run (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CActionType.run),
+                            new cobj_1.CAction('Main Characters/' + character + '/Jump (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CActionType.jump),
+                            new cobj_1.CAction('Main Characters/' + character + '/Hit (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CActionType.hit),
+                            new cobj_1.CAction('Main Characters/' + character + '/Fall (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CActionType.fall),
+                            new cobj_1.CAction('Main Characters/' + character + '/Wall Jump (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CActionType.wallJump),
+                            new cobj_1.CAction('Main Characters/' + character + '/Double Jump (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CActionType.doubleJump),
                         ]);
-                        for (i = 0; i < obj.visible.animations.length; i++) {
-                            obj.visible.animations[i].stepTime = 50 / 1000;
+                        for (i = 0; i < obj.visible.actions.length; i++) {
+                            obj.visible.actions[i].stepTime = 50 / 1000;
                         }
                         obj.visible.pos = new cobj_1.Pos(0, -0.2);
                         //obj.visible.scale = new Pos(1.5, 1.5);
                         return [4 /*yield*/, this.sendObj(obj)];
                     case 1:
                         //obj.visible.scale = new Pos(1.5, 1.5);
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    NginEx.prototype.setCActionType = function (bid, skin, skinType, facingLeft) {
+        if (facingLeft === void 0) { facingLeft = false; }
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: 
+                    //const obj = this.getObj(bid);
+                    //await this.nginx.setCActionTypeInternal(bid, skin, facingLeft, skinType);
+                    return [4 /*yield*/, this.nginx.command({})];
+                    case 1:
+                        //const obj = this.getObj(bid);
+                        //await this.nginx.setCActionTypeInternal(bid, skin, facingLeft, skinType);
                         _a.sent();
                         return [2 /*return*/];
                 }

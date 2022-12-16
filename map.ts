@@ -7,7 +7,7 @@ var {NginX} = require("./nginx");
 var fs = require('fs');
 import {main} from "./util";
 //import {Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./pobj";
-import {CObject, CAction, CAnimation, CPhysical, CVisible, CTileObject, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./cobj";
+import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./cobj";
 
 main('127.0.0.1', 4040, async (x) =>  {
     x.nginx.eventHandler = new GameInputHandler(x.nginx);
@@ -15,7 +15,7 @@ main('127.0.0.1', 4040, async (x) =>  {
     const size = new Size(12, 12);
 
     var stage = new Stage(size);
-    //stage.debug = true;
+    stage.debug = true;
     stage.joystickDirectionals = JoystickDirectionals.horizontal;
     await x.sendObjWait(stage);
 

@@ -119,37 +119,57 @@ var EventHandler = /** @class */ (function () {
                             case this.ngin.Head.values.cmd: return [3 /*break*/, 11];
                         }
                         return [3 /*break*/, 13];
-                    case 1:
-                        if (cmdinfo.contact.type == this.ngin.ContactType.values.begin) {
-                            cmdinfo.contact.type = 'begin';
-                        }
-                        else {
-                            cmdinfo.contact.type = 'end';
-                        }
-                        return [4 /*yield*/, this.handleContact(cmdinfo.contact)];
+                    case 1: 
+                    /*
+                    if (cmdinfo.contact.type == this.ngin.ContactType.values.begin) {
+                      cmdinfo.contact.type = 'begin';
+                    } else {
+                      cmdinfo.contact.type = 'end';
+                    }
+                    */
+                    return [4 /*yield*/, this.handleContact(cmdinfo.contact)];
                     case 2:
+                        /*
+                        if (cmdinfo.contact.type == this.ngin.ContactType.values.begin) {
+                          cmdinfo.contact.type = 'begin';
+                        } else {
+                          cmdinfo.contact.type = 'end';
+                        }
+                        */
                         _b.sent();
                         return [3 /*break*/, 13];
-                    case 3:
-                        if (cmdinfo.event.type == this.ngin.EventType.values.complete) {
-                            cmdinfo.event.type = 'complete';
-                        }
-                        else {
-                            cmdinfo.event.type = 'ready';
-                        }
-                        return [4 /*yield*/, this.handleEvent(cmdinfo.event)];
+                    case 3: 
+                    /*
+                    if (cmdinfo.event.type == this.ngin.EventType.values.complete) {
+                      cmdinfo.event.type = 'complete';
+                    } else {
+                      cmdinfo.event.type = 'ready';
+                    } */
+                    return [4 /*yield*/, this.handleEvent(cmdinfo.event)];
                     case 4:
+                        /*
+                        if (cmdinfo.event.type == this.ngin.EventType.values.complete) {
+                          cmdinfo.event.type = 'complete';
+                        } else {
+                          cmdinfo.event.type = 'ready';
+                        } */
                         _b.sent();
                         return [3 /*break*/, 13];
-                    case 5:
-                        if (cmdinfo.key.type == this.ngin.KeyType.values.down) {
-                            cmdinfo.key.type = 'down';
-                        }
-                        else {
-                            cmdinfo.key.type = 'up';
-                        }
-                        return [4 /*yield*/, this.handleKey(cmdinfo.key)];
+                    case 5: 
+                    /*
+                    if (cmdinfo.key.type == this.ngin.KeyType.values.down) {
+                      cmdinfo.key.type = 'down';
+                    } else {
+                      cmdinfo.key.type = 'up';
+                    } */
+                    return [4 /*yield*/, this.handleKey(cmdinfo.key)];
                     case 6:
+                        /*
+                        if (cmdinfo.key.type == this.ngin.KeyType.values.down) {
+                          cmdinfo.key.type = 'down';
+                        } else {
+                          cmdinfo.key.type = 'up';
+                        } */
                         _b.sent();
                         return [3 /*break*/, 13];
                     case 7:
@@ -246,16 +266,16 @@ var Ngin = /** @class */ (function () {
         this.CObject = root.lookupType("commander.CObject");
         this.BodyShape = root.lookupEnum("commander.BodyShape");
         this.BodyType = root.lookupEnum("commander.BodyType");
-        this.BodyOpInfo = root.lookupType("commander.BodyOpInfo");
+        //this.BodyOpInfo = root.lookupType("commander.BodyOpInfo");    
         this.BodyOp = root.lookupEnum("commander.BodyOp");
-        this.CActionInfo = root.lookupType("commander.CActionInfo");
-        this.CAction = root.lookupEnum("commander.CAction");
+        //this.CActionInfo = root.lookupType("commander.CActionInfo");
         this.CActionType = root.lookupEnum("commander.CActionType");
-        this.CActionExtra = root.lookupEnum("commander.CActionExtra");
-        this.ContactType = root.lookupEnum("commander.ContactType");
-        this.EventType = root.lookupEnum("commander.EventType");
-        this.KeyType = root.lookupEnum("commander.KeyType");
-        this.BodyInfo = root.lookupType("commander.BodyInfo");
+        //this.CActionType = root.lookupEnum("commander.CActionType");
+        //this.CActionExtra = root.lookupEnum("commander.CActionExtra");         
+        //this.ContactType = root.lookupEnum("commander.ContactType");  
+        //this.EventType = root.lookupEnum("commander.EventType");    
+        //this.KeyType = root.lookupEnum("commander.KeyType"); 
+        //this.BodyInfo = root.lookupType("commander.BodyInfo");
         this.Head = root.lookupEnum("commander.Head");
         this.InitInfo = root.lookupType("commander.InitInfo");
         this.CmdType = root.lookupEnum("commander.CmdType");
@@ -280,10 +300,8 @@ var Ngin = /** @class */ (function () {
                     case 0:
                         console.log(host, port);
                         client.on('data', function (chunk) {
-                            //console.log(chunk, chunk.length);
                             ngin.onCmd(chunk);
                         });
-                        //await this.onCmd('chunk');
                         client.on('end', function () {
                             console.log('Requested an end to the TCP connection');
                         });
@@ -295,25 +313,6 @@ var Ngin = /** @class */ (function () {
             });
         });
     };
-    /*
-    async addBodyInternal(info) {
-      if ('shape' in info) {
-      info.shape = this.BodyShape.values[info.shape];
-      } else {
-      info.shape = this.BodyShape.values.rectangle;
-      }
-  
-      if ('type' in info) {
-      info.type = this.BodyType.values[info.type];
-      } else {
-      info.type = this.BodyType.values.staticBody;
-      }
-        
-      const buf_body = this.BodyInfo.encode(info).finish();
-  
-      //console.log(info.bid, info);
-      await this.send(buf_body, this.Head.values.bodyinfo);
-    }*/
     Ngin.prototype.addCObjectInternal = function (cobj) {
         return __awaiter(this, void 0, void 0, function () {
             var i, a, buf_cobj;
@@ -321,10 +320,10 @@ var Ngin = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         if ('visible' in cobj) {
-                            cobj.visible.current = this.CAction.values[cobj.visible.current];
-                            for (i = 0; i < cobj.visible.animations.length; i++) {
-                                a = cobj.visible.animations[i];
-                                a.action = this.CAction.values[a.action];
+                            cobj.visible.current = this.CActionType.values[cobj.visible.current];
+                            for (i = 0; i < cobj.visible.actions.length; i++) {
+                                a = cobj.visible.actions[i];
+                                a.action = this.CActionType.values[a.action];
                             }
                         }
                         if ('physical' in cobj) {
@@ -363,12 +362,8 @@ var Ngin = /** @class */ (function () {
                         return [4 /*yield*/, this.InitInfo.encode(info).finish()];
                     case 1:
                         buf_body = _a.sent();
-                        //console.log('wait - initScreen'); 
-                        //this.ackEmitter = new EventEmitter();    
                         return [4 /*yield*/, this.send(buf_body, this.Head.values.init)];
                     case 2:
-                        //console.log('wait - initScreen'); 
-                        //this.ackEmitter = new EventEmitter();    
                         _a.sent();
                         return [2 /*return*/];
                 }
@@ -437,7 +432,7 @@ var Ngin = /** @class */ (function () {
                         }
                         info = {
                             bid: bid,
-                            skin: this.CAction.values[skin],
+                            skin: this.CActionType.values[skin],
                             type: skinType ? this.CActionType.values[skinType] : 0,
                             extra: extra,
                         };
@@ -450,26 +445,16 @@ var Ngin = /** @class */ (function () {
             });
         });
     };
-    Ngin.prototype.setBodyOp = function (bid, op, x, y) {
-        return __awaiter(this, void 0, void 0, function () {
-            var buf_body;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        buf_body = this.BodyOpInfo.encode({
-                            bid: bid,
-                            op: this.BodyOp.values[op],
-                            x: x,
-                            y: y,
-                        }).finish();
-                        return [4 /*yield*/, this.send(buf_body, this.Head.values.bodyop)];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
+    /*
+    async setBodyOp(bid, op, x, y) {
+      const buf_body = this.BodyOpInfo.encode({
+        bid:bid,
+        op:this.BodyOp.values[op],
+        x:x,
+        y:y,
+      }).finish();
+      await this.send(buf_body, this.Head.values.bodyop);
+    } */
     Ngin.prototype.cmdIF2 = function (cmd, bid, x, y) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -560,14 +545,5 @@ var Ngin = /** @class */ (function () {
     };
     return Ngin;
 }());
-//export { mainInternal, EventHandler, Ngin};
-//exports.mainInternal = mainInternal;
-//exports.EventHandler = EventHandler;
-//exports.Ngin = Ngin;
-//exports.__esModule = true;
-//exports.Ngin = exports.EventHandler = exports.mainInternal = void 0;
 module.exports = { mainInternal: mainInternal, EventHandler: EventHandler, Ngin: Ngin };
-//exports.mainInternal = mainInternal;
-//exports.EventHandler = EventHandler;
-//exports.Ngin = Ngin;
 //# sourceMappingURL=ngin.js.map

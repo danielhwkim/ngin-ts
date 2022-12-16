@@ -2,7 +2,7 @@ var fs = require('fs');
 var {EventHandler} = require("./ngin");
 import {main} from "./util";
 //import {Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./pobj";
-import {CObject, CAction, CAnimation, CPhysical, CVisible, CTileObject, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./cobj";
+import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./cobj";
 
 main('127.0.0.1', 4040, async (x) =>  {
     x.nginx.eventHandler = new InputHandler(x);
@@ -28,7 +28,7 @@ main('127.0.0.1', 4040, async (x) =>  {
     obj.physical = new CPhysical(BodyShape.circle, new Pos(11,11), BodyType.dynamic);
     obj.physical.angle = 1.5;
     obj.physical.size = new Size(2,2);
-    obj.visible = new CVisible([ new CAnimation('kenney_pixelshmup/ships_packed.png', new Size(32, 32), [1], CAction.idle)]);
+    obj.visible = new CVisible([ new CAction('kenney_pixelshmup/ships_packed.png', new Size(32, 32), [1], CActionType.idle)]);
     obj.visible.size = new Size(2,2);
     var value = await x.sendObjWait(obj);
     console.log('1', value);
@@ -43,7 +43,7 @@ main('127.0.0.1', 4040, async (x) =>  {
     obj.physical.pos = new Pos(11, 0);
     obj.physical.angle = 3;
     //obj.visible.size = new Size(2,2);    
-    obj.visible.animations[0].indices = [10];
+    obj.visible.actions[0].indices = [10];
     var value = await x.sendObjWait(obj);
     console.log('2', value); 
     
@@ -68,13 +68,13 @@ class InputHandler extends EventHandler {
     async handleContact(contact) {
       if (!this.ready) return;
       console.log(contact);
-      if (contact.type == 'begin') {
-        if (contact.bid2 == 101) {
-          await this.x.remove(contact.bid2);
+      if (contact.isEnded == false) {
+        if (contact.id2 == 101) {
+          await this.x.remove(contact.id2);
         }
         var obj = new CObject(1000);
-        obj.tid = contact.bid2;
-        obj.visible = new CVisible([ new CAnimation('kenney_pixelshmup/tiles_packed.png', new Size(16, 16), [5], CAction.idle)]);
+        obj.tid = contact.id2;
+        obj.visible = new CVisible([ new CAction('kenney_pixelshmup/tiles_packed.png', new Size(16, 16), [5], CActionType.idle)]);
         obj.visible.pos = new Pos(0,0);
         await this.x.sendObj(obj);
       }
@@ -107,7 +107,7 @@ class InputHandler extends EventHandler {
       var obj = new CObject(101);
       obj.physical = new CPhysical(BodyShape.rectangle, new Pos(x-0.5 + 2*Math.sin(a), y-0.5 - 2*Math.cos(a)), BodyType.dynamic);
       obj.physical.angle = a;
-      obj.visible = new CVisible([ new CAnimation('kenney_pixelshmup/tiles_packed.png', new Size(16, 16), [1, 2, 3], CAction.idle)]);
+      obj.visible = new CVisible([ new CAction('kenney_pixelshmup/tiles_packed.png', new Size(16, 16), [1, 2, 3], CActionType.idle)]);
       var value = await this.x.sendObjWait(obj);
       console.log('1', value);
       await this.x.forward(101, new Pos(10, 0));
@@ -118,7 +118,7 @@ class InputHandler extends EventHandler {
     async handleKey(key) {
       //console.log(key);
       const c = key;
-      if (c.type == 'up') {
+      if (c.isPressed == false) {
         switch (c.name) {
           case 'Arrow Left':
             this.key_down_left = false;

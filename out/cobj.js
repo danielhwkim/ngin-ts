@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Stage = exports.CTileObject = exports.CObject = exports.CPhysical = exports.CVisible = exports.CAnimation = exports.CAction = exports.JoystickDirectionals = exports.ActionEvent = exports.BodyShape = exports.BodyType = exports.Size = exports.Pos = void 0;
+exports.Stage = exports.CTileObject = exports.CObject = exports.CPhysical = exports.CVisible = exports.CAction = exports.CActionType = exports.JoystickDirectionals = exports.ActionEvent = exports.BodyShape = exports.BodyType = exports.Size = exports.Pos = void 0;
 var Pos = /** @class */ (function () {
     function Pos(x, y) {
         if (x === void 0) { x = 0; }
@@ -56,52 +56,52 @@ var JoystickDirectionals;
     JoystickDirectionals[JoystickDirectionals["horizontal"] = 2] = "horizontal";
     JoystickDirectionals[JoystickDirectionals["vertical"] = 3] = "vertical";
 })(JoystickDirectionals = exports.JoystickDirectionals || (exports.JoystickDirectionals = {}));
-var CAction;
-(function (CAction) {
-    CAction[CAction["idle"] = 0] = "idle";
-    CAction[CAction["run"] = 1] = "run";
-    CAction[CAction["jump"] = 2] = "jump";
-    CAction[CAction["hit"] = 3] = "hit";
-    CAction[CAction["fall"] = 4] = "fall";
-    CAction[CAction["wallJump"] = 5] = "wallJump";
-    CAction[CAction["doubleJump"] = 6] = "doubleJump";
-    CAction[CAction["hitSide"] = 7] = "hitSide";
-    CAction[CAction["hitTop"] = 8] = "hitTop";
-    CAction[CAction["off"] = 9] = "off";
-    CAction[CAction["on"] = 10] = "on";
-    CAction[CAction["blink"] = 11] = "blink";
-    CAction[CAction["hitLeft"] = 12] = "hitLeft";
-    CAction[CAction["hitRight"] = 13] = "hitRight";
-    CAction[CAction["hitBottom"] = 14] = "hitBottom";
-    CAction[CAction["noChange"] = 15] = "noChange";
-    CAction[CAction["tiles"] = 16] = "tiles";
-})(CAction = exports.CAction || (exports.CAction = {}));
-function buildCAction(action) {
+var CActionType;
+(function (CActionType) {
+    CActionType[CActionType["idle"] = 0] = "idle";
+    CActionType[CActionType["run"] = 1] = "run";
+    CActionType[CActionType["jump"] = 2] = "jump";
+    CActionType[CActionType["hit"] = 3] = "hit";
+    CActionType[CActionType["fall"] = 4] = "fall";
+    CActionType[CActionType["wallJump"] = 5] = "wallJump";
+    CActionType[CActionType["doubleJump"] = 6] = "doubleJump";
+    CActionType[CActionType["hitSide"] = 7] = "hitSide";
+    CActionType[CActionType["hitTop"] = 8] = "hitTop";
+    CActionType[CActionType["off"] = 9] = "off";
+    CActionType[CActionType["on"] = 10] = "on";
+    CActionType[CActionType["blink"] = 11] = "blink";
+    CActionType[CActionType["hitLeft"] = 12] = "hitLeft";
+    CActionType[CActionType["hitRight"] = 13] = "hitRight";
+    CActionType[CActionType["hitBottom"] = 14] = "hitBottom";
+    CActionType[CActionType["noChange"] = 15] = "noChange";
+    CActionType[CActionType["tiles"] = 16] = "tiles";
+})(CActionType = exports.CActionType || (exports.CActionType = {}));
+function buildCActionType(action) {
     switch (action) {
-        case CAction.idle: return "idle";
-        case CAction.run: return "run";
-        case CAction.jump: return "jump";
-        case CAction.hit: return "hit";
-        case CAction.fall: return "fall";
-        case CAction.wallJump: return "wallJump";
-        case CAction.doubleJump: return "doubleJump";
-        case CAction.hitSide: return "hitSide";
-        case CAction.hitTop: return "hitTop";
-        case CAction.off: return "off";
-        case CAction.on: return "on";
-        case CAction.blink: return "blink";
-        case CAction.hitLeft: return "hitLeft";
-        case CAction.hitRight: return "hitRight";
-        case CAction.hitBottom: return "hitBottom";
-        case CAction.noChange: return "noChange";
-        case CAction.tiles: return "tiles";
+        case CActionType.idle: return "idle";
+        case CActionType.run: return "run";
+        case CActionType.jump: return "jump";
+        case CActionType.hit: return "hit";
+        case CActionType.fall: return "fall";
+        case CActionType.wallJump: return "wallJump";
+        case CActionType.doubleJump: return "doubleJump";
+        case CActionType.hitSide: return "hitSide";
+        case CActionType.hitTop: return "hitTop";
+        case CActionType.off: return "off";
+        case CActionType.on: return "on";
+        case CActionType.blink: return "blink";
+        case CActionType.hitLeft: return "hitLeft";
+        case CActionType.hitRight: return "hitRight";
+        case CActionType.hitBottom: return "hitBottom";
+        case CActionType.noChange: return "noChange";
+        case CActionType.tiles: return "tiles";
     }
 }
 function buildType(type) {
     switch (type) {
-        case BodyType.static: return "staticBody";
-        case BodyType.kinematic: return "kinematicBody";
-        case BodyType.dynamic: return "dynamicBody";
+        case BodyType.static: return "static";
+        case BodyType.kinematic: return "kinematic";
+        case BodyType.dynamic: return "dynamic";
     }
 }
 function buildShape(shape) {
@@ -114,8 +114,8 @@ function buildShape(shape) {
         case BodyShape.polygon: return "polygon";
     }
 }
-var CAnimation = /** @class */ (function () {
-    function CAnimation(path, tileSize, indices, action) {
+var CAction = /** @class */ (function () {
+    function CAction(path, tileSize, indices, action) {
         this.stepTime = 0.2;
         this.repeat = true;
         this.path = path;
@@ -123,38 +123,38 @@ var CAnimation = /** @class */ (function () {
         this.indices = indices;
         this.action = action;
     }
-    CAnimation.prototype.build = function () {
+    CAction.prototype.build = function () {
         return {
             path: this.path,
             tileSizeX: this.tileSize.w,
             tileSizeY: this.tileSize.h,
             indices: this.indices,
             stepTime: this.stepTime,
-            action: buildCAction(this.action),
+            action: buildCActionType(this.action),
             repeat: this.repeat,
         };
     };
-    return CAnimation;
+    return CAction;
 }());
-exports.CAnimation = CAnimation;
+exports.CAction = CAction;
 var CVisible = /** @class */ (function () {
-    function CVisible(animations) {
-        this.current = CAction.idle;
+    function CVisible(actions) {
+        this.current = CActionType.idle;
         this.priority = 0;
         this.pos = new Pos(0, 0);
         this.size = new Size(1, 1);
         this.scale = new Pos(1, 1);
         this.anchor = new Pos(0.5, 0.5);
         this.tid = 0;
-        this.animations = animations;
+        this.actions = actions;
     }
     CVisible.prototype.build = function () {
-        var animations = [];
-        for (var i = 0; i < this.animations.length; i++) {
-            animations.push(this.animations[i].build());
+        var actions = [];
+        for (var i = 0; i < this.actions.length; i++) {
+            actions.push(this.actions[i].build());
         }
         return {
-            current: buildCAction(this.current),
+            current: buildCActionType(this.current),
             priority: this.priority,
             x: this.pos.x,
             y: this.pos.y,
@@ -164,7 +164,7 @@ var CVisible = /** @class */ (function () {
             scaleY: this.scale.y,
             anchorX: this.anchor.x,
             anchorY: this.anchor.y,
-            animations: animations,
+            actions: actions,
             tid: this.tid,
         };
     };
@@ -253,8 +253,8 @@ var CObject = /** @class */ (function () {
 exports.CObject = CObject;
 function CTileObject(path, tileSize, data, pos, size) {
     var obj = new CObject(0);
-    obj.visible = new CVisible([new CAnimation(path, tileSize, data, CAction.tiles)]);
-    obj.visible.current = CAction.tiles;
+    obj.visible = new CVisible([new CAction(path, tileSize, data, CActionType.tiles)]);
+    obj.visible.current = CActionType.tiles;
     obj.visible.pos = pos;
     obj.visible.anchor = new Pos(0, 0);
     obj.visible.size = size;

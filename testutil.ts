@@ -1,7 +1,9 @@
 var {EventHandler} = require("./ngin");
 var {NginX, main} = require("./nginx");
+import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./cobj";
 
-class Util {
+export class TestUtil {
+    ngin;
     constructor(ngin) {
         this.ngin = ngin;
     }
@@ -41,7 +43,7 @@ class Util {
         const textsize = 5;
 
         await this.ngin.command({
-            strings:['svg', this.drawSvgTextFullScreen(width, height, `${num}`, textsize, fillopacity)], 
+            strings:['svg', this.drawSvgTextFullScreen(width, height, `${num}`, textsize, "#111", fillopacity)], 
             ints:[100+num], 
             floats:[0, 0, width, height],
         }); 
@@ -56,7 +58,7 @@ class Util {
             num--;
 
             await this.ngin.command({
-                strings:['svg', this.drawSvgTextFullScreen(width, height, `${num}`, textsize, fillopacity)], 
+                strings:['svg', this.drawSvgTextFullScreen(width, height, `${num}`, textsize, "#111", fillopacity)], 
                 ints:[100+num], 
                 floats:[-width, 0, width, height],
             });
@@ -109,7 +111,15 @@ class Util {
     }
 }
 
-class Stopwatch {
+export class Stopwatch {
+    thisNgin;
+    rect;
+    w;
+    h;
+    oid;
+    num;
+    running;
+    util;
     constructor(ngin, oid, rect) {
         this.thisNgin = ngin;
         this.rect = rect;
@@ -118,7 +128,7 @@ class Stopwatch {
         this.oid = oid;
         this.num = 0;
         this.running = false;      
-        this.util = new Util(ngin);  
+        this.util = new TestUtil(ngin);  
     }
     
     async timeOut() {
@@ -197,7 +207,7 @@ main('daniel', 4040, async (ngin) =>  {
 });
 */
 
-function runq(func) {
+export function runq(func) {
     main('127.0.0.1', 4040, async (ngin) =>  {
         ngin.eventHandler = new GameInputHandler(ngin);
         await func(ngin);
@@ -205,6 +215,7 @@ function runq(func) {
 }
 
 class Cmd {
+    ngin;
     constructor(ngin) {
         this.ngin = ngin;
     }
@@ -218,7 +229,7 @@ class Cmd {
     }
 }
 
-function run(func) {
+export function run(func) {
     main('127.0.0.1', 4041, async (ngin) =>  {
         ngin.eventHandler = new GameInputHandler(ngin);
         await func(new Cmd(ngin));
@@ -240,6 +251,7 @@ class GameInputHandler extends EventHandler {
         //const obj1 = this.nginx.getObj(contact.bid1);
         //const obj2 = this.nginx.getObj(contact.bid2);
         //console.log(obj1.name, obj2.name);
+        /*
         console.log(contact.name1, contact.name2);
         if (contact.name1 == 'actor') {
             switch(contact.name2) {
@@ -265,6 +277,7 @@ class GameInputHandler extends EventHandler {
                 break;                                    
             }
         }
+        */
     }
   
     async handleEvent(event) {
@@ -301,5 +314,3 @@ class GameInputHandler extends EventHandler {
         this.handleLog(cmd);
     }        
 }
-
-module.exports = {run, runq, Util, Stopwatch};

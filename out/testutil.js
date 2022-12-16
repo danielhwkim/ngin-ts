@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -49,13 +50,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.run = exports.runq = exports.Stopwatch = exports.TestUtil = void 0;
 var EventHandler = require("./ngin").EventHandler;
 var _a = require("./nginx"), NginX = _a.NginX, main = _a.main;
-var Util = /** @class */ (function () {
-    function Util(ngin) {
+var TestUtil = /** @class */ (function () {
+    function TestUtil(ngin) {
         this.ngin = ngin;
     }
-    Util.prototype.drawSvgGrid = function (x, y, func) {
+    TestUtil.prototype.drawSvgGrid = function (x, y, func) {
         var unit = 100;
         var ori = "<svg viewBox=\"0 0 ".concat(unit * x, " ").concat(unit * y, "\">\n");
         var padding = 5;
@@ -73,7 +76,7 @@ var Util = /** @class */ (function () {
         ori += '</svg>';
         return ori;
     };
-    Util.prototype.drawSvgTextFullScreen = function (x, y, text, size, fill, fillopacity) {
+    TestUtil.prototype.drawSvgTextFullScreen = function (x, y, text, size, fill, fillopacity) {
         if (size === void 0) { size = 1; }
         if (fill === void 0) { fill = "#111"; }
         if (fillopacity === void 0) { fillopacity = 1; }
@@ -83,7 +86,7 @@ var Util = /** @class */ (function () {
         ori += '</svg>';
         return ori;
     };
-    Util.prototype.countDown = function (width, height, num, time) {
+    TestUtil.prototype.countDown = function (width, height, num, time) {
         return __awaiter(this, void 0, void 0, function () {
             var fillopacity, textsize, value_1, value;
             return __generator(this, function (_a) {
@@ -93,7 +96,7 @@ var Util = /** @class */ (function () {
                         fillopacity = 0.5;
                         textsize = 5;
                         return [4 /*yield*/, this.ngin.command({
-                                strings: ['svg', this.drawSvgTextFullScreen(width, height, "".concat(num), textsize, fillopacity)],
+                                strings: ['svg', this.drawSvgTextFullScreen(width, height, "".concat(num), textsize, "#111", fillopacity)],
                                 ints: [100 + num],
                                 floats: [0, 0, width, height],
                             })];
@@ -111,7 +114,7 @@ var Util = /** @class */ (function () {
                         _a.sent();
                         num--;
                         return [4 /*yield*/, this.ngin.command({
-                                strings: ['svg', this.drawSvgTextFullScreen(width, height, "".concat(num), textsize, fillopacity)],
+                                strings: ['svg', this.drawSvgTextFullScreen(width, height, "".concat(num), textsize, "#111", fillopacity)],
                                 ints: [100 + num],
                                 floats: [-width, 0, width, height],
                             })];
@@ -161,15 +164,16 @@ var Util = /** @class */ (function () {
             });
         });
     };
-    Util.prototype.drawSvgText = function (x, y, text) {
+    TestUtil.prototype.drawSvgText = function (x, y, text) {
         var unit = 100;
         var ori = "<svg viewBox=\"0 0 ".concat(x * unit, " ").concat(y * 100, "\">\n");
         ori += "<text fill=\"#111\" x=\"".concat(x * unit / 2, "\" y=\"").concat(y * unit / 2 + unit * 0.35, "\" font-size=\"").concat(unit, "\" font-family=\"Roboto\" text-anchor=\"middle\" >").concat(text, "</text>\n");
         ori += '</svg>';
         return ori;
     };
-    return Util;
+    return TestUtil;
 }());
+exports.TestUtil = TestUtil;
 var Stopwatch = /** @class */ (function () {
     function Stopwatch(ngin, oid, rect) {
         this.thisNgin = ngin;
@@ -179,7 +183,7 @@ var Stopwatch = /** @class */ (function () {
         this.oid = oid;
         this.num = 0;
         this.running = false;
-        this.util = new Util(ngin);
+        this.util = new TestUtil(ngin);
     }
     Stopwatch.prototype.timeOut = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -240,6 +244,7 @@ var Stopwatch = /** @class */ (function () {
     };
     return Stopwatch;
 }());
+exports.Stopwatch = Stopwatch;
 /*
 main('daniel', 4040, async (ngin) =>  {
     ngin.eventHandler = new GameInputHandler(ngin);
@@ -285,6 +290,7 @@ function runq(func) {
         });
     }); });
 }
+exports.runq = runq;
 var Cmd = /** @class */ (function () {
     function Cmd(ngin) {
         this.ngin = ngin;
@@ -330,6 +336,7 @@ function run(func) {
         });
     }); });
 }
+exports.run = run;
 var GameInputHandler = /** @class */ (function (_super) {
     __extends(GameInputHandler, _super);
     function GameInputHandler(ngin) {
@@ -345,33 +352,6 @@ var GameInputHandler = /** @class */ (function (_super) {
                 console.log(contact);
                 if (!this.ready)
                     return [2 /*return*/];
-                //const obj1 = this.nginx.getObj(contact.bid1);
-                //const obj2 = this.nginx.getObj(contact.bid2);
-                //console.log(obj1.name, obj2.name);
-                console.log(contact.name1, contact.name2);
-                if (contact.name1 == 'actor') {
-                    switch (contact.name2) {
-                        case 'fruit':
-                            if (contact.type == 'begin') {
-                                this.nginx.playHitNotify(obj2.bid);
-                            }
-                            break;
-                        case 'void':
-                            if (contact.type == 'begin') {
-                                this.nginx.moveBack(obj1.bid);
-                            }
-                            break;
-                        case 'animated_obj':
-                            switch (obj2.skin) {
-                                case 'spike':
-                                    break;
-                                case 'coin':
-                                    this.nginx.opRemove(obj2.bid);
-                                    break;
-                            }
-                            break;
-                    }
-                }
                 return [2 /*return*/];
             });
         });
@@ -440,5 +420,4 @@ var GameInputHandler = /** @class */ (function (_super) {
     };
     return GameInputHandler;
 }(EventHandler));
-module.exports = { run: run, runq: runq, Util: Util, Stopwatch: Stopwatch };
 //# sourceMappingURL=testutil.js.map

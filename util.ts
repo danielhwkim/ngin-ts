@@ -5,7 +5,7 @@ var {EventHandler, mainInternal} = require("./ngin");
 const EventEmitter = require('events');
 //var {Pos, Size, BodyType, BodyShape, TilesInfo, Pobj, Stage, JoystickDirectionals} = require("./pobj");
 //import {Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./pobj";
-import {CObject, CAction, CAnimation, CPhysical, CVisible, Buildable, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./cobj";
+import {CObject, CActionType, CAction, CPhysical, CVisible, Buildable, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./cobj";
 import { NginX } from "./nginx";
 const {l1, l2} = require("./gen");//
 
@@ -46,7 +46,10 @@ export class NginEx {
     } 
 
     async remove(id:number) {
-        await this.nginx.opRemove(id,0,0);
+        await this.nginx.command({
+            strings: ['remove'],
+            ints:[id],
+        });        
     } 
 
     async getBodyinfo(id:number) {
@@ -60,7 +63,12 @@ export class NginEx {
     }
     
     async angularVelocity(id:number, value:number) {
-        await this.nginx.setBodyOp(id, 'angularVelocity', value, 0);
+        //await this.nginx.setBodyOp(id, 'angularVelocity', value, 0);
+        await this.nginx.command({
+            strings:['angular'], 
+            ints:[id],
+            floats:[value]
+        });        
     }
 
     async add(x, y) {
@@ -72,7 +80,7 @@ export class NginEx {
         obj.info = "fruit";
         obj.physical = new CPhysical(BodyShape.circle, new Pos(x,y), BodyType.static);
         //obj.physical.isSensor = true;
-        var a1 = new CAnimation('Items/Fruits/' + fruit + '.png', new Size(32, 32), [/*0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16*/], CAction.idle);
+        var a1 = new CAction('Items/Fruits/' + fruit + '.png', new Size(32, 32), [/*0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16*/], CActionType.idle);
         a1.stepTime = 50/1000;
         obj.visible = new CVisible([a1]);
         obj.visible.scale = new Pos(1.5, 1.5);
@@ -85,8 +93,8 @@ export class NginEx {
         l1(width, height, data);
 
         var obj = new CObject(bid);
-        obj.visible = new CVisible([ new CAnimation('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new Size(16, 16), data, CAction.idle)]);
-        obj.visible.current = CAction.tiles;
+        obj.visible = new CVisible([ new CAction('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new Size(16, 16), data, CActionType.idle)]);
+        obj.visible.current = CActionType.tiles;
         obj.visible.pos = new Pos(x,y);
         obj.visible.size = new Size(width, height);
         obj.visible.anchor = new Pos(0,0);
@@ -96,7 +104,7 @@ export class NginEx {
         data = [];
         l2(width, height, data);
         obj.visible.priority = 1;
-        obj.visible.animations[0].indices = data;
+        obj.visible.actions[0].indices = data;
         await this.sendObj(obj);
 
         await this.addVoid(bid++, x+1,y+1+0.2,width-2,0.6);
@@ -132,7 +140,7 @@ export class NginEx {
         obj.info = "spike";
         obj.physical = new CPhysical(BodyShape.rectangle, new Pos(x,y), BodyType.static);
         //obj.physical.isSensor = true;
-        obj.visible = new CVisible([new CAnimation('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new Size(16, 16), [929,930,931,932, 931, 930], CAction.idle)]);
+        obj.visible = new CVisible([new CAction('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new Size(16, 16), [929,930,931,932, 931, 930], CActionType.idle)]);
         await this.sendObj(obj);
     }
 
@@ -141,31 +149,34 @@ export class NginEx {
         obj.info = "coin";
         obj.physical = new CPhysical(BodyShape.rectangle, new Pos(x,y), BodyType.static);
         //obj.physical.isSensor = true;
-        obj.visible = new CVisible([new CAnimation('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new Size(16, 16), [403,404,405,406], CAction.idle)]);
+        obj.visible = new CVisible([new CAction('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new Size(16, 16), [403,404,405,406], CActionType.idle)]);
         await this.sendObj(obj);
     }
 
     async addActor(id, character, x, y) {
-        const hx = 0.25/2;
-        const hy = 0.25/2;
+        const hx = 0.25;
+        const hy = 0.25;
 
         var obj = new CObject(id);
         obj.info = "actor";
         obj.physical = new CPhysical(BodyShape.polygon, new Pos(x,y), BodyType.dynamic);
-        obj.physical.floats = [-hx, -hy/2, hx, hy/2, hx, hy*2, -hx, hy*2];
+        obj.physical.floats = [-hx, -hy, -hx, hy, hx, hy, hx, -hy];
+        //obj.physical.size = new Size(0.5, 0.5);
+        
         obj.visible = new CVisible([
-            new CAnimation('Main Characters/' + character +'/Idle (32x32).png', new Size(32, 32), [], CAction.idle),
-            new CAnimation('Main Characters/' + character +'/Run (32x32).png', new Size(32, 32), [], CAction.run),
-            new CAnimation('Main Characters/' + character +'/Jump (32x32).png', new Size(32, 32), [], CAction.jump),
-            new CAnimation('Main Characters/' + character +'/Hit (32x32).png', new Size(32, 32), [], CAction.hit),
-            new CAnimation('Main Characters/' + character +'/Fall (32x32).png', new Size(32, 32), [], CAction.fall),
-            new CAnimation('Main Characters/' + character +'/Wall Jump (32x32).png', new Size(32, 32), [], CAction.wallJump),
-            new CAnimation('Main Characters/' + character +'/Double Jump (32x32).png', new Size(32, 32), [], CAction.doubleJump),                                                                        
+            new CAction('Main Characters/' + character +'/Idle (32x32).png', new Size(32, 32), [], CActionType.idle),
+            new CAction('Main Characters/' + character +'/Run (32x32).png', new Size(32, 32), [], CActionType.run),
+            new CAction('Main Characters/' + character +'/Jump (32x32).png', new Size(32, 32), [], CActionType.jump),
+            new CAction('Main Characters/' + character +'/Hit (32x32).png', new Size(32, 32), [], CActionType.hit),
+            new CAction('Main Characters/' + character +'/Fall (32x32).png', new Size(32, 32), [], CActionType.fall),
+            new CAction('Main Characters/' + character +'/Wall Jump (32x32).png', new Size(32, 32), [], CActionType.wallJump),
+            new CAction('Main Characters/' + character +'/Double Jump (32x32).png', new Size(32, 32), [], CActionType.doubleJump),                                                                        
         ]);
-        for (var i=0; i<obj.visible.animations.length; i++) {
-            obj.visible.animations[i].stepTime = 50/1000;
+        for (var i=0; i<obj.visible.actions.length; i++) {
+            obj.visible.actions[i].stepTime = 50/1000;
         }
         obj.visible.pos = new Pos(0, -0.2);
+        
         //obj.visible.scale = new Pos(1.5, 1.5);
         await this.sendObj(obj);
 
@@ -183,6 +194,14 @@ export class NginEx {
           facingLeft:true,
           floats:[-hx, -hy/2, hx, hy/2, hx, hy*2, -hx, hy*2]
         });  */
+    }
+
+    async setCActionType(bid, skin, skinType, facingLeft:boolean = false) {
+        //const obj = this.getObj(bid);
+        //await this.nginx.setCActionTypeInternal(bid, skin, facingLeft, skinType);
+        await this.nginx.command({
+
+        });
     }
       
       

@@ -51,7 +51,7 @@ export enum JoystickDirectionals {
     vertical
 }
 
-export enum CAction { 
+export enum CActionType { 
     idle,
     run,
     jump,
@@ -75,33 +75,33 @@ export interface Buildable {
     build();
 }
 
-function buildCAction(action:CAction) {
+function buildCActionType(action:CActionType) {
     switch(action) {
-        case CAction.idle: return "idle";
-        case CAction.run: return "run";
-        case CAction.jump: return "jump";
-        case CAction.hit: return "hit";
-        case CAction.fall: return "fall";
-        case CAction.wallJump: return "wallJump";
-        case CAction.doubleJump: return "doubleJump";
-        case CAction.hitSide: return "hitSide";
-        case CAction.hitTop: return "hitTop";
-        case CAction.off: return "off";
-        case CAction.on: return "on";
-        case CAction.blink: return "blink";
-        case CAction.hitLeft: return "hitLeft";
-        case CAction.hitRight: return "hitRight";
-        case CAction.hitBottom: return "hitBottom";
-        case CAction.noChange: return "noChange";
-        case CAction.tiles: return "tiles";        
+        case CActionType.idle: return "idle";
+        case CActionType.run: return "run";
+        case CActionType.jump: return "jump";
+        case CActionType.hit: return "hit";
+        case CActionType.fall: return "fall";
+        case CActionType.wallJump: return "wallJump";
+        case CActionType.doubleJump: return "doubleJump";
+        case CActionType.hitSide: return "hitSide";
+        case CActionType.hitTop: return "hitTop";
+        case CActionType.off: return "off";
+        case CActionType.on: return "on";
+        case CActionType.blink: return "blink";
+        case CActionType.hitLeft: return "hitLeft";
+        case CActionType.hitRight: return "hitRight";
+        case CActionType.hitBottom: return "hitBottom";
+        case CActionType.noChange: return "noChange";
+        case CActionType.tiles: return "tiles";        
     }
 }
 
 function buildType(type:BodyType) {
     switch(type) {
-        case BodyType.static: return "staticBody";
-        case BodyType.kinematic: return "kinematicBody";
-        case BodyType.dynamic: return "dynamicBody";
+        case BodyType.static: return "static";
+        case BodyType.kinematic: return "kinematic";
+        case BodyType.dynamic: return "dynamic";
     }
 }
 
@@ -117,14 +117,14 @@ function buildShape(shape:BodyShape) {
     }
 }
 
-export class CAnimation implements Buildable {
+export class CAction implements Buildable {
     path: string;
     tileSize: Size;
     indices: number[];
     stepTime: number = 0.2;
-    action: CAction;
+    action: CActionType;
     repeat: boolean = true;
-    constructor(path:string, tileSize:Size, indices:number[], action:CAction) {
+    constructor(path:string, tileSize:Size, indices:number[], action:CActionType) {
         this.path = path;
         this.tileSize = tileSize;
         this.indices = indices;
@@ -137,33 +137,33 @@ export class CAnimation implements Buildable {
             tileSizeY:this.tileSize.h,
             indices:this.indices,
             stepTime:this.stepTime,
-            action:buildCAction(this.action),
+            action:buildCActionType(this.action),
             repeat:this.repeat,
         };
     }
 }
 
 export class CVisible implements Buildable {
-    current: CAction = CAction.idle;
+    current: CActionType = CActionType.idle;
     priority: number = 0;
     pos: Pos = new Pos(0,0);
     size: Size = new Size(1,1);
     scale: Pos = new Pos(1,1);
     anchor: Pos = new Pos(0.5,0.5);
-    animations: CAnimation[];
+    actions: CAction[];
     tid: number = 0;
-    constructor(animations: CAnimation[]) {
-        this.animations = animations;
+    constructor(actions: CAction[]) {
+        this.actions = actions;
     }
     build() {
-        var animations = [];
+        var actions = [];
 
-        for (var i = 0; i<this.animations.length; i++) {
-            animations.push(this.animations[i].build());
+        for (var i = 0; i<this.actions.length; i++) {
+            actions.push(this.actions[i].build());
         }
 
         return {
-            current:buildCAction(this.current),
+            current:buildCActionType(this.current),
             priority:this.priority,
             x:this.pos.x,
             y:this.pos.y,
@@ -173,7 +173,7 @@ export class CVisible implements Buildable {
             scaleY:this.scale.y,  
             anchorX:this.anchor.x,
             anchorY:this.anchor.y,
-            animations:animations,
+            actions:actions,
             tid:this.tid,
         };
     }
@@ -266,8 +266,8 @@ export class CObject implements Buildable {
 
 export function CTileObject(path:string, tileSize:Size, data:number[], pos:Pos, size:Size) {
     var obj = new CObject(0);
-    obj.visible = new CVisible([ new CAnimation(path, tileSize, data, CAction.tiles)]);
-    obj.visible.current = CAction.tiles;
+    obj.visible = new CVisible([ new CAction(path, tileSize, data, CActionType.tiles)]);
+    obj.visible.current = CActionType.tiles;
     obj.visible.pos = pos;
     obj.visible.anchor = new Pos(0,0);
     obj.visible.size = size;

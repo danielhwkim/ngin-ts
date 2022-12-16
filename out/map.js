@@ -68,7 +68,7 @@ var cobj_1 = require("./cobj");
                 x.nginx.eventHandler = new GameInputHandler(x.nginx);
                 size = new cobj_1.Size(12, 12);
                 stage = new cobj_1.Stage(size);
-                //stage.debug = true;
+                stage.debug = true;
                 stage.joystickDirectionals = cobj_1.JoystickDirectionals.horizontal;
                 return [4 /*yield*/, x.sendObjWait(stage)];
             case 1:

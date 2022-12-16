@@ -24,33 +24,7 @@ class NginX extends Ngin {
       //this.omap = new Map();
       this.facingLeft = false;
   }
-
-  //getObj(bid) {
-  //    return this.omap.get(bid);
-  //}
-     /*
-  async addBody(info) { 
-    console.log("addBody");
-  if (!('fixedRotaton' in info)) {
-      info.fixedRotation = true;
-      }
-  
-      if (!('categoryBits' in info)) {
-      info.categoryBits = 0x0001;
-      }
-  
-      if (!('maskBits' in info)) {
-      info.maskBits = 0xFFFF;
-      }
-  
-      if (!('trackable' in info)) {
-      info.trackable = true;
-      }  
-
-      //this.omap.set(info.bid, info);  
-      await this.addBodyInternal(info);
-  }
-*/
+/*
   async setCAction(bid, skin, skinType, facingLeft) {
       //const obj = this.getObj(bid);
       await this.setCActionInternal(bid, skin, facingLeft, skinType);
@@ -107,31 +81,6 @@ class NginX extends Ngin {
       await this.setBodyOp(bid, 'remove', x, y);
     } 
   
-
-  
-    async addAnimatedObj(bid, x, y, tilesInfo) {
-      await this.addBody({
-        bid:bid,
-        name:'animated_obj',
-        x:x,
-        y:y,
-        width:1,
-        height:1,
-        tilesInfo:tilesInfo
-      });
-    } 
-  
-    async addAnimation(x, y, tilesInfo) {
-      await this.addBody({
-        name:'tiles',
-        skin:'animation',
-        x:x,
-        y:y,
-        width:1,
-        height:1,
-        tilesInfo:tilesInfo
-      });
-    }
   
     async addDisappearingAnimation(x, y, tilesInfo) {
       await this.addAnimation(x, y, {
@@ -223,12 +172,7 @@ class NginX extends Ngin {
     const y = Math.floor(info.y);
     return this.walls.has(this.xyToNumber(x, y+1));
   }  
-
+*/
 }
 
-
-//exports.main = main;
-//exports.NginX = NginX;
-
-//export { main, NginX};
 module.exports = { main, NginX};//

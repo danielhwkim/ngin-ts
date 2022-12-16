@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,14 +35,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _a = require("./testutil.js"), run = _a.run, Util = _a.Util, Stopwatch = _a.Stopwatch;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.test01 = void 0;
+var testutil_js_1 = require("./testutil.js");
 function test01(ngin, width, height, margin, func, stopwatch) {
     return __awaiter(this, void 0, void 0, function () {
         var util, set, nothing_to_delete, i, j, value, message, size, fill, fillopacity, result;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    util = new Util(ngin);
+                    util = new testutil_js_1.TestUtil(ngin);
                     set = new Set();
                     nothing_to_delete = 0;
                     for (i = 0; i < width; i++) {
@@ -125,5 +128,6 @@ function test01(ngin, width, height, margin, func, stopwatch) {
         });
     });
 }
+exports.test01 = test01;
 module.exports = { test01: test01 };
 //# sourceMappingURL=test01.js.map

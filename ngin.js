@@ -55,28 +55,31 @@ class EventHandler {
   async handle(cmdinfo) {
     switch(cmdinfo.head) {
       case this.ngin.Head.values.contact:
+        /*
         if (cmdinfo.contact.type == this.ngin.ContactType.values.begin) {
           cmdinfo.contact.type = 'begin';
         } else {
           cmdinfo.contact.type = 'end';
         }
-
+        */
         await this.handleContact(cmdinfo.contact);
         break;
       case this.ngin.Head.values.event:
+        /*
         if (cmdinfo.event.type == this.ngin.EventType.values.complete) {
           cmdinfo.event.type = 'complete';
         } else {
           cmdinfo.event.type = 'ready';
-        }        
+        } */       
         await this.handleEvent(cmdinfo.event);        
         break;
       case this.ngin.Head.values.key:
+        /*
         if (cmdinfo.key.type == this.ngin.KeyType.values.down) {
           cmdinfo.key.type = 'down';
         } else {
           cmdinfo.key.type = 'up';
-        }          
+        } */         
         await this.handleKey(cmdinfo.key);        
         break;        
       case this.ngin.Head.values.directional:
@@ -143,19 +146,19 @@ class EventHandler {
 
 class Ngin {
   CObject;
-  BodyInfo;
+  //BodyInfo;
   InitInfo;
   BodyShape;
   BodyType;
-  BodyOpInfo;
+  //BodyOpInfo;
   BodyOp;
-  CActionInfo;
+  //CActionInfo;
   CAction;
-  CActionType;
-  CActionExtra;
-  ContactType;
-  EventType;
-  KeyType;
+  //CActionType;
+  //CActionExtra;
+ // ContactType;
+  //EventType;
+  //KeyType;
   CmdType;
   Cmd;
   CmdInfo;
@@ -182,16 +185,16 @@ class Ngin {
     this.CObject = root.lookupType("commander.CObject");
     this.BodyShape = root.lookupEnum("commander.BodyShape");
     this.BodyType = root.lookupEnum("commander.BodyType");
-    this.BodyOpInfo = root.lookupType("commander.BodyOpInfo");    
+    //this.BodyOpInfo = root.lookupType("commander.BodyOpInfo");    
     this.BodyOp = root.lookupEnum("commander.BodyOp");    
-    this.CActionInfo = root.lookupType("commander.CActionInfo");
-    this.CAction = root.lookupEnum("commander.CAction");
+    //this.CActionInfo = root.lookupType("commander.CActionInfo");
     this.CActionType = root.lookupEnum("commander.CActionType");
-    this.CActionExtra = root.lookupEnum("commander.CActionExtra");         
-    this.ContactType = root.lookupEnum("commander.ContactType");  
-    this.EventType = root.lookupEnum("commander.EventType");    
-    this.KeyType = root.lookupEnum("commander.KeyType"); 
-    this.BodyInfo = root.lookupType("commander.BodyInfo");
+    //this.CActionType = root.lookupEnum("commander.CActionType");
+    //this.CActionExtra = root.lookupEnum("commander.CActionExtra");         
+    //this.ContactType = root.lookupEnum("commander.ContactType");  
+    //this.EventType = root.lookupEnum("commander.EventType");    
+    //this.KeyType = root.lookupEnum("commander.KeyType"); 
+    //this.BodyInfo = root.lookupType("commander.BodyInfo");
     this.Head = root.lookupEnum("commander.Head");
     this.InitInfo = root.lookupType("commander.InitInfo");
     this.CmdType = root.lookupEnum("commander.CmdType");
@@ -214,11 +217,8 @@ class Ngin {
   async connect(host, port) {
     console.log(host, port);
     client.on('data',  function(chunk) {
-      //console.log(chunk, chunk.length);
       ngin.onCmd(chunk);
     });
-
-    //await this.onCmd('chunk');
     
     client.on('end', function() {
       console.log('Requested an end to the TCP connection');
@@ -227,32 +227,13 @@ class Ngin {
     await client.connect({ port: port, host: host });
   }
 
-  /*
-  async addBodyInternal(info) {
-    if ('shape' in info) {
-    info.shape = this.BodyShape.values[info.shape];
-    } else {
-    info.shape = this.BodyShape.values.rectangle;
-    }
-
-    if ('type' in info) {
-    info.type = this.BodyType.values[info.type];
-    } else {
-    info.type = this.BodyType.values.staticBody;
-    }
-      
-    const buf_body = this.BodyInfo.encode(info).finish();
-
-    //console.log(info.bid, info);  
-    await this.send(buf_body, this.Head.values.bodyinfo);
-  }*/
 
   async addCObjectInternal(cobj) {
     if ('visible' in cobj) {
-      cobj.visible.current = this.CAction.values[cobj.visible.current];
-      for (var i = 0; i < cobj.visible.animations.length; i++) {
-        var a = cobj.visible.animations[i];
-        a.action = this.CAction.values[a.action];
+      cobj.visible.current = this.CActionType.values[cobj.visible.current];
+      for (var i = 0; i < cobj.visible.actions.length; i++) {
+        var a = cobj.visible.actions[i];
+        a.action = this.CActionType.values[a.action];
       }
     }
 
@@ -281,12 +262,7 @@ class Ngin {
       info.button2 = this.ActionEvent.values[info.button2];
     }        
     const buf_body = await this.InitInfo.encode(info).finish();
-    //console.log('wait - initScreen'); 
-    //this.ackEmitter = new EventEmitter();    
     await this.send(buf_body, this.Head.values.init);
-    //console.log("mid");
-    //const value = await EventEmitter.once(this.ackEmitter, 'ack');
-    //console.log('act - initScreen', value);
   }
 
   async onCmd(chunk) {
@@ -331,7 +307,7 @@ class Ngin {
     }
     const info = {
       bid:bid,
-      skin:this.CAction.values[skin],
+      skin:this.CActionType.values[skin],
       type:skinType? this.CActionType.values[skinType]:0,
       extra:extra,
     };
@@ -339,7 +315,7 @@ class Ngin {
     const buf_body = this.CActionInfo.encode(info).finish();
     await this.send(buf_body, this.Head.values.bodystatus);
   }
-
+  /*
   async setBodyOp(bid, op, x, y) {
     const buf_body = this.BodyOpInfo.encode({
       bid:bid,
@@ -348,7 +324,7 @@ class Ngin {
       y:y,
     }).finish();
     await this.send(buf_body, this.Head.values.bodyop);
-  } 
+  } */
   
   async cmdIF2(cmd, bid, x, y) {
 
@@ -395,14 +371,5 @@ class Ngin {
   }
 }
 
-//export { mainInternal, EventHandler, Ngin};
-//exports.mainInternal = mainInternal;
-//exports.EventHandler = EventHandler;
-//exports.Ngin = Ngin;
-//exports.__esModule = true;
-//exports.Ngin = exports.EventHandler = exports.mainInternal = void 0;
 module.exports = { mainInternal, EventHandler, Ngin};
-//exports.mainInternal = mainInternal;
-//exports.EventHandler = EventHandler;
-//exports.Ngin = Ngin;
 

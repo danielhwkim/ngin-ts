@@ -1,5 +1,5 @@
-var {runq, Util, Stopwatch} = require("./testutil.js");
-var {test01} = require("./test01.js");
+import {runq, TestUtil, Stopwatch} from "./testutil.js";
+import {test01} from "./test01.js";
 
 const hint = "\
 ### Python\n\
@@ -85,7 +85,7 @@ runq(async (ngin) =>{
     console.log(Math.floor(Math.random()*10));                
     ngin.eventHandler.ready = true;
     let stopwatch = new Stopwatch(ngin, 200, [12,0,2,1]);
-    c = 0;
+    var c = 0;
     let func = undefined;
     while (c < funcsAll.length) {
         if (func == undefined) {

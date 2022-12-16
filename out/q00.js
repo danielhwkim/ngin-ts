@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,9 +35,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _this = this;
-var _a = require("./testutil.js"), runq = _a.runq, Util = _a.Util, Stopwatch = _a.Stopwatch;
-var test01 = require("./test01.js").test01;
+Object.defineProperty(exports, "__esModule", { value: true });
+var testutil_js_1 = require("./testutil.js");
+var test01_js_1 = require("./test01.js");
 var hint = "\
 ### Python\n\
 \n\
@@ -79,8 +80,8 @@ From **Highest** to **Lowest** precedence:\n\
 | +         | Addition         | `2 + 2 = 4`     |\n\
 \n\
 ";
-runq(function (ngin) { return __awaiter(_this, void 0, void 0, function () {
-    var x, y, width, height, margin, gid, funcsAll, stopwatch, func, funcs, v, r, result;
+(0, testutil_js_1.runq)(function (ngin) { return __awaiter(void 0, void 0, void 0, function () {
+    var x, y, width, height, margin, gid, funcsAll, stopwatch, c, func, funcs, v, r, result;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -117,7 +118,7 @@ runq(function (ngin) { return __awaiter(_this, void 0, void 0, function () {
                 console.log(Math.floor(Math.random() * 10));
                 console.log(Math.floor(Math.random() * 10));
                 ngin.eventHandler.ready = true;
-                stopwatch = new Stopwatch(ngin, 200, [12, 0, 2, 1]);
+                stopwatch = new testutil_js_1.Stopwatch(ngin, 200, [12, 0, 2, 1]);
                 c = 0;
                 func = undefined;
                 _a.label = 3;
@@ -130,7 +131,7 @@ runq(function (ngin) { return __awaiter(_this, void 0, void 0, function () {
                     console.log(c, funcs.length, v, r);
                     func = funcs[r];
                 }
-                return [4 /*yield*/, test01(ngin, width, height, margin, func, stopwatch)];
+                return [4 /*yield*/, (0, test01_js_1.test01)(ngin, width, height, margin, func, stopwatch)];
             case 4:
                 result = _a.sent();
                 console.log(result);

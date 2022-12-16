@@ -84,7 +84,7 @@ var cobj_1 = require("./cobj");
                 obj.physical = new cobj_1.CPhysical(cobj_1.BodyShape.circle, new cobj_1.Pos(11, 11), cobj_1.BodyType.dynamic);
                 obj.physical.angle = 1.5;
                 obj.physical.size = new cobj_1.Size(2, 2);
-                obj.visible = new cobj_1.CVisible([new cobj_1.CAnimation('kenney_pixelshmup/ships_packed.png', new cobj_1.Size(32, 32), [1], cobj_1.CAction.idle)]);
+                obj.visible = new cobj_1.CVisible([new cobj_1.CAction('kenney_pixelshmup/ships_packed.png', new cobj_1.Size(32, 32), [1], cobj_1.CActionType.idle)]);
                 obj.visible.size = new cobj_1.Size(2, 2);
                 return [4 /*yield*/, x.sendObjWait(obj)];
             case 3:
@@ -101,7 +101,7 @@ var cobj_1 = require("./cobj");
                 obj.physical.pos = new cobj_1.Pos(11, 0);
                 obj.physical.angle = 3;
                 //obj.visible.size = new Size(2,2);    
-                obj.visible.animations[0].indices = [10];
+                obj.visible.actions[0].indices = [10];
                 return [4 /*yield*/, x.sendObjWait(obj)];
             case 6:
                 value = _a.sent();
@@ -140,16 +140,16 @@ var InputHandler = /** @class */ (function (_super) {
                         if (!this.ready)
                             return [2 /*return*/];
                         console.log(contact);
-                        if (!(contact.type == 'begin')) return [3 /*break*/, 4];
-                        if (!(contact.bid2 == 101)) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.x.remove(contact.bid2)];
+                        if (!(contact.isEnded == false)) return [3 /*break*/, 4];
+                        if (!(contact.id2 == 101)) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this.x.remove(contact.id2)];
                     case 1:
                         _a.sent();
                         _a.label = 2;
                     case 2:
                         obj = new cobj_1.CObject(1000);
-                        obj.tid = contact.bid2;
-                        obj.visible = new cobj_1.CVisible([new cobj_1.CAnimation('kenney_pixelshmup/tiles_packed.png', new cobj_1.Size(16, 16), [5], cobj_1.CAction.idle)]);
+                        obj.tid = contact.id2;
+                        obj.visible = new cobj_1.CVisible([new cobj_1.CAction('kenney_pixelshmup/tiles_packed.png', new cobj_1.Size(16, 16), [5], cobj_1.CActionType.idle)]);
                         obj.visible.pos = new cobj_1.Pos(0, 0);
                         return [4 /*yield*/, this.x.sendObj(obj)];
                     case 3:
@@ -220,7 +220,7 @@ var InputHandler = /** @class */ (function (_super) {
                         obj = new cobj_1.CObject(101);
                         obj.physical = new cobj_1.CPhysical(cobj_1.BodyShape.rectangle, new cobj_1.Pos(x - 0.5 + 2 * Math.sin(a), y - 0.5 - 2 * Math.cos(a)), cobj_1.BodyType.dynamic);
                         obj.physical.angle = a;
-                        obj.visible = new cobj_1.CVisible([new cobj_1.CAnimation('kenney_pixelshmup/tiles_packed.png', new cobj_1.Size(16, 16), [1, 2, 3], cobj_1.CAction.idle)]);
+                        obj.visible = new cobj_1.CVisible([new cobj_1.CAction('kenney_pixelshmup/tiles_packed.png', new cobj_1.Size(16, 16), [1, 2, 3], cobj_1.CActionType.idle)]);
                         return [4 /*yield*/, this.x.sendObjWait(obj)];
                     case 2:
                         value = _b.sent();
@@ -240,7 +240,7 @@ var InputHandler = /** @class */ (function (_super) {
                 switch (_c.label) {
                     case 0:
                         c = key;
-                        if (!(c.type == 'up')) return [3 /*break*/, 12];
+                        if (!(c.isPressed == false)) return [3 /*break*/, 12];
                         _a = c.name;
                         switch (_a) {
                             case 'Arrow Left': return [3 /*break*/, 1];

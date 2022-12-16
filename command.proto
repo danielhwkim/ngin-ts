@@ -55,47 +55,12 @@ enum BodyShape {
 }
 
 enum BodyType { 
-    staticBody = 0; 
-    kinematicBody = 1; 
-    dynamicBody = 2;
+    static = 0; 
+    kinematic = 1; 
+    dynamic = 2;
 }
 
-message TilesInfo {
-    string path = 1;
-    double tileSizeX = 2;
-    double tileSizeY = 3;
-    uint32 tileColumns = 4;
-    uint32 dataColumns = 5;
-    repeated uint32 data = 6;
-}
-
-message BodyInfo {
-    uint32 bid = 1;    
-    string name = 2;
-    BodyShape shape = 3;
-    float x = 4;
-    float y = 5;
-    float width = 6;
-    float height = 7;
-    float restitution = 8;
-    float friction = 9;
-    float density = 10;
-    float angle = 11;
-    bool isSensor = 12;
-    uint32 categoryBits = 13;
-    uint32 maskBits = 14;
-    bool fixedRotation = 15;
-    BodyType type = 16;
-    string skin = 17;
-    bool trackable = 18;
-    bool contactReport = 19;
-    bool cameraFollow = 20;
-    TilesInfo tilesInfo = 21;
-    uint32 priority = 22;
-    repeated float floats = 23;
-}
-
-enum CAction {
+enum CActionType {
     idle = 0;
     run = 1;
     jump = 2;
@@ -113,24 +78,7 @@ enum CAction {
     hitBottom = 14;
     noChange = 15;
     tiles = 16;
-}
-
-enum CActionType {
-    loop = 0;
-    once = 1;
-    notify = 2;
-}
-
-enum CActionExtra {
-    left = 0;
-    right = 1;
-}
-
-message CActionInfo {
-    uint32 bid = 1;
-    CAction skin = 2;
-    CActionType type = 3;
-    CActionExtra extra = 4;
+    svg = 17;
 }
 
 enum BodyOp {
@@ -149,56 +97,32 @@ enum BodyOp {
     follow = 12;
 }
 
-message BodyOpInfo {
-    uint32 bid = 1;
-    BodyOp op = 2;
-    float x = 3;
-    float y = 4; 
-}
-
-enum ContactType {
-    begin = 0;
-    end = 1;
-}
-
 message ContactInfo {
-    uint32 bid1 = 1;
-    uint32 bid2 = 2;
-    string name1 = 3;
-    string name2 = 4;
-    string skin1 = 5;
-    string skin2 = 6;
+    uint32 id1 = 1;
+    uint32 id2 = 2;
+    string info1 = 3;
+    string info2 = 4;
     float x = 7;
     float y = 8;
     float x1 = 9;
     float y1 = 10;
     float x2 = 11;
     float y2 = 12;
-    ContactType type = 13;
-}
-
-enum EventType {
-    complete = 0;
-    ready = 1;
+    bool isEnded = 13;
 }
 
 message EventInfo {
-    uint32 bid = 1;
+    uint32 id = 1;
     string name = 2;
     string skin = 3;
     float x = 4;
     float y = 5;
-    EventType type = 6;
-}
-
-enum KeyType {
-    down = 0;
-    up = 1;
+    bool isCompleted = 6;
 }
 
 message KeyInfo {
     string name = 1;
-    KeyType type = 2;
+    bool isPressed = 2;
 }
 
 message AckInfo {
@@ -256,7 +180,7 @@ message TabInfo {
 }
 
 message ObjectPosition {
-    uint32 bid = 1;
+    uint32 id = 1;
     double x = 2;
     double y = 3;
 }
@@ -343,7 +267,7 @@ message CObject {
 }
 
 message CVisible {
-    CAction current	= 1;
+    CActionType current	= 1;
     uint32	priority = 2;	
     double	x = 3;
     double	y = 4;
@@ -353,16 +277,16 @@ message CVisible {
     double	scaleY = 8;
     double anchorX = 9;
     double anchorY = 10; 
-    repeated CAnimation	animations = 11;
+    repeated CAction actions = 11;
 }
 
-message CAnimation {
+message CAction {
     string	path = 1;
     double	tileSizeX = 2;
     double	tileSizeY = 3;
     repeated uint32	indices = 4;
     double	stepTime = 5;
-    CAction action = 6;
+    CActionType type = 6;
     bool repeat = 7;
 }
 
