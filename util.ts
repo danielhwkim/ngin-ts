@@ -151,7 +151,8 @@ export class NginEx {
 
         var obj = new CObject(id);
         obj.info = "actor";
-        obj.physical = new CPhysical(BodyShape.rectangle, new Pos(x,y), BodyType.dynamic);
+        obj.physical = new CPhysical(BodyShape.polygon, new Pos(x,y), BodyType.dynamic);
+        obj.physical.floats = [-hx, -hy/2, hx, hy/2, hx, hy*2, -hx, hy*2];
         obj.visible = new CVisible([
             new CAnimation('Main Characters/' + character +'/Idle (32x32).png', new Size(32, 32), [], CAction.idle),
             new CAnimation('Main Characters/' + character +'/Run (32x32).png', new Size(32, 32), [], CAction.run),
