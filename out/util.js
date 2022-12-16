@@ -1,19 +1,4 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -51,34 +36,35 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.main = exports.Gngin = void 0;
+exports.main = exports.NginEx = void 0;
 var fs = require('fs');
 var runInThisContext = require('vm').runInThisContext;
 var _a = require("./ngin"), EventHandler = _a.EventHandler, mainInternal = _a.mainInternal;
-var NginX = require("./nginx").NginX;
+//var {NginX} = require("./nginx");
 var EventEmitter = require('events');
 //var {Pos, Size, BodyType, BodyShape, TilesInfo, Pobj, Stage, JoystickDirectionals} = require("./pobj");
 //import {Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./pobj";
 var cobj_1 = require("./cobj");
-var Gngin = /** @class */ (function (_super) {
-    __extends(Gngin, _super);
-    function Gngin(root) {
-        return _super.call(this, root) || this;
+var nginx_1 = require("./nginx");
+var _b = require("./gen"), l1 = _b.l1, l2 = _b.l2; //
+var NginEx = /** @class */ (function () {
+    function NginEx(nginx) {
+        this.nginx = nginx;
         //this.init(root);
     }
-    Gngin.prototype.sendObj = function (obj) {
+    NginEx.prototype.sendObj = function (obj) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         if (!(obj instanceof cobj_1.CObject)) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.addCObjectInternal(obj.build())];
+                        return [4 /*yield*/, this.nginx.addCObjectInternal(obj.build())];
                     case 1:
                         _a.sent();
                         return [3 /*break*/, 4];
                     case 2:
                         if (!(obj instanceof cobj_1.Stage)) return [3 /*break*/, 4];
-                        return [4 /*yield*/, this.initScreen(obj.build())];
+                        return [4 /*yield*/, this.nginx.initScreen(obj.build())];
                     case 3:
                         _a.sent();
                         _a.label = 4;
@@ -87,26 +73,26 @@ var Gngin = /** @class */ (function (_super) {
             });
         });
     };
-    Gngin.prototype.sendObjWait = function (obj) {
+    NginEx.prototype.sendObjWait = function (obj) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        this.ackEmitter = new EventEmitter();
+                        this.nginx.ackEmitter = new EventEmitter();
                         return [4 /*yield*/, this.sendObj(obj)];
                     case 1:
                         _a.sent();
-                        return [4 /*yield*/, EventEmitter.once(this.ackEmitter, 'ack')];
+                        return [4 /*yield*/, EventEmitter.once(this.nginx.ackEmitter, 'ack')];
                     case 2: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    Gngin.prototype.forward = function (id, pos) {
+    NginEx.prototype.forward = function (id, pos) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.command({
+                    case 0: return [4 /*yield*/, this.nginx.command({
                             strings: ['forward'],
                             ints: [id],
                             floats: [pos.x, pos.y],
@@ -118,11 +104,11 @@ var Gngin = /** @class */ (function (_super) {
             });
         });
     };
-    Gngin.prototype.follow = function (id) {
+    NginEx.prototype.follow = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.command({
+                    case 0: return [4 /*yield*/, this.nginx.command({
                             strings: ['follow'],
                             ints: [id],
                         })];
@@ -133,11 +119,11 @@ var Gngin = /** @class */ (function (_super) {
             });
         });
     };
-    Gngin.prototype.remove = function (id) {
+    NginEx.prototype.remove = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.opRemove(id, 0, 0)];
+                    case 0: return [4 /*yield*/, this.nginx.opRemove(id, 0, 0)];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -145,20 +131,20 @@ var Gngin = /** @class */ (function (_super) {
             });
         });
     };
-    Gngin.prototype.getBodyinfo = function (id) {
+    NginEx.prototype.getBodyinfo = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             var value;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        this.cmdEmitter = new EventEmitter();
-                        return [4 /*yield*/, this.command({
+                        this.nginx.cmdEmitter = new EventEmitter();
+                        return [4 /*yield*/, this.nginx.command({
                                 strings: ['bodyinfo'],
                                 ints: [id],
                             })];
                     case 1:
                         _a.sent();
-                        return [4 /*yield*/, EventEmitter.once(this.cmdEmitter, 'cmd')];
+                        return [4 /*yield*/, EventEmitter.once(this.nginx.cmdEmitter, 'cmd')];
                     case 2:
                         value = _a.sent();
                         return [2 /*return*/, value[0].floats];
@@ -166,11 +152,11 @@ var Gngin = /** @class */ (function (_super) {
             });
         });
     };
-    Gngin.prototype.angularVelocity = function (id, value) {
+    NginEx.prototype.angularVelocity = function (id, value) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.setBodyOp(id, 'angularVelocity', value, 0)];
+                    case 0: return [4 /*yield*/, this.nginx.setBodyOp(id, 'angularVelocity', value, 0)];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -178,22 +164,199 @@ var Gngin = /** @class */ (function (_super) {
             });
         });
     };
-    return Gngin;
-}(NginX));
-exports.Gngin = Gngin;
-function main(type, port, body) {
-    mainInternal(type, port, function (host, root) {
+    NginEx.prototype.add = function (x, y) {
         return __awaiter(this, void 0, void 0, function () {
-            var ngin;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.addFruit(200, x, y, 'Bananas')];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    NginEx.prototype.addFruit = function (id, x, y, fruit) {
+        return __awaiter(this, void 0, void 0, function () {
+            var obj, a1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        ngin = new Gngin(root);
-                        return [4 /*yield*/, ngin.connect(host, port)];
+                        obj = new cobj_1.CObject(id);
+                        obj.info = "fruit";
+                        obj.physical = new cobj_1.CPhysical(cobj_1.BodyShape.circle, new cobj_1.Pos(x, y), cobj_1.BodyType.static);
+                        a1 = new cobj_1.CAnimation('Items/Fruits/' + fruit + '.png', new cobj_1.Size(32, 32), [ /*0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16*/], cobj_1.CAction.idle);
+                        a1.stepTime = 50 / 1000;
+                        obj.visible = new cobj_1.CVisible([a1]);
+                        obj.visible.scale = new cobj_1.Pos(1.5, 1.5);
+                        return [4 /*yield*/, this.sendObj(obj)];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    NginEx.prototype.addStage = function (bid, x, y, width, height) {
+        return __awaiter(this, void 0, void 0, function () {
+            var data, obj;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        data = [];
+                        l1(width, height, data);
+                        obj = new cobj_1.CObject(bid);
+                        obj.visible = new cobj_1.CVisible([new cobj_1.CAnimation('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new cobj_1.Size(16, 16), data, cobj_1.CAction.idle)]);
+                        obj.visible.current = cobj_1.CAction.tiles;
+                        obj.visible.pos = new cobj_1.Pos(x, y);
+                        obj.visible.size = new cobj_1.Size(width, height);
+                        obj.visible.anchor = new cobj_1.Pos(0, 0);
+                        //obj.visible.priority = 0;
+                        return [4 /*yield*/, this.sendObj(obj)];
+                    case 1:
+                        //obj.visible.priority = 0;
+                        _a.sent();
+                        data = [];
+                        l2(width, height, data);
+                        obj.visible.priority = 1;
+                        obj.visible.animations[0].indices = data;
+                        return [4 /*yield*/, this.sendObj(obj)];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, this.addVoid(bid++, x + 1, y + 1 + 0.2, width - 2, 0.6)];
+                    case 3:
+                        _a.sent();
+                        return [4 /*yield*/, this.addVoid(bid++, x + 1, y + height - 1 + 0.2, width - 2, 0.6)];
+                    case 4:
+                        _a.sent();
+                        return [4 /*yield*/, this.addVoid(bid++, x + 0.8, y + 1.2, 0.2, height - 2 + 0.6)];
+                    case 5:
+                        _a.sent();
+                        return [4 /*yield*/, this.addVoid(bid++, x + width - 1, y + 1.2, 0.2, height - 2 + 0.6)];
+                    case 6:
+                        _a.sent();
+                        return [2 /*return*/, bid];
+                }
+            });
+        });
+    };
+    NginEx.prototype.addVoid = function (bid, x, y, width, height) {
+        return __awaiter(this, void 0, void 0, function () {
+            var x1, y1, x2, y2, i, j, obj;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        x1 = Math.floor(x);
+                        y1 = Math.floor(y);
+                        x2 = Math.ceil(x + width);
+                        y2 = Math.ceil(y + height);
+                        //console.log(x1,y1,x2,y2);
+                        for (i = x1; i < x2; i++) {
+                            for (j = y1; j < y2; j++) {
+                                //this.walls.add(this.xyToNumber(i,j));
+                                //console.log(i,j, this.xyToNumber(i,j));
+                            }
+                        }
+                        obj = new cobj_1.CObject(bid);
+                        obj.info = "wall";
+                        obj.physical = new cobj_1.CPhysical(cobj_1.BodyShape.rectangle, new cobj_1.Pos(x, y), cobj_1.BodyType.static);
+                        obj.physical.size = new cobj_1.Size(width, height);
+                        return [4 /*yield*/, this.sendObj(obj)];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    NginEx.prototype.addSpike = function (id, x, y) {
+        return __awaiter(this, void 0, void 0, function () {
+            var obj;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        obj = new cobj_1.CObject(id);
+                        obj.info = "spike";
+                        obj.physical = new cobj_1.CPhysical(cobj_1.BodyShape.rectangle, new cobj_1.Pos(x, y), cobj_1.BodyType.static);
+                        //obj.physical.isSensor = true;
+                        obj.visible = new cobj_1.CVisible([new cobj_1.CAnimation('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new cobj_1.Size(16, 16), [929, 930, 931, 932, 931, 930], cobj_1.CAction.idle)]);
+                        return [4 /*yield*/, this.sendObj(obj)];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    NginEx.prototype.addCoin = function (id, x, y) {
+        return __awaiter(this, void 0, void 0, function () {
+            var obj;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        obj = new cobj_1.CObject(id);
+                        obj.info = "coin";
+                        obj.physical = new cobj_1.CPhysical(cobj_1.BodyShape.rectangle, new cobj_1.Pos(x, y), cobj_1.BodyType.static);
+                        //obj.physical.isSensor = true;
+                        obj.visible = new cobj_1.CVisible([new cobj_1.CAnimation('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new cobj_1.Size(16, 16), [403, 404, 405, 406], cobj_1.CAction.idle)]);
+                        return [4 /*yield*/, this.sendObj(obj)];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    NginEx.prototype.addActor = function (id, character, x, y) {
+        return __awaiter(this, void 0, void 0, function () {
+            var hx, hy, obj, i;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        hx = 0.25 / 2;
+                        hy = 0.25 / 2;
+                        obj = new cobj_1.CObject(id);
+                        obj.info = "actor";
+                        obj.physical = new cobj_1.CPhysical(cobj_1.BodyShape.rectangle, new cobj_1.Pos(x, y), cobj_1.BodyType.dynamic);
+                        obj.visible = new cobj_1.CVisible([
+                            new cobj_1.CAnimation('Main Characters/' + character + '/Idle (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CAction.idle),
+                            new cobj_1.CAnimation('Main Characters/' + character + '/Run (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CAction.run),
+                            new cobj_1.CAnimation('Main Characters/' + character + '/Jump (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CAction.jump),
+                            new cobj_1.CAnimation('Main Characters/' + character + '/Hit (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CAction.hit),
+                            new cobj_1.CAnimation('Main Characters/' + character + '/Fall (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CAction.fall),
+                            new cobj_1.CAnimation('Main Characters/' + character + '/Wall Jump (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CAction.wallJump),
+                            new cobj_1.CAnimation('Main Characters/' + character + '/Double Jump (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CAction.doubleJump),
+                        ]);
+                        for (i = 0; i < obj.visible.animations.length; i++) {
+                            obj.visible.animations[i].stepTime = 50 / 1000;
+                        }
+                        obj.visible.pos = new cobj_1.Pos(0, -0.2);
+                        //obj.visible.scale = new Pos(1.5, 1.5);
+                        return [4 /*yield*/, this.sendObj(obj)];
+                    case 1:
+                        //obj.visible.scale = new Pos(1.5, 1.5);
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    return NginEx;
+}());
+exports.NginEx = NginEx;
+function main(type, port, body) {
+    mainInternal(type, port, function (host, root) {
+        return __awaiter(this, void 0, void 0, function () {
+            var x;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        x = new NginEx(new nginx_1.NginX(root));
+                        return [4 /*yield*/, x.nginx.connect(host, port)];
                     case 1:
                         _a.sent();
                         //ngin.eventHandler = eventHandler; //new InputHandler(ngin);
-                        return [4 /*yield*/, body(ngin)];
+                        return [4 /*yield*/, body(x)];
                     case 2:
                         //ngin.eventHandler = eventHandler; //new InputHandler(ngin);
                         _a.sent();

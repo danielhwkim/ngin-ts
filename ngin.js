@@ -227,6 +227,7 @@ class Ngin {
     await client.connect({ port: port, host: host });
   }
 
+  /*
   async addBodyInternal(info) {
     if ('shape' in info) {
     info.shape = this.BodyShape.values[info.shape];
@@ -244,7 +245,7 @@ class Ngin {
 
     //console.log(info.bid, info);  
     await this.send(buf_body, this.Head.values.bodyinfo);
-  }
+  }*/
 
   async addCObjectInternal(cobj) {
     if ('visible' in cobj) {
@@ -263,7 +264,6 @@ class Ngin {
 
     //console.log(info.bid, info);  
     await this.send(buf_cobj, this.Head.values.cobject);
-
   }
   
   async initScreen(info) {

@@ -56,12 +56,12 @@ var EventHandler = require("./ngin").EventHandler;
 var util_1 = require("./util");
 //import {Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./pobj";
 var cobj_1 = require("./cobj");
-(0, util_1.main)('127.0.0.1', 4040, function (ngin) { return __awaiter(void 0, void 0, void 0, function () {
+(0, util_1.main)('127.0.0.1', 4040, function (x) { return __awaiter(void 0, void 0, void 0, function () {
     var d, j, tiles, objlayer, data, tileSize, precision, size, stage, obj, value, value;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                ngin.eventHandler = new InputHandler(ngin);
+                x.nginx.eventHandler = new InputHandler(x);
                 d = fs.readFileSync('planes0.tmj', 'utf8');
                 j = JSON.parse(d);
                 tiles = j.layers[0];
@@ -74,10 +74,10 @@ var cobj_1 = require("./cobj");
                 stage = new cobj_1.Stage(size);
                 //stage.debug = true;
                 stage.joystickDirectionals = cobj_1.JoystickDirectionals.horizontal;
-                return [4 /*yield*/, ngin.sendObjWait(stage)];
+                return [4 /*yield*/, x.sendObjWait(stage)];
             case 1:
                 _a.sent();
-                return [4 /*yield*/, ngin.sendObj((0, cobj_1.CTileObject)('kenney_pixelshmup/tiles_packed.png', new cobj_1.Size(tileSize, tileSize), data, new cobj_1.Pos(0, 0), size))];
+                return [4 /*yield*/, x.sendObj((0, cobj_1.CTileObject)('kenney_pixelshmup/tiles_packed.png', new cobj_1.Size(tileSize, tileSize), data, new cobj_1.Pos(0, 0), size))];
             case 2:
                 _a.sent();
                 obj = new cobj_1.CObject(100);
@@ -86,15 +86,15 @@ var cobj_1 = require("./cobj");
                 obj.physical.size = new cobj_1.Size(2, 2);
                 obj.visible = new cobj_1.CVisible([new cobj_1.CAnimation('kenney_pixelshmup/ships_packed.png', new cobj_1.Size(32, 32), [1], cobj_1.CAction.idle)]);
                 obj.visible.size = new cobj_1.Size(2, 2);
-                return [4 /*yield*/, ngin.sendObjWait(obj)];
+                return [4 /*yield*/, x.sendObjWait(obj)];
             case 3:
                 value = _a.sent();
                 console.log('1', value);
-                ngin.eventHandler.ready = true;
-                return [4 /*yield*/, ngin.follow(100)];
+                x.nginx.eventHandler.ready = true;
+                return [4 /*yield*/, x.follow(100)];
             case 4:
                 _a.sent();
-                return [4 /*yield*/, ngin.forward(100, new cobj_1.Pos(5, 0))];
+                return [4 /*yield*/, x.forward(100, new cobj_1.Pos(5, 0))];
             case 5:
                 _a.sent();
                 obj.id = 200;
@@ -102,14 +102,14 @@ var cobj_1 = require("./cobj");
                 obj.physical.angle = 3;
                 //obj.visible.size = new Size(2,2);    
                 obj.visible.animations[0].indices = [10];
-                return [4 /*yield*/, ngin.sendObjWait(obj)];
+                return [4 /*yield*/, x.sendObjWait(obj)];
             case 6:
                 value = _a.sent();
                 console.log('2', value);
-                return [4 /*yield*/, ngin.forward(200, new cobj_1.Pos(5, 0))];
+                return [4 /*yield*/, x.forward(200, new cobj_1.Pos(5, 0))];
             case 7:
                 _a.sent();
-                return [4 /*yield*/, ngin.angularVelocity(200, 1)];
+                return [4 /*yield*/, x.angularVelocity(200, 1)];
             case 8:
                 _a.sent();
                 return [2 /*return*/];
@@ -118,9 +118,10 @@ var cobj_1 = require("./cobj");
 }); });
 var InputHandler = /** @class */ (function (_super) {
     __extends(InputHandler, _super);
-    function InputHandler(ngin) {
-        var _this = _super.call(this, ngin) || this;
+    function InputHandler(x) {
+        var _this = _super.call(this, x.nginx) || this;
         _this.missile_id = 800;
+        _this.x = x;
         _this.key_down_left = false;
         _this.key_down_right = false;
         _this.actor_contacts = new Set();
@@ -141,7 +142,7 @@ var InputHandler = /** @class */ (function (_super) {
                         console.log(contact);
                         if (!(contact.type == 'begin')) return [3 /*break*/, 4];
                         if (!(contact.bid2 == 101)) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.ngin.remove(contact.bid2)];
+                        return [4 /*yield*/, this.x.remove(contact.bid2)];
                     case 1:
                         _a.sent();
                         _a.label = 2;
@@ -150,7 +151,7 @@ var InputHandler = /** @class */ (function (_super) {
                         obj.tid = contact.bid2;
                         obj.visible = new cobj_1.CVisible([new cobj_1.CAnimation('kenney_pixelshmup/tiles_packed.png', new cobj_1.Size(16, 16), [5], cobj_1.CAction.idle)]);
                         obj.visible.pos = new cobj_1.Pos(0, 0);
-                        return [4 /*yield*/, this.ngin.sendObj(obj)];
+                        return [4 /*yield*/, this.x.sendObj(obj)];
                     case 3:
                         _a.sent();
                         _a.label = 4;
@@ -175,7 +176,7 @@ var InputHandler = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.ngin.angularVelocity(100, 1)];
+                    case 0: return [4 /*yield*/, this.x.angularVelocity(100, 1)];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -187,7 +188,7 @@ var InputHandler = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.ngin.angularVelocity(100, -1)];
+                    case 0: return [4 /*yield*/, this.x.angularVelocity(100, -1)];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -199,7 +200,7 @@ var InputHandler = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.ngin.angularVelocity(100, 0)];
+                    case 0: return [4 /*yield*/, this.x.angularVelocity(100, 0)];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -213,18 +214,18 @@ var InputHandler = /** @class */ (function (_super) {
             var _a;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, this.ngin.getBodyinfo(100)];
+                    case 0: return [4 /*yield*/, this.x.getBodyinfo(100)];
                     case 1:
                         _a = _b.sent(), x = _a[0], y = _a[1], w = _a[2], h = _a[3], a = _a[4], lvx = _a[5], lvy = _a[6], av = _a[7];
                         obj = new cobj_1.CObject(101);
                         obj.physical = new cobj_1.CPhysical(cobj_1.BodyShape.rectangle, new cobj_1.Pos(x - 0.5 + 2 * Math.sin(a), y - 0.5 - 2 * Math.cos(a)), cobj_1.BodyType.dynamic);
                         obj.physical.angle = a;
                         obj.visible = new cobj_1.CVisible([new cobj_1.CAnimation('kenney_pixelshmup/tiles_packed.png', new cobj_1.Size(16, 16), [1, 2, 3], cobj_1.CAction.idle)]);
-                        return [4 /*yield*/, this.ngin.sendObjWait(obj)];
+                        return [4 /*yield*/, this.x.sendObjWait(obj)];
                     case 2:
                         value = _b.sent();
                         console.log('1', value);
-                        return [4 /*yield*/, this.ngin.forward(101, new cobj_1.Pos(10, 0))];
+                        return [4 /*yield*/, this.x.forward(101, new cobj_1.Pos(10, 0))];
                     case 3:
                         _b.sent();
                         return [2 /*return*/];

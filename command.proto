@@ -338,7 +338,8 @@ message CObject {
     uint32 id = 1;
     CPhysical physical = 2;
     CVisible visible = 3;
-    uint32 tid = 4;    
+    uint32 tid = 4;
+    string info = 5;
 }
 
 message CVisible {
@@ -366,7 +367,7 @@ message CAnimation {
 }
 
 message CPhysical {
-    string name = 1;
+    BodyType type = 1;    
     BodyShape shape = 2;
     float x = 3;
     float y = 4;
@@ -380,8 +381,7 @@ message CPhysical {
     uint32 categoryBits = 12;
     uint32 maskBits = 13;
     bool fixedRotation = 14;
-    BodyType type = 15;
-    bool trackable = 16;
-    bool contactReport = 17;
-    repeated float floats = 18;
+    bool trackable = 15;
+    bool contactReport = 16;
+    repeated float floats = 17;
 }

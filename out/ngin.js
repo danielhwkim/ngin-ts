@@ -295,35 +295,25 @@ var Ngin = /** @class */ (function () {
             });
         });
     };
-    Ngin.prototype.addBodyInternal = function (info) {
-        return __awaiter(this, void 0, void 0, function () {
-            var buf_body;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        if ('shape' in info) {
-                            info.shape = this.BodyShape.values[info.shape];
-                        }
-                        else {
-                            info.shape = this.BodyShape.values.rectangle;
-                        }
-                        if ('type' in info) {
-                            info.type = this.BodyType.values[info.type];
-                        }
-                        else {
-                            info.type = this.BodyType.values.staticBody;
-                        }
-                        buf_body = this.BodyInfo.encode(info).finish();
-                        //console.log(info.bid, info);  
-                        return [4 /*yield*/, this.send(buf_body, this.Head.values.bodyinfo)];
-                    case 1:
-                        //console.log(info.bid, info);  
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
+    /*
+    async addBodyInternal(info) {
+      if ('shape' in info) {
+      info.shape = this.BodyShape.values[info.shape];
+      } else {
+      info.shape = this.BodyShape.values.rectangle;
+      }
+  
+      if ('type' in info) {
+      info.type = this.BodyType.values[info.type];
+      } else {
+      info.type = this.BodyType.values.staticBody;
+      }
+        
+      const buf_body = this.BodyInfo.encode(info).finish();
+  
+      //console.log(info.bid, info);
+      await this.send(buf_body, this.Head.values.bodyinfo);
+    }*/
     Ngin.prototype.addCObjectInternal = function (cobj) {
         return __awaiter(this, void 0, void 0, function () {
             var i, a, buf_cobj;

@@ -173,7 +173,6 @@ var CVisible = /** @class */ (function () {
 exports.CVisible = CVisible;
 var CPhysical = /** @class */ (function () {
     function CPhysical(shape, pos, type) {
-        this.name = "no name";
         this.size = new Size(1, 1);
         this.restitution = 0;
         this.friction = 0;
@@ -192,7 +191,6 @@ var CPhysical = /** @class */ (function () {
     }
     CPhysical.prototype.build = function () {
         return {
-            name: this.name,
             shape: buildShape(this.shape),
             x: this.pos.x,
             y: this.pos.y,
@@ -218,6 +216,7 @@ exports.CPhysical = CPhysical;
 var CObject = /** @class */ (function () {
     function CObject(id) {
         this.tid = 0;
+        this.info = "NA";
         this.id = id;
     }
     CObject.prototype.build = function () {
@@ -226,6 +225,7 @@ var CObject = /** @class */ (function () {
                 id: this.id,
                 visible: this.visible.build(),
                 tid: this.tid,
+                info: this.info,
             };
         }
         else {
@@ -234,6 +234,7 @@ var CObject = /** @class */ (function () {
                     id: this.id,
                     physical: this.physical.build(),
                     tid: this.tid,
+                    info: this.info,
                 };
             }
             else {
@@ -242,6 +243,7 @@ var CObject = /** @class */ (function () {
                     physical: this.physical.build(),
                     visible: this.visible.build(),
                     tid: this.tid,
+                    info: this.info,
                 };
             }
         }

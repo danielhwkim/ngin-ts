@@ -89,58 +89,29 @@ var NginX = /** @class */ (function (_super) {
     //getObj(bid) {
     //    return this.omap.get(bid);
     //}
-    NginX.prototype.addBody = function (info) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        console.log("addBody");
-                        if (!('fixedRotaton' in info)) {
-                            info.fixedRotation = true;
-                        }
-                        if (!('categoryBits' in info)) {
-                            info.categoryBits = 0x0001;
-                        }
-                        if (!('maskBits' in info)) {
-                            info.maskBits = 0xFFFF;
-                        }
-                        if (!('trackable' in info)) {
-                            info.trackable = true;
-                        }
-                        /*
-                        if ('shape' in info) {
-                        info.shape = this.BodyShape.values[info.shape];
-                        } else {
-                        info.shape = this.BodyShape.values.rectangle;
-                        }
-                    
-                        if ('type' in info) {
-                        info.type = this.BodyType.values[info.type];
-                        } else {
-                        info.type = this.BodyType.values.staticBody;
-                        }*/
-                        //this.omap.set(info.bid, info);  
-                        return [4 /*yield*/, this.addBodyInternal(info)];
-                    case 1:
-                        /*
-                        if ('shape' in info) {
-                        info.shape = this.BodyShape.values[info.shape];
-                        } else {
-                        info.shape = this.BodyShape.values.rectangle;
-                        }
-                    
-                        if ('type' in info) {
-                        info.type = this.BodyType.values[info.type];
-                        } else {
-                        info.type = this.BodyType.values.staticBody;
-                        }*/
-                        //this.omap.set(info.bid, info);  
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
+    /*
+ async addBody(info) {
+   console.log("addBody");
+ if (!('fixedRotaton' in info)) {
+     info.fixedRotation = true;
+     }
+ 
+     if (!('categoryBits' in info)) {
+     info.categoryBits = 0x0001;
+     }
+ 
+     if (!('maskBits' in info)) {
+     info.maskBits = 0xFFFF;
+     }
+ 
+     if (!('trackable' in info)) {
+     info.trackable = true;
+     }
+
+     //this.omap.set(info.bid, info);
+     await this.addBodyInternal(info);
+ }
+*/
     NginX.prototype.setCAction = function (bid, skin, skinType, facingLeft) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -150,90 +121,6 @@ var NginX = /** @class */ (function (_super) {
                     return [4 /*yield*/, this.setCActionInternal(bid, skin, facingLeft, skinType)];
                     case 1:
                         //const obj = this.getObj(bid);
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    NginX.prototype.addStage = function (bid, x, y, width, height) {
-        return __awaiter(this, void 0, void 0, function () {
-            var data, obj;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        data = [];
-                        obj = {
-                            name: 'tiles',
-                            skin: 'tiles',
-                            x: x,
-                            y: y,
-                            width: width,
-                            height: height,
-                            tilesInfo: {
-                                path: 'tiled/tileset/0x72_DungeonTilesetII_v1.3.png',
-                                tileSizeX: 16,
-                                tileSizeY: 16,
-                                tileColumns: 32,
-                                data: data,
-                            }
-                        };
-                        l1(width, height, data);
-                        return [4 /*yield*/, this.addBody(obj)];
-                    case 1:
-                        _a.sent();
-                        //obj['priority'] = 1;
-                        data = [];
-                        l2(width, height, data);
-                        obj.tilesInfo.data = data;
-                        return [4 /*yield*/, this.addBody(obj)];
-                    case 2:
-                        _a.sent();
-                        return [4 /*yield*/, this.addVoid(bid++, x + 1, y + 1 + 0.2, width - 2, 0.6)];
-                    case 3:
-                        _a.sent();
-                        return [4 /*yield*/, this.addVoid(bid++, x + 1, y + height - 1 + 0.2, width - 2, 0.6)];
-                    case 4:
-                        _a.sent();
-                        return [4 /*yield*/, this.addVoid(bid++, x + 0.8, y + 0.8, 0.2, height - 2 + 0.2)];
-                    case 5:
-                        _a.sent();
-                        return [4 /*yield*/, this.addVoid(bid++, x + width - 1, y + 0.8, 0.2, height - 2 + 0.2)];
-                    case 6:
-                        _a.sent();
-                        return [2 /*return*/, bid];
-                }
-            });
-        });
-    };
-    NginX.prototype.addVoid = function (bid, x, y, width, height) {
-        return __awaiter(this, void 0, void 0, function () {
-            var x1, y1, x2, y2, i, j;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        x1 = Math.floor(x);
-                        y1 = Math.floor(y);
-                        x2 = Math.ceil(x + width);
-                        y2 = Math.ceil(y + height);
-                        //console.log(x1,y1,x2,y2);
-                        for (i = x1; i < x2; i++) {
-                            for (j = y1; j < y2; j++) {
-                                this.walls.add(this.xyToNumber(i, j));
-                                //console.log(i,j, this.xyToNumber(i,j));
-                            }
-                        }
-                        return [4 /*yield*/, this.addBody({
-                                bid: bid,
-                                name: 'void',
-                                skin: 'wall',
-                                x: x,
-                                y: y,
-                                width: width,
-                                height: height,
-                                // priority:2,
-                            })];
-                    case 1:
                         _a.sent();
                         return [2 /*return*/];
                 }
@@ -396,28 +283,6 @@ var NginX = /** @class */ (function (_super) {
             });
         });
     };
-    NginX.prototype.addFruit = function (bid, fruit, x, y) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.addBody({
-                            bid: bid,
-                            name: 'fruit',
-                            skin: fruit,
-                            x: x,
-                            y: y,
-                            width: 1,
-                            height: 1,
-                            isSensor: true,
-                            // priority:2,
-                        })];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
     NginX.prototype.addAnimatedObj = function (bid, x, y, tilesInfo) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -471,93 +336,6 @@ var NginX = /** @class */ (function (_super) {
                         })];
                     case 1:
                         _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    NginX.prototype.addSpike = function (bid, x, y) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.addBody({
-                            bid: bid,
-                            name: 'animated_obj',
-                            skin: 'spike',
-                            x: x,
-                            y: y,
-                            width: 1,
-                            height: 1,
-                            tilesInfo: {
-                                path: 'tiled/tileset/0x72_DungeonTilesetII_v1.3.png',
-                                tileSizeX: 16,
-                                tileSizeY: 16,
-                                tileColumns: 32,
-                                data: [929, 930, 931, 932, 931, 930]
-                            }
-                        })];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    NginX.prototype.addCoin = function (bid, x, y) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.addBody({
-                            bid: bid,
-                            name: 'animated_obj',
-                            skin: 'coin',
-                            x: x,
-                            y: y,
-                            width: 1,
-                            height: 1,
-                            tilesInfo: {
-                                path: 'tiled/tileset/0x72_DungeonTilesetII_v1.3.png',
-                                tileSizeX: 16,
-                                tileSizeY: 16,
-                                tileColumns: 32,
-                                data: [403, 404, 405, 406]
-                            }
-                        })];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    NginX.prototype.addActor = function (bid, name, x, y) {
-        return __awaiter(this, void 0, void 0, function () {
-            var hx, hy, value;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        //console.log('wait - addActor');    
-                        this.prepareAck(bid);
-                        hx = 0.25 / 2;
-                        hy = 0.25 / 2;
-                        return [4 /*yield*/, this.addBody({
-                                bid: bid,
-                                name: 'actor',
-                                skin: name,
-                                shape: 'polygon',
-                                x: x,
-                                y: y - 0.2,
-                                width: 1,
-                                height: 1,
-                                type: 'dynamic',
-                                facingLeft: true,
-                                floats: [-hx, -hy / 2, hx, hy / 2, hx, hy * 2, -hx, hy * 2]
-                            })];
-                    case 1:
-                        _a.sent();
-                        return [4 /*yield*/, this.waitAckValue(bid)];
-                    case 2:
-                        value = _a.sent();
                         return [2 /*return*/];
                 }
             });

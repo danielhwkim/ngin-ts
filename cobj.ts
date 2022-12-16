@@ -180,7 +180,6 @@ export class CVisible implements Buildable {
 }
 
 export class CPhysical implements Buildable {
-    name: string = "no name";
     shape: BodyShape;
     pos: Pos;
     size: Size = new Size(1,1);
@@ -203,7 +202,6 @@ export class CPhysical implements Buildable {
     }
     build() {
         return {
-            name:this.name,
             shape:buildShape(this.shape),
             x:this.pos.x,
             y:this.pos.y,
@@ -235,6 +233,7 @@ export class CObject implements Buildable {
     physical: CPhysical;
     visible: CVisible;
     tid: number = 0;
+    info: string = "NA";
 
     build() {
         if (this.physical == undefined) {
@@ -242,6 +241,7 @@ export class CObject implements Buildable {
                 id:this.id, 
                 visible:this.visible.build(),
                 tid:this.tid,
+                info:this.info,
             };
         } else {
             if (this.visible == undefined) {
@@ -249,6 +249,7 @@ export class CObject implements Buildable {
                     id:this.id, 
                     physical:this.physical.build(),
                     tid:this.tid,
+                    info:this.info,                    
                 }
             } else {
                 return {
@@ -256,6 +257,7 @@ export class CObject implements Buildable {
                     physical:this.physical.build(), 
                     visible:this.visible.build(),
                     tid:this.tid,
+                    info:this.info,                    
                 }
             }
         }
