@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Stage = exports.CTileObject = exports.CObject = exports.CPhysical = exports.CVisible = exports.CAction = exports.CActionType = exports.JoystickDirectionals = exports.ActionEvent = exports.BodyShape = exports.BodyType = exports.Size = exports.Pos = void 0;
+exports.Stage = exports.CTileObject = exports.CObject = exports.CPhysical = exports.CVisible = exports.CAction = exports.buildCActionType = exports.CActionType = exports.JoystickDirectionals = exports.ActionEvent = exports.BodyShape = exports.BodyType = exports.Size = exports.Pos = void 0;
 var Pos = /** @class */ (function () {
     function Pos(x, y) {
         if (x === void 0) { x = 0; }
@@ -99,6 +99,7 @@ function buildCActionType(type) {
         case CActionType.svg: return "svg";
     }
 }
+exports.buildCActionType = buildCActionType;
 function buildType(type) {
     switch (type) {
         case BodyType.static: return "static";

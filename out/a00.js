@@ -43,7 +43,6 @@ function aaa(nx) {
     return __awaiter(this, void 0, void 0, function () {
         var i, j;
         return __generator(this, function (_a) {
-            //var x = new NginEx(cmd.ngin);
             for (i = 0; i < 12; i++) {
                 for (j = 0; j < 12; j++) {
                     if (i <= j) {

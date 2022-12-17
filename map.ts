@@ -4,28 +4,30 @@ var fs = require('fs');
 import {main, Nx} from "./nx";
 import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./cobj";
 
-main('127.0.0.1', 4040, async (x:Nx) =>  {
-    x.eventHandler = new GameInputHandler(x);
+main('127.0.0.1', 4040, async (nx:Nx) =>  {
+    nx.eventHandler = new GameInputHandler(nx);
 
     const size = new Size(12, 12);
 
     var stage = new Stage(size);
     stage.debug = true;
     stage.joystickDirectionals = JoystickDirectionals.horizontal;
-    await x.sendObjWait(stage);
+    await nx.sendObjWait(stage);
     
 
-    await x.addStage(0, 0, 0, size.w, size.h);
+    await nx.addStage(0, 0, 0, size.w, size.h);
     var gid = 300;
     for (var i = 2; i<10; i++) {
-        await x.addFruit(gid++, i, 3, 'Bananas');
+        await nx.addFruit(gid++, i, 3, 'Bananas');
     }
 
-    await x.addSpike(gid++, 3, 4);
-    await x.addCoin(gid++, 4, 4);
-    await x.addActor(1, 'Mask Dude', 5, 4);
+    await nx.addSpike(gid++, 3, 4);
+    await nx.addCoin(gid++, 4, 4);
+    await nx.sendObjWait(nx.actor(1, 'Mask Dude', 5, 4));
     
-    //await x.moveLeft(1);
+    await nx.setActionType(1, CActionType.run, true);
+    await nx.setActionType(1, CActionType.doubleJump, false);    
+    //await nx.moveLeft(1);
     /*
     //console.log('mid');
     await ngin.moveUp(1);

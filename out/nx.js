@@ -53,15 +53,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.main = exports.Nx = void 0;
 var fs = require('fs');
-var runInThisContext = require('vm').runInThisContext;
 var _a = require("./ngin"), Ngin = _a.Ngin, EventHandler = _a.EventHandler, mainInternal = _a.mainInternal;
-//var {ngin} = require("./ngin");
 var EventEmitter = require('events');
 var cobj_1 = require("./cobj");
+var NginX = require("./nginx").NginX;
 var _b = require("./gen"), l1 = _b.l1, l2 = _b.l2; //
 var Nx = /** @class */ (function (_super) {
     __extends(Nx, _super);
-    //ngin: typeof Ngin;
     function Nx(root) {
         return _super.call(this, root) || this;
     }
@@ -97,92 +95,6 @@ var Nx = /** @class */ (function (_super) {
                         _a.sent();
                         return [4 /*yield*/, EventEmitter.once(this.ackEmitter, 'ack')];
                     case 2: return [2 /*return*/, _a.sent()];
-                }
-            });
-        });
-    };
-    Nx.prototype.forward = function (id, pos) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.command({
-                            strings: ['forward'],
-                            ints: [id],
-                            floats: [pos.x, pos.y],
-                        })];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    Nx.prototype.follow = function (id) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.command({
-                            strings: ['follow'],
-                            ints: [id],
-                        })];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    Nx.prototype.remove = function (id) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.command({
-                            strings: ['remove'],
-                            ints: [id],
-                        })];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    Nx.prototype.getBodyinfo = function (id) {
-        return __awaiter(this, void 0, void 0, function () {
-            var value;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        this.cmdEmitter = new EventEmitter();
-                        return [4 /*yield*/, this.command({
-                                strings: ['bodyinfo'],
-                                ints: [id],
-                            })];
-                    case 1:
-                        _a.sent();
-                        return [4 /*yield*/, EventEmitter.once(this.cmdEmitter, 'cmd')];
-                    case 2:
-                        value = _a.sent();
-                        return [2 /*return*/, value[0].floats];
-                }
-            });
-        });
-    };
-    Nx.prototype.angularVelocity = function (id, value) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: 
-                    //await this.setBodyOp(id, 'angularVelocity', value, 0);
-                    return [4 /*yield*/, this.command({
-                            strings: ['angular'],
-                            ints: [id],
-                            floats: [value]
-                        })];
-                    case 1:
-                        //await this.setBodyOp(id, 'angularVelocity', value, 0);
-                        _a.sent();
-                        return [2 /*return*/];
                 }
             });
         });
@@ -330,52 +242,43 @@ var Nx = /** @class */ (function (_super) {
             });
         });
     };
-    Nx.prototype.addActor = function (id, character, x, y) {
-        return __awaiter(this, void 0, void 0, function () {
-            var hx, hy, obj, i;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        hx = 0.25;
-                        hy = 0.25;
-                        obj = new cobj_1.CObject(id);
-                        obj.info = "actor";
-                        obj.physical = new cobj_1.CPhysical(cobj_1.BodyShape.polygon, new cobj_1.Pos(x, y), cobj_1.BodyType.dynamic);
-                        obj.physical.floats = [-hx, -hy, -hx, hy, hx, hy, hx, -hy];
-                        obj.physical.fixedRotation = true;
-                        //obj.physical.size = new Size(0.5, 0.5);
-                        obj.visible = new cobj_1.CVisible([
-                            new cobj_1.CAction('Main Characters/' + character + '/Idle (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CActionType.idle),
-                            new cobj_1.CAction('Main Characters/' + character + '/Run (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CActionType.run),
-                            new cobj_1.CAction('Main Characters/' + character + '/Jump (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CActionType.jump),
-                            new cobj_1.CAction('Main Characters/' + character + '/Hit (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CActionType.hit),
-                            new cobj_1.CAction('Main Characters/' + character + '/Fall (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CActionType.fall),
-                            new cobj_1.CAction('Main Characters/' + character + '/Wall Jump (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CActionType.wallJump),
-                            new cobj_1.CAction('Main Characters/' + character + '/Double Jump (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CActionType.doubleJump),
-                        ]);
-                        for (i = 0; i < obj.visible.actions.length; i++) {
-                            obj.visible.actions[i].stepTime = 50 / 1000;
-                        }
-                        obj.visible.pos = new cobj_1.Pos(0, -0.2);
-                        //obj.visible.scale = new Pos(1.5, 1.5);
-                        return [4 /*yield*/, this.sendObj(obj)];
-                    case 1:
-                        //obj.visible.scale = new Pos(1.5, 1.5);
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
+    Nx.prototype.actor = function (id, character, x, y) {
+        var hx = 0.25;
+        var hy = 0.25;
+        var obj = new cobj_1.CObject(id);
+        obj.info = "actor";
+        obj.physical = new cobj_1.CPhysical(cobj_1.BodyShape.polygon, new cobj_1.Pos(x, y), cobj_1.BodyType.dynamic);
+        obj.physical.floats = [-hx, -hy, -hx, hy, hx, hy, hx, -hy];
+        obj.physical.fixedRotation = true;
+        //obj.physical.size = new Size(0.5, 0.5);
+        obj.visible = new cobj_1.CVisible([
+            new cobj_1.CAction('Main Characters/' + character + '/Idle (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CActionType.idle),
+            new cobj_1.CAction('Main Characters/' + character + '/Run (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CActionType.run),
+            new cobj_1.CAction('Main Characters/' + character + '/Jump (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CActionType.jump),
+            new cobj_1.CAction('Main Characters/' + character + '/Hit (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CActionType.hit),
+            new cobj_1.CAction('Main Characters/' + character + '/Fall (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CActionType.fall),
+            new cobj_1.CAction('Main Characters/' + character + '/Wall Jump (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CActionType.wallJump),
+            new cobj_1.CAction('Main Characters/' + character + '/Double Jump (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CActionType.doubleJump),
+        ]);
+        for (var i = 0; i < obj.visible.actions.length; i++) {
+            obj.visible.actions[i].stepTime = 50 / 1000;
+        }
+        obj.visible.pos = new cobj_1.Pos(0, -0.2);
+        //obj.visible.scale = new Pos(1.5, 1.5);
+        return obj;
     };
-    Nx.prototype.setCActionType = function (bid, skin, skinType, facingLeft) {
-        if (facingLeft === void 0) { facingLeft = false; }
+    Nx.prototype.setActionType = function (id, actionType, isFlipHorizontal) {
+        if (isFlipHorizontal === void 0) { isFlipHorizontal = false; }
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: 
                     //const obj = this.getObj(bid);
                     //await this.setCActionTypeInternal(bid, skin, facingLeft, skinType);
-                    return [4 /*yield*/, this.command({})];
+                    return [4 /*yield*/, this.command({
+                            strings: ['actionType', (0, cobj_1.buildCActionType)(actionType)],
+                            ints: [id, isFlipHorizontal == true ? 1 : 0],
+                        })];
                     case 1:
                         //const obj = this.getObj(bid);
                         //await this.setCActionTypeInternal(bid, skin, facingLeft, skinType);
@@ -385,20 +288,8 @@ var Nx = /** @class */ (function (_super) {
             });
         });
     };
-    Nx.prototype.submit = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.command({ strings: ['submit'], ints: [4041] })];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
     return Nx;
-}(Ngin));
+}(NginX));
 exports.Nx = Nx;
 function main(type, port, body) {
     mainInternal(type, port, function (host, root) {

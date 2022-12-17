@@ -76,7 +76,7 @@ export interface Buildable {
     build();
 }
 
-function buildCActionType(type:CActionType) {
+export function buildCActionType(type:CActionType) {
     switch(type) {
         case CActionType.idle: return "idle";
         case CActionType.run: return "run";

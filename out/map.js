@@ -55,20 +55,20 @@ var _a = require("./ngin"), EventHandler = _a.EventHandler, Ngin = _a.Ngin;
 var fs = require('fs');
 var nx_1 = require("./nx");
 var cobj_1 = require("./cobj");
-(0, nx_1.main)('127.0.0.1', 4040, function (x) { return __awaiter(void 0, void 0, void 0, function () {
+(0, nx_1.main)('127.0.0.1', 4040, function (nx) { return __awaiter(void 0, void 0, void 0, function () {
     var size, stage, gid, i;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                x.eventHandler = new GameInputHandler(x);
+                nx.eventHandler = new GameInputHandler(nx);
                 size = new cobj_1.Size(12, 12);
                 stage = new cobj_1.Stage(size);
                 stage.debug = true;
                 stage.joystickDirectionals = cobj_1.JoystickDirectionals.horizontal;
-                return [4 /*yield*/, x.sendObjWait(stage)];
+                return [4 /*yield*/, nx.sendObjWait(stage)];
             case 1:
                 _a.sent();
-                return [4 /*yield*/, x.addStage(0, 0, 0, size.w, size.h)];
+                return [4 /*yield*/, nx.addStage(0, 0, 0, size.w, size.h)];
             case 2:
                 _a.sent();
                 gid = 300;
@@ -76,21 +76,27 @@ var cobj_1 = require("./cobj");
                 _a.label = 3;
             case 3:
                 if (!(i < 10)) return [3 /*break*/, 6];
-                return [4 /*yield*/, x.addFruit(gid++, i, 3, 'Bananas')];
+                return [4 /*yield*/, nx.addFruit(gid++, i, 3, 'Bananas')];
             case 4:
                 _a.sent();
                 _a.label = 5;
             case 5:
                 i++;
                 return [3 /*break*/, 3];
-            case 6: return [4 /*yield*/, x.addSpike(gid++, 3, 4)];
+            case 6: return [4 /*yield*/, nx.addSpike(gid++, 3, 4)];
             case 7:
                 _a.sent();
-                return [4 /*yield*/, x.addCoin(gid++, 4, 4)];
+                return [4 /*yield*/, nx.addCoin(gid++, 4, 4)];
             case 8:
                 _a.sent();
-                return [4 /*yield*/, x.addActor(1, 'Mask Dude', 5, 4)];
+                return [4 /*yield*/, nx.sendObjWait(nx.actor(1, 'Mask Dude', 5, 4))];
             case 9:
+                _a.sent();
+                return [4 /*yield*/, nx.setActionType(1, cobj_1.CActionType.run, true)];
+            case 10:
+                _a.sent();
+                return [4 /*yield*/, nx.setActionType(1, cobj_1.CActionType.doubleJump, false)];
+            case 11:
                 _a.sent();
                 return [2 /*return*/];
         }

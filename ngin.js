@@ -50,14 +50,14 @@ export function main(type, port, body) {
 }
 
 class EventHandler {
-  ngin;
+  //ngin;
   actorBid = 0;
   //directionMap = {};
   constructor(ngin) {
-    this.ngin = ngin;
+    //this.ngin = ngin;
 
-    //for (const i in this.ngin.JoystickMoveDirectional.values) {
-      //console.log(i, typeof i, this.ngin.JoystickMoveDirectional.values[i]);
+    //for (const i in ngin.JoystickMoveDirectional.values) {
+      //console.log(i, typeof i, ngin.JoystickMoveDirectional.values[i]);
       //this.directionMap[i] = 
     //}
 
@@ -65,9 +65,9 @@ class EventHandler {
 
   async handle(cmdinfo) {
     switch(cmdinfo.head) {
-      case this.ngin.Head.values.contact:
+      case ngin.Head.values.contact:
         /*
-        if (cmdinfo.contact.type == this.ngin.ContactType.values.begin) {
+        if (cmdinfo.contact.type == ngin.ContactType.values.begin) {
           cmdinfo.contact.type = 'begin';
         } else {
           cmdinfo.contact.type = 'end';
@@ -75,48 +75,48 @@ class EventHandler {
         */
         await this.handleContact(cmdinfo.contact);
         break;
-      case this.ngin.Head.values.event:
+      case ngin.Head.values.event:
         /*
-        if (cmdinfo.event.type == this.ngin.EventType.values.complete) {
+        if (cmdinfo.event.type == ngin.EventType.values.complete) {
           cmdinfo.event.type = 'complete';
         } else {
           cmdinfo.event.type = 'ready';
         } */       
         await this.handleEvent(cmdinfo.event);        
         break;
-      case this.ngin.Head.values.key:
+      case ngin.Head.values.key:
         /*
-        if (cmdinfo.key.type == this.ngin.KeyType.values.down) {
+        if (cmdinfo.key.type == ngin.KeyType.values.down) {
           cmdinfo.key.type = 'down';
         } else {
           cmdinfo.key.type = 'up';
         } */         
         await this.handleKey(cmdinfo.key);        
         break;        
-      case this.ngin.Head.values.directional:
-        cmdinfo.directional.direction = this.ngin.JoystickMoveDirectional.values[cmdinfo.directional.direction];
-        cmdinfo.directional.iid = this.ngin.TouchInputId.values[cmdinfo.directional.iid];
+      case ngin.Head.values.directional:
+        cmdinfo.directional.direction = ngin.JoystickMoveDirectional.values[cmdinfo.directional.direction];
+        cmdinfo.directional.iid = ngin.TouchInputId.values[cmdinfo.directional.iid];
         /*
-        if (cmdinfo.directional.type == this.ngin.KeyType.values.down) {
+        if (cmdinfo.directional.type == ngin.KeyType.values.down) {
           cmdinfo.directional.type = 'down';
         } else {
           cmdinfo.directional.type = 'up';
         } */            
         await this.handleDirectional(cmdinfo.directional);        
         break;
-      case this.ngin.Head.values.button:
-        cmdinfo.button.event = this.ngin.ActionEvent.values[cmdinfo.button.event];
-        cmdinfo.button.iid = this.ngin.TouchInputId.values[cmdinfo.button.iid];        
+      case ngin.Head.values.button:
+        cmdinfo.button.event = ngin.ActionEvent.values[cmdinfo.button.event];
+        cmdinfo.button.iid = ngin.TouchInputId.values[cmdinfo.button.iid];        
         await this.handleButton(cmdinfo.button);        
         break;
-      case this.ngin.Head.values.cmd:
+      case ngin.Head.values.cmd:
         await this.handleCmd(cmdinfo.cmd);
         break;
         /*
-      case this.ngin.Head.values.queryresult:
+      case ngin.Head.values.queryresult:
         await this.handleQueryResult(cmdinfo.queryresult);        
         break;
-      case this.ngin.Head.values.bodyinfoqueryresult:
+      case ngin.Head.values.bodyinfoqueryresult:
         await this.handleBodyInfoQueryResult(cmdinfo.bodyinfoqueryresult);        
         break;   */   
     }

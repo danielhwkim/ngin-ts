@@ -1,17 +1,16 @@
 var fs = require('fs');
-const { runInThisContext } = require('vm');
 const {Ngin, EventHandler, mainInternal} = require("./ngin");
-//var {ngin} = require("./ngin");
 const EventEmitter = require('events');
-import {CObject, CActionType, CAction, CPhysical, CVisible, Buildable, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./cobj";
+import {CObject, CActionType, CAction, CPhysical, CVisible, Buildable, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals, buildCActionType} from "./cobj";
+const { NginX } = require("./nginx");
 const {l1, l2} = require("./gen");//
 
-export class Nx extends Ngin {
-    //ngin: typeof Ngin;
+export class Nx extends NginX {
     constructor(root){
         super(root);
     }
 
+    
     async sendObj(obj:Buildable) {
         if (obj instanceof CObject) {
             await this.addCObjectInternal(obj.build());
@@ -25,47 +24,6 @@ export class Nx extends Ngin {
         await this.sendObj(obj);
         return await EventEmitter.once(this.ackEmitter, 'ack');
     }    
-    
-    async forward(id:number, pos:Pos) {
-        await this.command({
-            strings: ['forward'],
-            ints:[id],
-            floats:[pos.x, pos.y],
-        });
-    }
-
-    async follow(id:number) {
-        await this.command({
-            strings: ['follow'],
-            ints:[id],
-        });
-    } 
-
-    async remove(id:number) {
-        await this.command({
-            strings: ['remove'],
-            ints:[id],
-        });        
-    } 
-
-    async getBodyinfo(id:number) {
-        this.cmdEmitter = new EventEmitter();    
-        await this.command({
-          strings:['bodyinfo'], 
-          ints:[id], 
-        });
-        var value = await EventEmitter.once(this.cmdEmitter, 'cmd');
-        return value[0].floats;
-    }
-    
-    async angularVelocity(id:number, value:number) {
-        //await this.setBodyOp(id, 'angularVelocity', value, 0);
-        await this.command({
-            strings:['angular'], 
-            ints:[id],
-            floats:[value]
-        });        
-    }
 
     async add(x, y) {
         await this.addFruit(200, x, y, 'Bananas');
@@ -149,7 +107,7 @@ export class Nx extends Ngin {
         await this.sendObj(obj);
     }
 
-    async addActor(id, character, x, y) {
+    actor(id, character, x, y) {
         const hx = 0.25;
         const hy = 0.25;
 
@@ -175,34 +133,16 @@ export class Nx extends Ngin {
         obj.visible.pos = new Pos(0, -0.2);
         
         //obj.visible.scale = new Pos(1.5, 1.5);
-        await this.sendObj(obj);
-
-        /*
-        await this.addBody({
-          bid:bid,
-          name:'actor',
-          skin:name,
-          shape:'polygon',
-          x:x,
-          y:y-0.2,
-          width:1,
-          height:1,
-          type:'dynamic',
-          facingLeft:true,
-          floats:[-hx, -hy/2, hx, hy/2, hx, hy*2, -hx, hy*2]
-        });  */
+        return obj;
     }
 
-    async setCActionType(bid, skin, skinType, facingLeft:boolean = false) {
+    async setActionType(id, actionType, isFlipHorizontal = false) {
         //const obj = this.getObj(bid);
         //await this.setCActionTypeInternal(bid, skin, facingLeft, skinType);
         await this.command({
-
-        });
-    }
-
-    async submit() {
-        await this.command({strings:['submit'], ints:[4041]});
+            strings:['actionType', buildCActionType(actionType)], 
+            ints:[id, isFlipHorizontal == true? 1:0],
+        });      
     }
 }
 

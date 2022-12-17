@@ -122,10 +122,11 @@ exports.main = main;
 var EventHandler = /** @class */ (function () {
     //directionMap = {};
     function EventHandler(ngin) {
+        //this.ngin = ngin;
+        //ngin;
         this.actorBid = 0;
-        this.ngin = ngin;
-        //for (const i in this.ngin.JoystickMoveDirectional.values) {
-        //console.log(i, typeof i, this.ngin.JoystickMoveDirectional.values[i]);
+        //for (const i in ngin.JoystickMoveDirectional.values) {
+        //console.log(i, typeof i, ngin.JoystickMoveDirectional.values[i]);
         //this.directionMap[i] = 
         //}
     }
@@ -137,17 +138,17 @@ var EventHandler = /** @class */ (function () {
                     case 0:
                         _a = cmdinfo.head;
                         switch (_a) {
-                            case this.ngin.Head.values.contact: return [3 /*break*/, 1];
-                            case this.ngin.Head.values.event: return [3 /*break*/, 3];
-                            case this.ngin.Head.values.key: return [3 /*break*/, 5];
-                            case this.ngin.Head.values.directional: return [3 /*break*/, 7];
-                            case this.ngin.Head.values.button: return [3 /*break*/, 9];
-                            case this.ngin.Head.values.cmd: return [3 /*break*/, 11];
+                            case ngin.Head.values.contact: return [3 /*break*/, 1];
+                            case ngin.Head.values.event: return [3 /*break*/, 3];
+                            case ngin.Head.values.key: return [3 /*break*/, 5];
+                            case ngin.Head.values.directional: return [3 /*break*/, 7];
+                            case ngin.Head.values.button: return [3 /*break*/, 9];
+                            case ngin.Head.values.cmd: return [3 /*break*/, 11];
                         }
                         return [3 /*break*/, 13];
                     case 1: 
                     /*
-                    if (cmdinfo.contact.type == this.ngin.ContactType.values.begin) {
+                    if (cmdinfo.contact.type == ngin.ContactType.values.begin) {
                       cmdinfo.contact.type = 'begin';
                     } else {
                       cmdinfo.contact.type = 'end';
@@ -156,7 +157,7 @@ var EventHandler = /** @class */ (function () {
                     return [4 /*yield*/, this.handleContact(cmdinfo.contact)];
                     case 2:
                         /*
-                        if (cmdinfo.contact.type == this.ngin.ContactType.values.begin) {
+                        if (cmdinfo.contact.type == ngin.ContactType.values.begin) {
                           cmdinfo.contact.type = 'begin';
                         } else {
                           cmdinfo.contact.type = 'end';
@@ -166,7 +167,7 @@ var EventHandler = /** @class */ (function () {
                         return [3 /*break*/, 13];
                     case 3: 
                     /*
-                    if (cmdinfo.event.type == this.ngin.EventType.values.complete) {
+                    if (cmdinfo.event.type == ngin.EventType.values.complete) {
                       cmdinfo.event.type = 'complete';
                     } else {
                       cmdinfo.event.type = 'ready';
@@ -174,7 +175,7 @@ var EventHandler = /** @class */ (function () {
                     return [4 /*yield*/, this.handleEvent(cmdinfo.event)];
                     case 4:
                         /*
-                        if (cmdinfo.event.type == this.ngin.EventType.values.complete) {
+                        if (cmdinfo.event.type == ngin.EventType.values.complete) {
                           cmdinfo.event.type = 'complete';
                         } else {
                           cmdinfo.event.type = 'ready';
@@ -183,7 +184,7 @@ var EventHandler = /** @class */ (function () {
                         return [3 /*break*/, 13];
                     case 5: 
                     /*
-                    if (cmdinfo.key.type == this.ngin.KeyType.values.down) {
+                    if (cmdinfo.key.type == ngin.KeyType.values.down) {
                       cmdinfo.key.type = 'down';
                     } else {
                       cmdinfo.key.type = 'up';
@@ -191,7 +192,7 @@ var EventHandler = /** @class */ (function () {
                     return [4 /*yield*/, this.handleKey(cmdinfo.key)];
                     case 6:
                         /*
-                        if (cmdinfo.key.type == this.ngin.KeyType.values.down) {
+                        if (cmdinfo.key.type == ngin.KeyType.values.down) {
                           cmdinfo.key.type = 'down';
                         } else {
                           cmdinfo.key.type = 'up';
@@ -199,10 +200,10 @@ var EventHandler = /** @class */ (function () {
                         _b.sent();
                         return [3 /*break*/, 13];
                     case 7:
-                        cmdinfo.directional.direction = this.ngin.JoystickMoveDirectional.values[cmdinfo.directional.direction];
-                        cmdinfo.directional.iid = this.ngin.TouchInputId.values[cmdinfo.directional.iid];
+                        cmdinfo.directional.direction = ngin.JoystickMoveDirectional.values[cmdinfo.directional.direction];
+                        cmdinfo.directional.iid = ngin.TouchInputId.values[cmdinfo.directional.iid];
                         /*
-                        if (cmdinfo.directional.type == this.ngin.KeyType.values.down) {
+                        if (cmdinfo.directional.type == ngin.KeyType.values.down) {
                           cmdinfo.directional.type = 'down';
                         } else {
                           cmdinfo.directional.type = 'up';
@@ -210,7 +211,7 @@ var EventHandler = /** @class */ (function () {
                         return [4 /*yield*/, this.handleDirectional(cmdinfo.directional)];
                     case 8:
                         /*
-                        if (cmdinfo.directional.type == this.ngin.KeyType.values.down) {
+                        if (cmdinfo.directional.type == ngin.KeyType.values.down) {
                           cmdinfo.directional.type = 'down';
                         } else {
                           cmdinfo.directional.type = 'up';
@@ -218,8 +219,8 @@ var EventHandler = /** @class */ (function () {
                         _b.sent();
                         return [3 /*break*/, 13];
                     case 9:
-                        cmdinfo.button.event = this.ngin.ActionEvent.values[cmdinfo.button.event];
-                        cmdinfo.button.iid = this.ngin.TouchInputId.values[cmdinfo.button.iid];
+                        cmdinfo.button.event = ngin.ActionEvent.values[cmdinfo.button.event];
+                        cmdinfo.button.iid = ngin.TouchInputId.values[cmdinfo.button.iid];
                         return [4 /*yield*/, this.handleButton(cmdinfo.button)];
                     case 10:
                         _b.sent();
