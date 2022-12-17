@@ -1,10 +1,10 @@
 var fs = require('fs');
 var {EventHandler} = require("./ngin");
-import {main} from "./util";
+import {main} from "./nx";
 import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./cobj";
 
-main('127.0.0.1', 4040, async (x) =>  {
-    x.ngin.eventHandler = new InputHandler(x);
+main('127.0.0.1', 4040, async (nx) =>  {
+    nx.eventHandler = new InputHandler(nx);
     const d = fs.readFileSync('planes0.tmj', 'utf8');
     const j = JSON.parse(d);
   
@@ -19,9 +19,9 @@ main('127.0.0.1', 4040, async (x) =>  {
     var stage = new Stage(size);
     //stage.debug = true;
     stage.joystickDirectionals = JoystickDirectionals.horizontal;
-    await x.sendObjWait(stage);
+    await nx.sendObjWait(stage);
 
-    await x.sendObj(CTileObject('kenney_pixelshmup/tiles_packed.png', new Size(tileSize, tileSize), data, new Pos(0,0), size));
+    await nx.sendObj(CTileObject('kenney_pixelshmup/tiles_packed.png', new Size(tileSize, tileSize), data, new Pos(0,0), size));
 
     var obj = new CObject(100);
     obj.physical = new CPhysical(BodyShape.circle, new Pos(11,11), BodyType.dynamic);
@@ -29,32 +29,32 @@ main('127.0.0.1', 4040, async (x) =>  {
     obj.physical.size = new Size(2,2);
     obj.visible = new CVisible([ new CAction('kenney_pixelshmup/ships_packed.png', new Size(32, 32), [1], CActionType.idle)]);
     obj.visible.size = new Size(2,2);
-    var value = await x.sendObjWait(obj);
+    var value = await nx.sendObjWait(obj);
     console.log('1', value);
 
-    x.ngin.eventHandler.ready = true;
+    nx.eventHandler.ready = true;
 
-    await x.follow(100);
+    await nx.follow(100);
   
-    await x.forward(100, new Pos(5, 0));
+    await nx.forward(100, new Pos(5, 0));
 
     obj.id = 200;
     obj.physical.pos = new Pos(11, 0);
     obj.physical.angle = 3;
     //obj.visible.size = new Size(2,2);    
     obj.visible.actions[0].indices = [10];
-    var value = await x.sendObjWait(obj);
+    var value = await nx.sendObjWait(obj);
     console.log('2', value); 
     
-    await x.forward(200, new Pos(5, 0));
-    await x.angularVelocity(200, 1);    
+    await nx.forward(200, new Pos(5, 0));
+    await nx.angularVelocity(200, 1);    
 
 });
 
 class InputHandler extends EventHandler {
-    constructor(x) {
-        super(x.ngin);
-        this.x = x;        
+    constructor(nx) {
+        super(nx);
+        this.nx = nx;        
         this.key_down_left = false;
         this.key_down_right = false;
         this.actor_contacts = new Set();
@@ -69,12 +69,12 @@ class InputHandler extends EventHandler {
       console.log(contact);
       if (contact.isEnded == false) {
         if (contact.id1 == 101) {
-          await this.x.remove(contact.id1);
+          await this.nx.remove(contact.id1);
           var obj = new CObject(1000);
           obj.tid = contact.id2;
           obj.visible = new CVisible([ new CAction('kenney_pixelshmup/tiles_packed.png', new Size(16, 16), [5], CActionType.idle)]);
           obj.visible.pos = new Pos(0,0);
-          await this.x.sendObj(obj);
+          await this.nx.sendObj(obj);
         }
       }
     }
@@ -87,29 +87,29 @@ class InputHandler extends EventHandler {
     }
 
     async goRight() {
-      await this.x.angularVelocity(100, 1);
+      await this.nx.angularVelocity(100, 1);
     }
 
     async goLeft() {
-      await this.x.angularVelocity(100, -1);
+      await this.nx.angularVelocity(100, -1);
     }
 
     async stop() {
-      await this.x.angularVelocity(100, 0);   
+      await this.nx.angularVelocity(100, 0);   
     }
 
     async missile()
     {
       var x,y,w,h,a,lvx,lvy,av;
-      [x,y,w,h,a,lvx,lvy,av] = await this.x.getBodyinfo(100);
+      [x,y,w,h,a,lvx,lvy,av] = await this.nx.getBodyinfo(100);
 
       var obj = new CObject(101);
       obj.physical = new CPhysical(BodyShape.rectangle, new Pos(x-0.5 + 2*Math.sin(a), y-0.5 - 2*Math.cos(a)), BodyType.dynamic);
       obj.physical.angle = a;
       obj.visible = new CVisible([ new CAction('kenney_pixelshmup/tiles_packed.png', new Size(16, 16), [1, 2, 3], CActionType.idle)]);
-      var value = await this.x.sendObjWait(obj);
+      var value = await this.nx.sendObjWait(obj);
       console.log('1', value);
-      await this.x.forward(101, new Pos(20, 0));
+      await this.nx.forward(101, new Pos(20, 0));
     }
 
     missile_id = 800;

@@ -39,7 +39,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var testutil_js_1 = require("./testutil.js");
 var test01_js_1 = require("./test01.js");
 var cobj_1 = require("./cobj");
-var util_1 = require("./util");
 var hint = "\
 ### Python\n\
 \n\
@@ -82,12 +81,11 @@ From **Highest** to **Lowest** precedence:\n\
 | +         | Addition         | `2 + 2 = 4`     |\n\
 \n\
 ";
-(0, testutil_js_1.runq)(function (ngin) { return __awaiter(void 0, void 0, void 0, function () {
-    var x, width, height, margin, gid, size, stage, funcsAll, stopwatch, c, func, funcs, v, r, result;
+(0, testutil_js_1.runq)(function (nx) { return __awaiter(void 0, void 0, void 0, function () {
+    var width, height, margin, gid, size, stage, funcsAll, stopwatch, c, func, funcs, v, r, result;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                x = new util_1.NginEx(ngin);
                 width = 12;
                 height = 12;
                 margin = 3;
@@ -97,10 +95,10 @@ From **Highest** to **Lowest** precedence:\n\
                 stage.background = 'Blue';
                 //stage.debug = true;
                 stage.joystickDirectionals = cobj_1.JoystickDirectionals.horizontal;
-                return [4 /*yield*/, x.sendObjWait(stage)];
+                return [4 /*yield*/, nx.sendObjWait(stage)];
             case 1:
                 _a.sent();
-                return [4 /*yield*/, ngin.command({
+                return [4 /*yield*/, nx.command({
                         strings: ['hint', hint],
                         ints: [0],
                     })];
@@ -116,8 +114,8 @@ From **Highest** to **Lowest** precedence:\n\
                 console.log(Math.floor(Math.random() * 10));
                 console.log(Math.floor(Math.random() * 10));
                 console.log(Math.floor(Math.random() * 10));
-                ngin.eventHandler.ready = true;
-                stopwatch = new testutil_js_1.Stopwatch(ngin, 200, [12, 0, 2, 1]);
+                nx.eventHandler.ready = true;
+                stopwatch = new testutil_js_1.Stopwatch(nx, 200, [12, 0, 2, 1]);
                 c = 0;
                 func = undefined;
                 _a.label = 3;
@@ -130,7 +128,7 @@ From **Highest** to **Lowest** precedence:\n\
                     console.log(c, funcs.length, v, r);
                     func = funcs[r];
                 }
-                return [4 /*yield*/, (0, test01_js_1.test01)(ngin, width, height, margin, func, stopwatch)];
+                return [4 /*yield*/, (0, test01_js_1.test01)(nx, width, height, margin, func, stopwatch)];
             case 4:
                 result = _a.sent();
                 console.log(result);

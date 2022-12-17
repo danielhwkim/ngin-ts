@@ -6,28 +6,28 @@ const EventEmitter = require('events');
 import {CObject, CActionType, CAction, CPhysical, CVisible, Buildable, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./cobj";
 const {l1, l2} = require("./gen");//
 
-export class NginEx {
-    ngin: typeof Ngin;
-    constructor(ngin: typeof Ngin){
-        this.ngin = ngin;
+export class Nx extends Ngin {
+    //ngin: typeof Ngin;
+    constructor(root){
+        super(root);
     }
 
     async sendObj(obj:Buildable) {
         if (obj instanceof CObject) {
-            await this.ngin.addCObjectInternal(obj.build());
+            await this.addCObjectInternal(obj.build());
         } else if (obj instanceof Stage) {
-            await this.ngin.initScreen(obj.build());
+            await this.initScreen(obj.build());
         }
     }
 
     async sendObjWait(obj:Buildable) {
-        this.ngin.ackEmitter = new EventEmitter();         
+        this.ackEmitter = new EventEmitter();         
         await this.sendObj(obj);
-        return await EventEmitter.once(this.ngin.ackEmitter, 'ack');
+        return await EventEmitter.once(this.ackEmitter, 'ack');
     }    
     
     async forward(id:number, pos:Pos) {
-        await this.ngin.command({
+        await this.command({
             strings: ['forward'],
             ints:[id],
             floats:[pos.x, pos.y],
@@ -35,32 +35,32 @@ export class NginEx {
     }
 
     async follow(id:number) {
-        await this.ngin.command({
+        await this.command({
             strings: ['follow'],
             ints:[id],
         });
     } 
 
     async remove(id:number) {
-        await this.ngin.command({
+        await this.command({
             strings: ['remove'],
             ints:[id],
         });        
     } 
 
     async getBodyinfo(id:number) {
-        this.ngin.cmdEmitter = new EventEmitter();    
-        await this.ngin.command({
+        this.cmdEmitter = new EventEmitter();    
+        await this.command({
           strings:['bodyinfo'], 
           ints:[id], 
         });
-        var value = await EventEmitter.once(this.ngin.cmdEmitter, 'cmd');
+        var value = await EventEmitter.once(this.cmdEmitter, 'cmd');
         return value[0].floats;
     }
     
     async angularVelocity(id:number, value:number) {
-        //await this.ngin.setBodyOp(id, 'angularVelocity', value, 0);
-        await this.ngin.command({
+        //await this.setBodyOp(id, 'angularVelocity', value, 0);
+        await this.command({
             strings:['angular'], 
             ints:[id],
             floats:[value]
@@ -195,21 +195,25 @@ export class NginEx {
 
     async setCActionType(bid, skin, skinType, facingLeft:boolean = false) {
         //const obj = this.getObj(bid);
-        //await this.ngin.setCActionTypeInternal(bid, skin, facingLeft, skinType);
-        await this.ngin.command({
+        //await this.setCActionTypeInternal(bid, skin, facingLeft, skinType);
+        await this.command({
 
         });
+    }
+
+    async submit() {
+        await this.command({strings:['submit'], ints:[4041]});
     }
 }
 
 export function main(type, port, body) {
 
     mainInternal(type, port, async function (host, root) {
-        let x = new NginEx(new Ngin(root));
-        await x.ngin.connect(host, port);
+        let ngin = new Nx(root);
+        await ngin.connect(host, port);
         //ngin.eventHandler = eventHandler; //new InputHandler(ngin);
     
-        await body(x);
+        await body(ngin);
     })
 }
 

@@ -1,11 +1,11 @@
 
 var {EventHandler, Ngin} = require("./ngin");
 var fs = require('fs');
-import {main, NginEx} from "./util";
+import {main, Nx} from "./nx";
 import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./cobj";
 
-main('127.0.0.1', 4040, async (x:NginEx) =>  {
-    x.ngin.eventHandler = new GameInputHandler(x.ngin);
+main('127.0.0.1', 4040, async (x:Nx) =>  {
+    x.eventHandler = new GameInputHandler(x);
 
     const size = new Size(12, 12);
 

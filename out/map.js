@@ -53,14 +53,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var _a = require("./ngin"), EventHandler = _a.EventHandler, Ngin = _a.Ngin;
 var fs = require('fs');
-var util_1 = require("./util");
+var nx_1 = require("./nx");
 var cobj_1 = require("./cobj");
-(0, util_1.main)('127.0.0.1', 4040, function (x) { return __awaiter(void 0, void 0, void 0, function () {
+(0, nx_1.main)('127.0.0.1', 4040, function (x) { return __awaiter(void 0, void 0, void 0, function () {
     var size, stage, gid, i;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                x.ngin.eventHandler = new GameInputHandler(x.ngin);
+                x.eventHandler = new GameInputHandler(x);
                 size = new cobj_1.Size(12, 12);
                 stage = new cobj_1.Stage(size);
                 stage.debug = true;

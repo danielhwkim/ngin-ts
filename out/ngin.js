@@ -479,13 +479,6 @@ var Ngin = /** @class */ (function () {
       }).finish();
       await this.send(buf_body, this.Head.values.bodyop);
     } */
-    Ngin.prototype.cmdIF2 = function (cmd, bid, x, y) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/];
-            });
-        });
-    };
     Ngin.prototype.send = function (buf_body, head) {
         return __awaiter(this, void 0, void 0, function () {
             var buf_head, buf_len, buf;
@@ -506,13 +499,6 @@ var Ngin = /** @class */ (function () {
                         _a.sent();
                         return [2 /*return*/];
                 }
-            });
-        });
-    };
-    Ngin.prototype.scan = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/];
             });
         });
     };

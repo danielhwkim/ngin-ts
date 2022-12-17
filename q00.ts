@@ -1,7 +1,7 @@
 import {runq, TestUtil, Stopwatch} from "./testutil.js";
 import {test01} from "./test01.js";
 import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./cobj";
-import {NginEx} from "./util";
+import {Nx} from "./nx";
 
 const hint = "\
 ### Python\n\
@@ -46,8 +46,8 @@ From **Highest** to **Lowest** precedence:\n\
 \n\
 ";
 
-runq(async (ngin) =>{
-    let x = new NginEx(ngin);
+runq(async (nx) =>{
+    //let x = new Nx(ngin);
     const width = 12;
     const height = 12;
     const margin = 3;
@@ -58,11 +58,11 @@ runq(async (ngin) =>{
     stage.background = 'Blue';
     //stage.debug = true;
     stage.joystickDirectionals = JoystickDirectionals.horizontal;
-    await x.sendObjWait(stage);
+    await nx.sendObjWait(stage);
 
 
     
-    await ngin.command({
+    await nx.command({
         strings:['hint', hint], 
         ints:[0], 
     }); 
@@ -85,8 +85,8 @@ runq(async (ngin) =>{
     console.log(Math.floor(Math.random()*10));
     console.log(Math.floor(Math.random()*10));
     console.log(Math.floor(Math.random()*10));                
-    ngin.eventHandler.ready = true;
-    let stopwatch = new Stopwatch(ngin, 200, [12,0,2,1]);
+    nx.eventHandler.ready = true;
+    let stopwatch = new Stopwatch(nx, 200, [12,0,2,1]);
     var c = 0;
     let func = undefined;
     while (c < funcsAll.length) {
@@ -97,7 +97,7 @@ runq(async (ngin) =>{
             console.log(c, funcs.length, v, r);
             func = funcs[r];
         }
-        let result = await test01(ngin, width, height, margin, func, stopwatch);
+        let result = await test01(nx, width, height, margin, func, stopwatch);
         console.log(result);
         if (result[0]) {
             c += 1;

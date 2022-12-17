@@ -51,7 +51,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.main = exports.NginX = void 0;
+exports.main = exports.Nx = void 0;
 var fs = require('fs');
 var runInThisContext = require('vm').runInThisContext;
 var _a = require("./ngin"), Ngin = _a.Ngin, EventHandler = _a.EventHandler, mainInternal = _a.mainInternal;
@@ -59,13 +59,13 @@ var _a = require("./ngin"), Ngin = _a.Ngin, EventHandler = _a.EventHandler, main
 var EventEmitter = require('events');
 var cobj_1 = require("./cobj");
 var _b = require("./gen"), l1 = _b.l1, l2 = _b.l2; //
-var NginX = /** @class */ (function (_super) {
-    __extends(NginX, _super);
+var Nx = /** @class */ (function (_super) {
+    __extends(Nx, _super);
     //ngin: typeof Ngin;
-    function NginX(root) {
+    function Nx(root) {
         return _super.call(this, root) || this;
     }
-    NginX.prototype.sendObj = function (obj) {
+    Nx.prototype.sendObj = function (obj) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -86,7 +86,7 @@ var NginX = /** @class */ (function (_super) {
             });
         });
     };
-    NginX.prototype.sendObjWait = function (obj) {
+    Nx.prototype.sendObjWait = function (obj) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -101,7 +101,7 @@ var NginX = /** @class */ (function (_super) {
             });
         });
     };
-    NginX.prototype.forward = function (id, pos) {
+    Nx.prototype.forward = function (id, pos) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -117,7 +117,7 @@ var NginX = /** @class */ (function (_super) {
             });
         });
     };
-    NginX.prototype.follow = function (id) {
+    Nx.prototype.follow = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -132,7 +132,7 @@ var NginX = /** @class */ (function (_super) {
             });
         });
     };
-    NginX.prototype.remove = function (id) {
+    Nx.prototype.remove = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -147,7 +147,7 @@ var NginX = /** @class */ (function (_super) {
             });
         });
     };
-    NginX.prototype.getBodyinfo = function (id) {
+    Nx.prototype.getBodyinfo = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             var value;
             return __generator(this, function (_a) {
@@ -168,7 +168,7 @@ var NginX = /** @class */ (function (_super) {
             });
         });
     };
-    NginX.prototype.angularVelocity = function (id, value) {
+    Nx.prototype.angularVelocity = function (id, value) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -187,7 +187,7 @@ var NginX = /** @class */ (function (_super) {
             });
         });
     };
-    NginX.prototype.add = function (x, y) {
+    Nx.prototype.add = function (x, y) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -199,7 +199,7 @@ var NginX = /** @class */ (function (_super) {
             });
         });
     };
-    NginX.prototype.addFruit = function (id, x, y, fruit) {
+    Nx.prototype.addFruit = function (id, x, y, fruit) {
         return __awaiter(this, void 0, void 0, function () {
             var obj, a1;
             return __generator(this, function (_a) {
@@ -220,7 +220,7 @@ var NginX = /** @class */ (function (_super) {
             });
         });
     };
-    NginX.prototype.addStage = function (bid, x, y, width, height) {
+    Nx.prototype.addStage = function (bid, x, y, width, height) {
         return __awaiter(this, void 0, void 0, function () {
             var data, obj;
             return __generator(this, function (_a) {
@@ -263,7 +263,7 @@ var NginX = /** @class */ (function (_super) {
             });
         });
     };
-    NginX.prototype.addVoid = function (bid, x, y, width, height) {
+    Nx.prototype.addVoid = function (bid, x, y, width, height) {
         return __awaiter(this, void 0, void 0, function () {
             var x1, y1, x2, y2, i, j, obj;
             return __generator(this, function (_a) {
@@ -292,7 +292,7 @@ var NginX = /** @class */ (function (_super) {
             });
         });
     };
-    NginX.prototype.addSpike = function (id, x, y) {
+    Nx.prototype.addSpike = function (id, x, y) {
         return __awaiter(this, void 0, void 0, function () {
             var obj;
             return __generator(this, function (_a) {
@@ -311,7 +311,7 @@ var NginX = /** @class */ (function (_super) {
             });
         });
     };
-    NginX.prototype.addCoin = function (id, x, y) {
+    Nx.prototype.addCoin = function (id, x, y) {
         return __awaiter(this, void 0, void 0, function () {
             var obj;
             return __generator(this, function (_a) {
@@ -330,7 +330,7 @@ var NginX = /** @class */ (function (_super) {
             });
         });
     };
-    NginX.prototype.addActor = function (id, character, x, y) {
+    Nx.prototype.addActor = function (id, character, x, y) {
         return __awaiter(this, void 0, void 0, function () {
             var hx, hy, obj, i;
             return __generator(this, function (_a) {
@@ -367,7 +367,7 @@ var NginX = /** @class */ (function (_super) {
             });
         });
     };
-    NginX.prototype.setCActionType = function (bid, skin, skinType, facingLeft) {
+    Nx.prototype.setCActionType = function (bid, skin, skinType, facingLeft) {
         if (facingLeft === void 0) { facingLeft = false; }
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -385,9 +385,21 @@ var NginX = /** @class */ (function (_super) {
             });
         });
     };
-    return NginX;
+    Nx.prototype.submit = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.command({ strings: ['submit'], ints: [4041] })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    return Nx;
 }(Ngin));
-exports.NginX = NginX;
+exports.Nx = Nx;
 function main(type, port, body) {
     mainInternal(type, port, function (host, root) {
         return __awaiter(this, void 0, void 0, function () {
@@ -395,7 +407,7 @@ function main(type, port, body) {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        ngin = new NginX(root);
+                        ngin = new Nx(root);
                         return [4 /*yield*/, ngin.connect(host, port)];
                     case 1:
                         _a.sent();
@@ -411,4 +423,4 @@ function main(type, port, body) {
     });
 }
 exports.main = main;
-//# sourceMappingURL=util.js.map
+//# sourceMappingURL=nx.js.map

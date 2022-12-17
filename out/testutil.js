@@ -52,7 +52,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.run = exports.runq = exports.Stopwatch = exports.TestUtil = void 0;
-var _a = require("./ngin"), EventHandler = _a.EventHandler, Ngin = _a.Ngin, mainInternal = _a.mainInternal, main = _a.main;
+var _a = require("./ngin"), EventHandler = _a.EventHandler, Ngin = _a.Ngin, mainInternal = _a.mainInternal;
+var nx_1 = require("./nx");
 var cobj_1 = require("./cobj");
 var TestUtil = /** @class */ (function () {
     function TestUtil(ngin) {
@@ -262,12 +263,12 @@ var Stopwatch = /** @class */ (function () {
 exports.Stopwatch = Stopwatch;
 function runq(func) {
     var _this = this;
-    main('127.0.0.1', 4040, function (ngin) { return __awaiter(_this, void 0, void 0, function () {
+    (0, nx_1.main)('127.0.0.1', 4040, function (nx) { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    ngin.eventHandler = new GameInputHandler(ngin);
-                    return [4 /*yield*/, func(ngin)];
+                    nx.eventHandler = new GameInputHandler(nx);
+                    return [4 /*yield*/, func(nx)];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
@@ -276,44 +277,14 @@ function runq(func) {
     }); });
 }
 exports.runq = runq;
-var Cmd = /** @class */ (function () {
-    function Cmd(ngin) {
-        this.ngin = ngin;
-    }
-    Cmd.prototype.add = function (i, j) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.ngin.addFruit(0, 'Bananas', i, j)];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    Cmd.prototype.submit = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.ngin.command({ strings: ['submit'], ints: [4041] })];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    return Cmd;
-}());
 function run(func) {
     var _this = this;
-    main('127.0.0.1', 4041, function (ngin) { return __awaiter(_this, void 0, void 0, function () {
+    (0, nx_1.main)('127.0.0.1', 4041, function (nx) { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    ngin.eventHandler = new GameInputHandler(ngin);
-                    return [4 /*yield*/, func(new Cmd(ngin))];
+                    nx.eventHandler = new GameInputHandler(nx);
+                    return [4 /*yield*/, func(nx)];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];

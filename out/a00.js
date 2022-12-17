@@ -38,21 +38,20 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var fs = require('fs');
 var EventHandler = require("./ngin").EventHandler;
-var util_1 = require("./util");
 var run = require("./testutil.js").run;
-function aaa(cmd) {
+function aaa(nx) {
     return __awaiter(this, void 0, void 0, function () {
-        var x, i, j;
+        var i, j;
         return __generator(this, function (_a) {
-            x = new util_1.NginEx(cmd.ngin);
+            //var x = new NginEx(cmd.ngin);
             for (i = 0; i < 12; i++) {
                 for (j = 0; j < 12; j++) {
                     if (i <= j) {
-                        x.add(i, j);
+                        nx.add(i, j);
                     }
                 }
             }
-            cmd.submit();
+            nx.submit();
             return [2 /*return*/];
         });
     });

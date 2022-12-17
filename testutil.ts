@@ -1,4 +1,5 @@
-var {EventHandler, Ngin, mainInternal, main} = require("./ngin");
+var {EventHandler, Ngin, mainInternal} = require("./ngin");
+import {main} from "./nx";
 import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./cobj";
 
 export class TestUtil {
@@ -190,31 +191,16 @@ export class Stopwatch {
 
 
 export function runq(func) {
-    main('127.0.0.1', 4040, async (ngin) =>  {
-        ngin.eventHandler = new GameInputHandler(ngin);
-        await func(ngin);
+    main('127.0.0.1', 4040, async (nx) =>  {
+        nx.eventHandler = new GameInputHandler(nx);
+        await func(nx);
     });
 }
 
-class Cmd {
-    ngin;
-    constructor(ngin) {
-        this.ngin = ngin;
-    }
-
-    async add(i, j) {
-        await this.ngin.addFruit(0, 'Bananas', i, j);
-    }
-
-    async submit() {
-        await this.ngin.command({strings:['submit'], ints:[4041]});
-    }
-}
-
 export function run(func) {
-    main('127.0.0.1', 4041, async (ngin) =>  {
-        ngin.eventHandler = new GameInputHandler(ngin);
-        await func(new Cmd(ngin));
+    main('127.0.0.1', 4041, async (nx) =>  {
+        nx.eventHandler = new GameInputHandler(nx);
+        await func(nx);
     });
 }
 
