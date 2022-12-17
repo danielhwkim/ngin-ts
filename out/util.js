@@ -42,15 +42,11 @@ var runInThisContext = require('vm').runInThisContext;
 var _a = require("./ngin"), Ngin = _a.Ngin, EventHandler = _a.EventHandler, mainInternal = _a.mainInternal;
 //var {ngin} = require("./ngin");
 var EventEmitter = require('events');
-//var {Pos, Size, BodyType, BodyShape, TilesInfo, Pobj, Stage, JoystickDirectionals} = require("./pobj");
-//import {Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./pobj";
 var cobj_1 = require("./cobj");
-//import { ngin } from "./ngin";
 var _b = require("./gen"), l1 = _b.l1, l2 = _b.l2; //
 var NginEx = /** @class */ (function () {
     function NginEx(ngin) {
         this.ngin = ngin;
-        //this.init(root);
     }
     NginEx.prototype.sendObj = function (obj) {
         return __awaiter(this, void 0, void 0, function () {

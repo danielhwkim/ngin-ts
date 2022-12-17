@@ -140,12 +140,12 @@ var InputHandler = /** @class */ (function (_super) {
                             return [2 /*return*/];
                         console.log(contact);
                         if (!(contact.isEnded == false)) return [3 /*break*/, 3];
-                        if (!(contact.id2 == 101)) return [3 /*break*/, 3];
-                        return [4 /*yield*/, this.x.remove(contact.id2)];
+                        if (!(contact.id1 == 101)) return [3 /*break*/, 3];
+                        return [4 /*yield*/, this.x.remove(contact.id1)];
                     case 1:
                         _a.sent();
                         obj = new cobj_1.CObject(1000);
-                        obj.tid = contact.id1;
+                        obj.tid = contact.id2;
                         obj.visible = new cobj_1.CVisible([new cobj_1.CAction('kenney_pixelshmup/tiles_packed.png', new cobj_1.Size(16, 16), [5], cobj_1.CActionType.idle)]);
                         obj.visible.pos = new cobj_1.Pos(0, 0);
                         return [4 /*yield*/, this.x.sendObj(obj)];

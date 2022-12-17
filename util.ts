@@ -3,17 +3,13 @@ const { runInThisContext } = require('vm');
 const {Ngin, EventHandler, mainInternal} = require("./ngin");
 //var {ngin} = require("./ngin");
 const EventEmitter = require('events');
-//var {Pos, Size, BodyType, BodyShape, TilesInfo, Pobj, Stage, JoystickDirectionals} = require("./pobj");
-//import {Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./pobj";
 import {CObject, CActionType, CAction, CPhysical, CVisible, Buildable, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./cobj";
-//import { ngin } from "./ngin";
 const {l1, l2} = require("./gen");//
 
 export class NginEx {
     ngin: typeof Ngin;
     constructor(ngin: typeof Ngin){
         this.ngin = ngin;
-        //this.init(root);
     }
 
     async sendObj(obj:Buildable) {

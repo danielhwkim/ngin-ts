@@ -68,10 +68,10 @@ class InputHandler extends EventHandler {
       if (!this.ready) return;
       console.log(contact);
       if (contact.isEnded == false) {
-        if (contact.id2 == 101) {
-          await this.x.remove(contact.id2);
+        if (contact.id1 == 101) {
+          await this.x.remove(contact.id1);
           var obj = new CObject(1000);
-          obj.tid = contact.id1;
+          obj.tid = contact.id2;
           obj.visible = new CVisible([ new CAction('kenney_pixelshmup/tiles_packed.png', new Size(16, 16), [5], CActionType.idle)]);
           obj.visible.pos = new Pos(0,0);
           await this.x.sendObj(obj);

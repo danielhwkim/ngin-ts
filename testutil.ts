@@ -1,6 +1,5 @@
 var {EventHandler, Ngin, mainInternal, main} = require("./ngin");
 import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./cobj";
-//import {main} from "./util";
 
 export class TestUtil {
     ngin;

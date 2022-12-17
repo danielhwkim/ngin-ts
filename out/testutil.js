@@ -54,7 +54,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.run = exports.runq = exports.Stopwatch = exports.TestUtil = void 0;
 var _a = require("./ngin"), EventHandler = _a.EventHandler, Ngin = _a.Ngin, mainInternal = _a.mainInternal, main = _a.main;
 var cobj_1 = require("./cobj");
-//import {main} from "./util";
 var TestUtil = /** @class */ (function () {
     function TestUtil(ngin) {
         this.ngin = ngin;
