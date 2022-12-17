@@ -260,8 +260,8 @@ message Cmd {
 
 message CObject {
     uint32 id = 1;
-    CPhysical physical = 2;
-    CVisible visible = 3;
+    optional CPhysical physical = 2;
+    optional CVisible visible = 3;
     uint32 tid = 4;
     string info = 5;
 }

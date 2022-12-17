@@ -1,5 +1,7 @@
 import {runq, TestUtil, Stopwatch} from "./testutil.js";
 import {test01} from "./test01.js";
+import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./cobj";
+import {NginEx} from "./util";
 
 const hint = "\
 ### Python\n\
@@ -45,13 +47,15 @@ From **Highest** to **Lowest** precedence:\n\
 ";
 
 runq(async (ngin) =>{
-    const x = 0;
-    const y = 0;
+    let x = new NginEx(ngin);
+    //const x = 0;
+    //const y = 0;
     const width = 12;
     const height = 12;
     const margin = 3;
     let gid = 100;
 
+    /*
     await ngin.initScreen({
         background: 'Blue',
         gravityX: 0.0,
@@ -59,12 +63,24 @@ runq(async (ngin) =>{
         width: width+margin,
         height: height,
         debug: false,
-    });
+    });*/
+    var size = new Size(width+margin, height);
+    var stage = new Stage(size);
+    stage.background = 'Blue';
+    //stage.debug = true;
+    stage.joystickDirectionals = JoystickDirectionals.horizontal;
+    await x.sendObjWait(stage);
 
+
+    
     await ngin.command({
         strings:['hint', hint], 
         ints:[0], 
     }); 
+    
+
+    //await test01(ngin, width, height, margin, (i,j)=>i>j, null);
+
     /*
     let funcsAll = [[(i,j)=>i<j, (i,j)=>i<=j, (i,j)=>i>j, (i,j)=>i>=j],
         [(i,j)=>i==j, (i,j)=>i!=j],

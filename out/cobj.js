@@ -75,6 +75,7 @@ var CActionType;
     CActionType[CActionType["hitBottom"] = 14] = "hitBottom";
     CActionType[CActionType["noChange"] = 15] = "noChange";
     CActionType[CActionType["tiles"] = 16] = "tiles";
+    CActionType[CActionType["svg"] = 17] = "svg";
 })(CActionType = exports.CActionType || (exports.CActionType = {}));
 function buildCActionType(action) {
     switch (action) {
@@ -95,6 +96,7 @@ function buildCActionType(action) {
         case CActionType.hitBottom: return "hitBottom";
         case CActionType.noChange: return "noChange";
         case CActionType.tiles: return "tiles";
+        case CActionType.svg: return "svg";
     }
 }
 function buildType(type) {

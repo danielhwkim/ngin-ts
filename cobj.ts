@@ -69,6 +69,7 @@ export enum CActionType {
     hitBottom,
     noChange,
     tiles,
+    svg,
 }
 
 export interface Buildable {
@@ -93,7 +94,8 @@ function buildCActionType(action:CActionType) {
         case CActionType.hitRight: return "hitRight";
         case CActionType.hitBottom: return "hitBottom";
         case CActionType.noChange: return "noChange";
-        case CActionType.tiles: return "tiles";        
+        case CActionType.tiles: return "tiles";
+        case CActionType.svg: return "svg";    
     }
 }
 

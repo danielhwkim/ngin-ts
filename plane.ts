@@ -110,7 +110,7 @@ class InputHandler extends EventHandler {
       obj.visible = new CVisible([ new CAction('kenney_pixelshmup/tiles_packed.png', new Size(16, 16), [1, 2, 3], CActionType.idle)]);
       var value = await this.x.sendObjWait(obj);
       console.log('1', value);
-      await this.x.forward(101, new Pos(10, 0));
+      await this.x.forward(101, new Pos(20, 0));
     }
 
     missile_id = 800;

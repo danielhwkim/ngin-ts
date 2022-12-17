@@ -54,6 +54,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.run = exports.runq = exports.Stopwatch = exports.TestUtil = void 0;
 var EventHandler = require("./ngin").EventHandler;
 var _a = require("./nginx"), NginX = _a.NginX, main = _a.main;
+var cobj_1 = require("./cobj");
 var TestUtil = /** @class */ (function () {
     function TestUtil(ngin) {
         this.ngin = ngin;
@@ -88,37 +89,52 @@ var TestUtil = /** @class */ (function () {
     };
     TestUtil.prototype.countDown = function (width, height, num, time) {
         return __awaiter(this, void 0, void 0, function () {
-            var fillopacity, textsize, value_1, value;
+            var fillopacity, textsize, obj, value_1, value;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         console.log(width, height, num, time);
                         fillopacity = 0.5;
                         textsize = 5;
-                        return [4 /*yield*/, this.ngin.command({
-                                strings: ['svg', this.drawSvgTextFullScreen(width, height, "".concat(num), textsize, "#111", fillopacity)],
-                                ints: [100 + num],
-                                floats: [0, 0, width, height],
-                            })];
+                        obj = new cobj_1.CObject(100 + num);
+                        obj.visible = new cobj_1.CVisible([new cobj_1.CAction(this.drawSvgTextFullScreen(width, height, "".concat(num), textsize, "#111", fillopacity), new cobj_1.Size(width, height), [], cobj_1.CActionType.svg)]);
+                        obj.visible.current = cobj_1.CActionType.svg;
+                        obj.visible.size = new cobj_1.Size(width, height);
+                        //obj.visible.pos = new Pos(6,0);
+                        obj.visible.anchor = new cobj_1.Pos(0, 0);
+                        return [4 /*yield*/, this.ngin.addCObjectInternal(obj.build())];
                     case 1:
                         _a.sent();
-                        _a.label = 2;
-                    case 2:
-                        if (!(num > 0)) return [3 /*break*/, 8];
                         return [4 /*yield*/, this.ngin.command({
                                 strings: ['moveTo', "ease"],
                                 ints: [100 + num],
                                 floats: [width, 0, time],
                             })];
-                    case 3:
+                    case 2:
                         _a.sent();
-                        num--;
+                        _a.label = 3;
+                    case 3:
+                        if (!(num > 0)) return [3 /*break*/, 9];
                         return [4 /*yield*/, this.ngin.command({
-                                strings: ['svg', this.drawSvgTextFullScreen(width, height, "".concat(num), textsize, "#111", fillopacity)],
+                                strings: ['moveTo', "ease"],
                                 ints: [100 + num],
-                                floats: [-width, 0, width, height],
+                                floats: [width, 0, time],
                             })];
                     case 4:
+                        _a.sent();
+                        num--;
+                        //await this.ngin.command({
+                        //    strings:['svg', this.drawSvgTextFullScreen(width, height, `${num}`, textsize, "#111", fillopacity)], 
+                        //    ints:[100+num], 
+                        //    floats:[-width, 0, width, height],
+                        //});
+                        obj = new cobj_1.CObject(100 + num);
+                        obj.visible = new cobj_1.CVisible([new cobj_1.CAction(this.drawSvgTextFullScreen(width, height, "".concat(num), textsize, "#111", fillopacity), new cobj_1.Size(width, height), [], cobj_1.CActionType.svg)]);
+                        obj.visible.current = cobj_1.CActionType.svg;
+                        obj.visible.size = new cobj_1.Size(width, height);
+                        obj.visible.anchor = new cobj_1.Pos(0, 0);
+                        return [4 /*yield*/, this.ngin.addCObjectInternal(obj.build())];
+                    case 5:
                         _a.sent();
                         this.ngin.prepareAck();
                         return [4 /*yield*/, this.ngin.command({
@@ -126,37 +142,37 @@ var TestUtil = /** @class */ (function () {
                                 ints: [100 + num, 1],
                                 floats: [0, 0, time],
                             })];
-                    case 5:
+                    case 6:
                         _a.sent();
                         return [4 /*yield*/, this.ngin.waitAckValue(100 + num)];
-                    case 6:
+                    case 7:
                         value_1 = _a.sent();
                         console.log('ack:', value_1);
                         return [4 /*yield*/, this.ngin.command({
                                 strings: ['remove'],
                                 ints: [100 + num + 1],
                             })];
-                    case 7:
-                        _a.sent();
-                        return [3 /*break*/, 2];
                     case 8:
+                        _a.sent();
+                        return [3 /*break*/, 3];
+                    case 9:
                         this.ngin.prepareAck();
                         return [4 /*yield*/, this.ngin.command({
                                 strings: ['moveTo', "ease"],
                                 ints: [100 + num, 1],
                                 floats: [width, 0, time],
                             })];
-                    case 9:
+                    case 10:
                         _a.sent();
                         return [4 /*yield*/, this.ngin.waitAckValue(100 + num)];
-                    case 10:
+                    case 11:
                         value = _a.sent();
                         console.log('ack:', value);
                         return [4 /*yield*/, this.ngin.command({
                                 strings: ['remove'],
                                 ints: [100 + num],
                             })];
-                    case 11:
+                    case 12:
                         _a.sent();
                         console.log('end');
                         return [2 /*return*/];
@@ -187,6 +203,7 @@ var Stopwatch = /** @class */ (function () {
     }
     Stopwatch.prototype.timeOut = function () {
         return __awaiter(this, void 0, void 0, function () {
+            var obj;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -201,11 +218,13 @@ var Stopwatch = /** @class */ (function () {
                     case 1:
                         _a.sent();
                         this.num += 1;
-                        return [4 /*yield*/, this.thisNgin.command({
-                                strings: ['svg', this.util.drawSvgText(this.w, this.h, "".concat(this.num))],
-                                ints: [this.oid],
-                                floats: this.rect,
-                            })];
+                        obj = new cobj_1.CObject(this.oid);
+                        obj.visible = new cobj_1.CVisible([new cobj_1.CAction(this.util.drawSvgText(this.w, this.h, "".concat(this.num)), new cobj_1.Size(this.w, this.h), [], cobj_1.CActionType.svg)]);
+                        obj.visible.current = cobj_1.CActionType.svg;
+                        obj.visible.size = new cobj_1.Size(this.w, this.h);
+                        obj.visible.pos = new cobj_1.Pos(this.rect[0], this.rect[1]);
+                        obj.visible.anchor = new cobj_1.Pos(0, 0);
+                        return [4 /*yield*/, this.thisNgin.addCObjectInternal(obj.build())];
                     case 2:
                         _a.sent();
                         setTimeout(function () {
@@ -218,16 +237,19 @@ var Stopwatch = /** @class */ (function () {
     };
     Stopwatch.prototype.run = function () {
         return __awaiter(this, void 0, void 0, function () {
+            var obj;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         this.running = true;
-                        return [4 /*yield*/, this.thisNgin.command({
-                                strings: ['svg', this.util.drawSvgText(this.w, this.h, "".concat(this.num))],
-                                ints: [this.oid],
-                                floats: this.rect,
-                            })];
+                        obj = new cobj_1.CObject(this.oid);
+                        obj.visible = new cobj_1.CVisible([new cobj_1.CAction(this.util.drawSvgText(this.w, this.h, "".concat(this.num)), new cobj_1.Size(this.w, this.h), [], cobj_1.CActionType.svg)]);
+                        obj.visible.current = cobj_1.CActionType.svg;
+                        obj.visible.size = new cobj_1.Size(this.w, this.h);
+                        obj.visible.pos = new cobj_1.Pos(this.rect[0], this.rect[1]);
+                        obj.visible.anchor = new cobj_1.Pos(0, 0);
+                        return [4 /*yield*/, this.thisNgin.addCObjectInternal(obj.build())];
                     case 1:
                         _a.sent();
                         setTimeout(function () {

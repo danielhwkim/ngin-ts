@@ -225,7 +225,7 @@ var InputHandler = /** @class */ (function (_super) {
                     case 2:
                         value = _b.sent();
                         console.log('1', value);
-                        return [4 /*yield*/, this.x.forward(101, new cobj_1.Pos(10, 0))];
+                        return [4 /*yield*/, this.x.forward(101, new cobj_1.Pos(20, 0))];
                     case 3:
                         _b.sent();
                         return [2 /*return*/];

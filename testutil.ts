@@ -42,11 +42,27 @@ export class TestUtil {
         const fillopacity = 0.5;
         const textsize = 5;
 
+        /*
         await this.ngin.command({
             strings:['svg', this.drawSvgTextFullScreen(width, height, `${num}`, textsize, "#111", fillopacity)], 
             ints:[100+num], 
             floats:[0, 0, width, height],
         }); 
+        */
+
+        var obj = new CObject(100+num);
+        obj.visible = new CVisible([new CAction(this.drawSvgTextFullScreen(width, height, `${num}`, textsize, "#111", fillopacity), new Size(width, height), [], CActionType.svg)]);
+        obj.visible.current = CActionType.svg;
+        obj.visible.size = new Size(width, height);
+        //obj.visible.pos = new Pos(6,0);
+        obj.visible.anchor = new Pos(0,0);
+        await this.ngin.addCObjectInternal(obj.build());
+
+        await this.ngin.command({
+            strings:['moveTo', "ease"], 
+            ints:[100+num], 
+            floats:[width, 0, time],
+        });   
 
         while (num > 0) {
             await this.ngin.command({
@@ -57,11 +73,19 @@ export class TestUtil {
 
             num--;
 
-            await this.ngin.command({
-                strings:['svg', this.drawSvgTextFullScreen(width, height, `${num}`, textsize, "#111", fillopacity)], 
-                ints:[100+num], 
-                floats:[-width, 0, width, height],
-            });
+            
+            //await this.ngin.command({
+            //    strings:['svg', this.drawSvgTextFullScreen(width, height, `${num}`, textsize, "#111", fillopacity)], 
+            //    ints:[100+num], 
+            //    floats:[-width, 0, width, height],
+            //});
+            obj = new CObject(100+num);
+            obj.visible = new CVisible([new CAction(this.drawSvgTextFullScreen(width, height, `${num}`, textsize, "#111", fillopacity), new Size(width, height), [], CActionType.svg)]);
+            obj.visible.current = CActionType.svg;
+            obj.visible.size = new Size(width, height);
+            obj.visible.anchor = new Pos(0,0);
+            await this.ngin.addCObjectInternal(obj.build());
+
         
             this.ngin.prepareAck();
 
@@ -142,12 +166,21 @@ export class Stopwatch {
         });
     
         this.num += 1;
-
+        /*
         await this.thisNgin.command({
             strings:['svg', this.util.drawSvgText(this.w, this.h, `${this.num}`)], 
             ints:[this.oid], 
             floats:this.rect,
-        }); 
+        });*/ 
+
+        var obj = new CObject(this.oid);
+        obj.visible = new CVisible([new CAction(this.util.drawSvgText(this.w, this.h, `${this.num}`), new Size(this.w, this.h), [], CActionType.svg)]);
+        obj.visible.current = CActionType.svg;
+        obj.visible.size = new Size(this.w, this.h);
+        obj.visible.pos = new Pos(this.rect[0],this.rect[1]);
+        obj.visible.anchor = new Pos(0,0);        
+        await this.thisNgin.addCObjectInternal(obj.build());
+
     
         setTimeout(() => {
             this.timeOut.call(this);
@@ -156,11 +189,21 @@ export class Stopwatch {
     
     async run() {
         this.running = true;
+        /*
         await this.thisNgin.command({
             strings:['svg', this.util.drawSvgText(this.w, this.h, `${this.num}`)], 
             ints:[this.oid], 
             floats:this.rect,
-        }); 
+        });*/ 
+
+        var obj = new CObject(this.oid);
+        obj.visible = new CVisible([new CAction(this.util.drawSvgText(this.w, this.h, `${this.num}`), new Size(this.w, this.h), [], CActionType.svg)]);
+        obj.visible.current = CActionType.svg;
+        obj.visible.size = new Size(this.w, this.h);
+        obj.visible.pos = new Pos(this.rect[0],this.rect[1]);        
+        obj.visible.anchor = new Pos(0,0);
+        await this.thisNgin.addCObjectInternal(obj.build());
+
     
         setTimeout(() => {
             this.timeOut.call(this);

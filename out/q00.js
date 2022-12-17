@@ -38,6 +38,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var testutil_js_1 = require("./testutil.js");
 var test01_js_1 = require("./test01.js");
+var cobj_1 = require("./cobj");
+var util_1 = require("./util");
 var hint = "\
 ### Python\n\
 \n\
@@ -81,24 +83,21 @@ From **Highest** to **Lowest** precedence:\n\
 \n\
 ";
 (0, testutil_js_1.runq)(function (ngin) { return __awaiter(void 0, void 0, void 0, function () {
-    var x, y, width, height, margin, gid, funcsAll, stopwatch, c, func, funcs, v, r, result;
+    var x, width, height, margin, gid, size, stage, funcsAll, stopwatch, c, func, funcs, v, r, result;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                x = 0;
-                y = 0;
+                x = new util_1.NginEx(ngin);
                 width = 12;
                 height = 12;
                 margin = 3;
                 gid = 100;
-                return [4 /*yield*/, ngin.initScreen({
-                        background: 'Blue',
-                        gravityX: 0.0,
-                        gravityY: 0.0,
-                        width: width + margin,
-                        height: height,
-                        debug: false,
-                    })];
+                size = new cobj_1.Size(width + margin, height);
+                stage = new cobj_1.Stage(size);
+                stage.background = 'Blue';
+                //stage.debug = true;
+                stage.joystickDirectionals = cobj_1.JoystickDirectionals.horizontal;
+                return [4 /*yield*/, x.sendObjWait(stage)];
             case 1:
                 _a.sent();
                 return [4 /*yield*/, ngin.command({

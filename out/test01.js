@@ -37,10 +37,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.test01 = void 0;
+var cobj_js_1 = require("./cobj.js");
 var testutil_js_1 = require("./testutil.js");
 function test01(ngin, width, height, margin, func, stopwatch) {
     return __awaiter(this, void 0, void 0, function () {
-        var util, set, nothing_to_delete, i, j, value, message, size, fill, fillopacity, result;
+        var util, set, nothing_to_delete, i, j, obj, value, message, size, fill, fillopacity, result;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -69,11 +70,12 @@ function test01(ngin, width, height, margin, func, stopwatch) {
                     return [4 /*yield*/, ngin.command({ strings: ['enable'], ints: [4041, 0] })];
                 case 1:
                     _a.sent();
-                    return [4 /*yield*/, ngin.command({
-                            strings: ['svg', util.drawSvgGrid(width, height, func)],
-                            ints: [100, 100],
-                            floats: [0, 0, width, height],
-                        })];
+                    obj = new cobj_js_1.CObject(100);
+                    obj.visible = new cobj_js_1.CVisible([new cobj_js_1.CAction(util.drawSvgGrid(width, height, func), new cobj_js_1.Size(width, height), [], cobj_js_1.CActionType.svg)]);
+                    obj.visible.current = cobj_js_1.CActionType.svg;
+                    obj.visible.size = new cobj_js_1.Size(width, height);
+                    obj.visible.anchor = new cobj_js_1.Pos(0, 0);
+                    return [4 /*yield*/, ngin.addCObjectInternal(obj.build())];
                 case 2:
                     _a.sent();
                     return [4 /*yield*/, util.countDown(width, height, 3, 1)];
@@ -109,11 +111,12 @@ function test01(ngin, width, height, margin, func, stopwatch) {
                         fillopacity = 1;
                         result = false;
                     }
-                    return [4 /*yield*/, ngin.command({
-                            strings: ['svg', util.drawSvgTextFullScreen(width + margin, height, message, size, fill, fillopacity)],
-                            ints: [10000],
-                            floats: [0, 0, width + margin, height],
-                        })];
+                    obj = new cobj_js_1.CObject(10000);
+                    obj.visible = new cobj_js_1.CVisible([new cobj_js_1.CAction(util.drawSvgTextFullScreen(width + margin, height, message, size, fill, fillopacity), new cobj_js_1.Size(width, height), [], cobj_js_1.CActionType.svg)]);
+                    obj.visible.current = cobj_js_1.CActionType.svg;
+                    obj.visible.size = new cobj_js_1.Size(width + margin, height);
+                    obj.visible.anchor = new cobj_js_1.Pos(0, 0);
+                    return [4 /*yield*/, ngin.addCObjectInternal(obj.build())];
                 case 7:
                     _a.sent();
                     stopwatch.stop();
