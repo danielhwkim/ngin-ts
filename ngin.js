@@ -38,6 +38,17 @@ function mainInternal(type, port, body) {
   }
 }
 
+export function main(type, port, body) {
+
+  mainInternal(type, port, async function (host, root) {
+      let x = new Ngin(root);
+      await ngin.connect(host, port);
+      //ngin.eventHandler = eventHandler; //new InputHandler(ngin);
+  
+      await body(ngin);
+  })
+}
+
 class EventHandler {
   ngin;
   actorBid = 0;
@@ -180,7 +191,7 @@ class Ngin {
   precision = 3;
   eventHandler;
 
-  init(root) {
+  constructor(root) {
     this.root = root;
     this.CObject = root.lookupType("commander.CObject");
     this.BodyShape = root.lookupEnum("commander.BodyShape");
@@ -371,5 +382,5 @@ class Ngin {
   }
 }
 
-module.exports = { mainInternal, EventHandler, Ngin};
+module.exports = { mainInternal, EventHandler, Ngin, main};
 

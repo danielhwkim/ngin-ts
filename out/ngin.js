@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,6 +35,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.main = void 0;
 var protobuf = require("protobufjs");
 //var fs = require('fs');
 var net = require('net');
@@ -93,6 +96,29 @@ function mainInternal(type, port, body) {
         });
     }
 }
+function main(type, port, body) {
+    mainInternal(type, port, function (host, root) {
+        return __awaiter(this, void 0, void 0, function () {
+            var x;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        x = new Ngin(root);
+                        return [4 /*yield*/, ngin.connect(host, port)];
+                    case 1:
+                        _a.sent();
+                        //ngin.eventHandler = eventHandler; //new InputHandler(ngin);
+                        return [4 /*yield*/, body(ngin)];
+                    case 2:
+                        //ngin.eventHandler = eventHandler; //new InputHandler(ngin);
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    });
+}
+exports.main = main;
 var EventHandler = /** @class */ (function () {
     //directionMap = {};
     function EventHandler(ngin) {
@@ -258,10 +284,8 @@ var EventHandler = /** @class */ (function () {
     return EventHandler;
 }());
 var Ngin = /** @class */ (function () {
-    function Ngin() {
+    function Ngin(root) {
         this.precision = 3;
-    }
-    Ngin.prototype.init = function (root) {
         this.root = root;
         this.CObject = root.lookupType("commander.CObject");
         this.BodyShape = root.lookupEnum("commander.BodyShape");
@@ -292,7 +316,7 @@ var Ngin = /** @class */ (function () {
         //this.eventEmitter = new EventEmitter();
         this.walls = new Set();
         ngin = this;
-    };
+    }
     Ngin.prototype.connect = function (host, port) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -545,5 +569,5 @@ var Ngin = /** @class */ (function () {
     };
     return Ngin;
 }());
-module.exports = { mainInternal: mainInternal, EventHandler: EventHandler, Ngin: Ngin };
+module.exports = { mainInternal: mainInternal, EventHandler: EventHandler, Ngin: Ngin, main: main };
 //# sourceMappingURL=ngin.js.map

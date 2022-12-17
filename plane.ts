@@ -1,11 +1,10 @@
 var fs = require('fs');
 var {EventHandler} = require("./ngin");
 import {main} from "./util";
-//import {Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./pobj";
 import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./cobj";
 
 main('127.0.0.1', 4040, async (x) =>  {
-    x.nginx.eventHandler = new InputHandler(x);
+    x.ngin.eventHandler = new InputHandler(x);
     const d = fs.readFileSync('planes0.tmj', 'utf8');
     const j = JSON.parse(d);
   
@@ -33,7 +32,7 @@ main('127.0.0.1', 4040, async (x) =>  {
     var value = await x.sendObjWait(obj);
     console.log('1', value);
 
-    x.nginx.eventHandler.ready = true;
+    x.ngin.eventHandler.ready = true;
 
     await x.follow(100);
   
@@ -54,7 +53,7 @@ main('127.0.0.1', 4040, async (x) =>  {
 
 class InputHandler extends EventHandler {
     constructor(x) {
-        super(x.nginx);
+        super(x.ngin);
         this.x = x;        
         this.key_down_left = false;
         this.key_down_right = false;
@@ -71,12 +70,12 @@ class InputHandler extends EventHandler {
       if (contact.isEnded == false) {
         if (contact.id2 == 101) {
           await this.x.remove(contact.id2);
+          var obj = new CObject(1000);
+          obj.tid = contact.id1;
+          obj.visible = new CVisible([ new CAction('kenney_pixelshmup/tiles_packed.png', new Size(16, 16), [5], CActionType.idle)]);
+          obj.visible.pos = new Pos(0,0);
+          await this.x.sendObj(obj);
         }
-        var obj = new CObject(1000);
-        obj.tid = contact.id2;
-        obj.visible = new CVisible([ new CAction('kenney_pixelshmup/tiles_packed.png', new Size(16, 16), [5], CActionType.idle)]);
-        obj.visible.pos = new Pos(0,0);
-        await this.x.sendObj(obj);
       }
     }
   

@@ -1,5 +1,4 @@
 "use strict";
-//var fs = require('fs');
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -52,13 +51,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-//import {EventHandler} from "./ngin";
-//import {NginX, main} from "./nginx";
-var EventHandler = require("./ngin").EventHandler;
-var NginX = require("./nginx").NginX;
+var _a = require("./ngin"), EventHandler = _a.EventHandler, Ngin = _a.Ngin;
 var fs = require('fs');
 var util_1 = require("./util");
-//import {Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./pobj";
 var cobj_1 = require("./cobj");
 (0, util_1.main)('127.0.0.1', 4040, function (x) { return __awaiter(void 0, void 0, void 0, function () {
     var size, stage, gid, i;

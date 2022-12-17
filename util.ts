@@ -1,37 +1,37 @@
 var fs = require('fs');
 const { runInThisContext } = require('vm');
-var {EventHandler, mainInternal} = require("./ngin");
-//var {NginX} = require("./nginx");
+const {Ngin, EventHandler, mainInternal} = require("./ngin");
+//var {ngin} = require("./ngin");
 const EventEmitter = require('events');
 //var {Pos, Size, BodyType, BodyShape, TilesInfo, Pobj, Stage, JoystickDirectionals} = require("./pobj");
 //import {Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./pobj";
 import {CObject, CActionType, CAction, CPhysical, CVisible, Buildable, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./cobj";
-import { NginX } from "./nginx";
+//import { ngin } from "./ngin";
 const {l1, l2} = require("./gen");//
 
 export class NginEx {
-    nginx: NginX;
-    constructor(nginx: NginX){
-        this.nginx = nginx;
+    ngin: typeof Ngin;
+    constructor(ngin: typeof Ngin){
+        this.ngin = ngin;
         //this.init(root);
     }
 
     async sendObj(obj:Buildable) {
         if (obj instanceof CObject) {
-            await this.nginx.addCObjectInternal(obj.build());
+            await this.ngin.addCObjectInternal(obj.build());
         } else if (obj instanceof Stage) {
-            await this.nginx.initScreen(obj.build());
+            await this.ngin.initScreen(obj.build());
         }
     }
 
     async sendObjWait(obj:Buildable) {
-        this.nginx.ackEmitter = new EventEmitter();         
+        this.ngin.ackEmitter = new EventEmitter();         
         await this.sendObj(obj);
-        return await EventEmitter.once(this.nginx.ackEmitter, 'ack');
+        return await EventEmitter.once(this.ngin.ackEmitter, 'ack');
     }    
     
     async forward(id:number, pos:Pos) {
-        await this.nginx.command({
+        await this.ngin.command({
             strings: ['forward'],
             ints:[id],
             floats:[pos.x, pos.y],
@@ -39,32 +39,32 @@ export class NginEx {
     }
 
     async follow(id:number) {
-        await this.nginx.command({
+        await this.ngin.command({
             strings: ['follow'],
             ints:[id],
         });
     } 
 
     async remove(id:number) {
-        await this.nginx.command({
+        await this.ngin.command({
             strings: ['remove'],
             ints:[id],
         });        
     } 
 
     async getBodyinfo(id:number) {
-        this.nginx.cmdEmitter = new EventEmitter();    
-        await this.nginx.command({
+        this.ngin.cmdEmitter = new EventEmitter();    
+        await this.ngin.command({
           strings:['bodyinfo'], 
           ints:[id], 
         });
-        var value = await EventEmitter.once(this.nginx.cmdEmitter, 'cmd');
+        var value = await EventEmitter.once(this.ngin.cmdEmitter, 'cmd');
         return value[0].floats;
     }
     
     async angularVelocity(id:number, value:number) {
-        //await this.nginx.setBodyOp(id, 'angularVelocity', value, 0);
-        await this.nginx.command({
+        //await this.ngin.setBodyOp(id, 'angularVelocity', value, 0);
+        await this.ngin.command({
             strings:['angular'], 
             ints:[id],
             floats:[value]
@@ -198,8 +198,8 @@ export class NginEx {
 
     async setCActionType(bid, skin, skinType, facingLeft:boolean = false) {
         //const obj = this.getObj(bid);
-        //await this.nginx.setCActionTypeInternal(bid, skin, facingLeft, skinType);
-        await this.nginx.command({
+        //await this.ngin.setCActionTypeInternal(bid, skin, facingLeft, skinType);
+        await this.ngin.command({
 
         });
     }
@@ -234,8 +234,8 @@ export class NginEx {
 export function main(type, port, body) {
 
     mainInternal(type, port, async function (host, root) {
-        let x = new NginEx(new NginX(root));
-        await x.nginx.connect(host, port);
+        let x = new NginEx(new Ngin(root));
+        await x.ngin.connect(host, port);
         //ngin.eventHandler = eventHandler; //new InputHandler(ngin);
     
         await body(x);

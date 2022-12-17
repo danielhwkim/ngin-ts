@@ -1,6 +1,6 @@
-var {EventHandler} = require("./ngin");
-var {NginX, main} = require("./nginx");
+var {EventHandler, Ngin, mainInternal, main} = require("./ngin");
 import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./cobj";
+//import {main} from "./util";
 
 export class TestUtil {
     ngin;
@@ -42,19 +42,10 @@ export class TestUtil {
         const fillopacity = 0.5;
         const textsize = 5;
 
-        /*
-        await this.ngin.command({
-            strings:['svg', this.drawSvgTextFullScreen(width, height, `${num}`, textsize, "#111", fillopacity)], 
-            ints:[100+num], 
-            floats:[0, 0, width, height],
-        }); 
-        */
-
         var obj = new CObject(100+num);
         obj.visible = new CVisible([new CAction(this.drawSvgTextFullScreen(width, height, `${num}`, textsize, "#111", fillopacity), new Size(width, height), [], CActionType.svg)]);
         obj.visible.current = CActionType.svg;
         obj.visible.size = new Size(width, height);
-        //obj.visible.pos = new Pos(6,0);
         obj.visible.anchor = new Pos(0,0);
         await this.ngin.addCObjectInternal(obj.build());
 
@@ -73,12 +64,6 @@ export class TestUtil {
 
             num--;
 
-            
-            //await this.ngin.command({
-            //    strings:['svg', this.drawSvgTextFullScreen(width, height, `${num}`, textsize, "#111", fillopacity)], 
-            //    ints:[100+num], 
-            //    floats:[-width, 0, width, height],
-            //});
             obj = new CObject(100+num);
             obj.visible = new CVisible([new CAction(this.drawSvgTextFullScreen(width, height, `${num}`, textsize, "#111", fillopacity), new Size(width, height), [], CActionType.svg)]);
             obj.visible.current = CActionType.svg;
@@ -166,12 +151,6 @@ export class Stopwatch {
         });
     
         this.num += 1;
-        /*
-        await this.thisNgin.command({
-            strings:['svg', this.util.drawSvgText(this.w, this.h, `${this.num}`)], 
-            ints:[this.oid], 
-            floats:this.rect,
-        });*/ 
 
         var obj = new CObject(this.oid);
         obj.visible = new CVisible([new CAction(this.util.drawSvgText(this.w, this.h, `${this.num}`), new Size(this.w, this.h), [], CActionType.svg)]);
@@ -189,12 +168,6 @@ export class Stopwatch {
     
     async run() {
         this.running = true;
-        /*
-        await this.thisNgin.command({
-            strings:['svg', this.util.drawSvgText(this.w, this.h, `${this.num}`)], 
-            ints:[this.oid], 
-            floats:this.rect,
-        });*/ 
 
         var obj = new CObject(this.oid);
         obj.visible = new CVisible([new CAction(this.util.drawSvgText(this.w, this.h, `${this.num}`), new Size(this.w, this.h), [], CActionType.svg)]);
@@ -216,39 +189,6 @@ export class Stopwatch {
     }
 }
 
-
-
-
-/*
-main('daniel', 4040, async (ngin) =>  {
-    ngin.eventHandler = new GameInputHandler(ngin);
-
-    const x = 0;
-    const y = 0;
-    const width = 12;
-    const height = 12;
-    const margin = 3;
-    let gid = 100;
-
-    if (true) {
-        await ngin.initScreen({
-            background: 'Blue',
-            gravityX: 0.0,
-            gravityY: 0.0,    
-            width: width+margin,
-            height: height,
-            debug: false,
-        });
-    } else {
-        await ngin.command({strings:['removeAll']});
-    }
-    ngin.eventHandler.ready = true;
-
-    await test(ngin, width, height, margin, (i,j)=>i<j);
-    await test(ngin, width, height, margin, (i,j)=>j%2);
-    await test(ngin, width, height, margin, (i,j)=>j%2 != i%2);    
-});
-*/
 
 export function runq(func) {
     main('127.0.0.1', 4040, async (ngin) =>  {
@@ -285,59 +225,15 @@ class GameInputHandler extends EventHandler {
         super(ngin);
         this.nginx = ngin;
         this.ready = false;
-        this.handleLog = (cmd) => {};
     }
 
     async handleContact(contact) {
         console.log(contact);
         if (!this.ready) return;
-        //const obj1 = this.nginx.getObj(contact.bid1);
-        //const obj2 = this.nginx.getObj(contact.bid2);
-        //console.log(obj1.name, obj2.name);
-        /*
-        console.log(contact.name1, contact.name2);
-        if (contact.name1 == 'actor') {
-            switch(contact.name2) {
-            case 'fruit':
-                if (contact.type == 'begin') {
-                    this.nginx.playHitNotify(obj2.bid);
-                }
-                break;
-            case 'void':
-                if (contact.type == 'begin') {
-                    this.nginx.moveBack(obj1.bid);
-                }                
-                break;
-            case 'animated_obj':
-                switch(obj2.skin) {
-                case 'spike':
-
-                    break;
-                case 'coin':
-                    this.nginx.opRemove(obj2.bid);
-                    break;
-                }
-                break;                                    
-            }
-        }
-        */
     }
   
     async handleEvent(event) {
-        //var obj = this.ngin.getObj(event.bid);
-        //console.log(obj.name, obj.skin, event);
-        switch (event.name) {
-            case 'fruit':
-                if (event.type == 'complete') {
-                    await this.ngin.setBodyOp(event.bid, 'remove', event.x, event.y);
-                }
-                break;
-            case 'actor':
-                if (event.type == 'ready') {
-                    //
-                }                
-                break;
-        }
+        console.log(event);
     }
   
     async handleKey(key) {
@@ -353,7 +249,6 @@ class GameInputHandler extends EventHandler {
     }
 
     async handleCmd(cmd) {
-        //console.log(cmd);
-        this.handleLog(cmd);
+        console.log(cmd);
     }        
 }

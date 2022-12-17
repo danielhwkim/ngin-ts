@@ -1,12 +1,7 @@
-//var fs = require('fs');
 
-//import {EventHandler} from "./ngin";
-//import {NginX, main} from "./nginx";
-var {EventHandler} = require("./ngin");
-var {NginX} = require("./nginx");
+var {EventHandler, Ngin} = require("./ngin");
 var fs = require('fs');
 import {main} from "./util";
-//import {Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./pobj";
 import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./cobj";
 
 main('127.0.0.1', 4040, async (x) =>  {
@@ -52,7 +47,7 @@ main('127.0.0.1', 4040, async (x) =>  {
 
 class GameInputHandler extends EventHandler {
     nginx;
-    constructor(ngin:typeof NginX) {
+    constructor(ngin:typeof Ngin) {
         super(ngin);
         this.nginx = ngin;
     }

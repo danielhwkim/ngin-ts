@@ -1,3 +1,4 @@
+/*
 const {Ngin, mainInternal} = require("./ngin");//
 const {l1, l2} = require("./gen");//
 
@@ -23,7 +24,7 @@ class NginX extends Ngin {
       this.init(root);
       //this.omap = new Map();
       this.facingLeft = false;
-  }
+  }*/
 /*
   async setCAction(bid, skin, skinType, facingLeft) {
       //const obj = this.getObj(bid);
@@ -173,6 +174,6 @@ class NginX extends Ngin {
     return this.walls.has(this.xyToNumber(x, y+1));
   }  
 */
-}
+//}
 
-module.exports = { main, NginX};//
+//module.exports = { main, NginX};//

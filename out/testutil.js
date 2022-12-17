@@ -52,9 +52,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.run = exports.runq = exports.Stopwatch = exports.TestUtil = void 0;
-var EventHandler = require("./ngin").EventHandler;
-var _a = require("./nginx"), NginX = _a.NginX, main = _a.main;
+var _a = require("./ngin"), EventHandler = _a.EventHandler, Ngin = _a.Ngin, mainInternal = _a.mainInternal, main = _a.main;
 var cobj_1 = require("./cobj");
+//import {main} from "./util";
 var TestUtil = /** @class */ (function () {
     function TestUtil(ngin) {
         this.ngin = ngin;
@@ -100,7 +100,6 @@ var TestUtil = /** @class */ (function () {
                         obj.visible = new cobj_1.CVisible([new cobj_1.CAction(this.drawSvgTextFullScreen(width, height, "".concat(num), textsize, "#111", fillopacity), new cobj_1.Size(width, height), [], cobj_1.CActionType.svg)]);
                         obj.visible.current = cobj_1.CActionType.svg;
                         obj.visible.size = new cobj_1.Size(width, height);
-                        //obj.visible.pos = new Pos(6,0);
                         obj.visible.anchor = new cobj_1.Pos(0, 0);
                         return [4 /*yield*/, this.ngin.addCObjectInternal(obj.build())];
                     case 1:
@@ -123,11 +122,6 @@ var TestUtil = /** @class */ (function () {
                     case 4:
                         _a.sent();
                         num--;
-                        //await this.ngin.command({
-                        //    strings:['svg', this.drawSvgTextFullScreen(width, height, `${num}`, textsize, "#111", fillopacity)], 
-                        //    ints:[100+num], 
-                        //    floats:[-width, 0, width, height],
-                        //});
                         obj = new cobj_1.CObject(100 + num);
                         obj.visible = new cobj_1.CVisible([new cobj_1.CAction(this.drawSvgTextFullScreen(width, height, "".concat(num), textsize, "#111", fillopacity), new cobj_1.Size(width, height), [], cobj_1.CActionType.svg)]);
                         obj.visible.current = cobj_1.CActionType.svg;
@@ -267,36 +261,6 @@ var Stopwatch = /** @class */ (function () {
     return Stopwatch;
 }());
 exports.Stopwatch = Stopwatch;
-/*
-main('daniel', 4040, async (ngin) =>  {
-    ngin.eventHandler = new GameInputHandler(ngin);
-
-    const x = 0;
-    const y = 0;
-    const width = 12;
-    const height = 12;
-    const margin = 3;
-    let gid = 100;
-
-    if (true) {
-        await ngin.initScreen({
-            background: 'Blue',
-            gravityX: 0.0,
-            gravityY: 0.0,
-            width: width+margin,
-            height: height,
-            debug: false,
-        });
-    } else {
-        await ngin.command({strings:['removeAll']});
-    }
-    ngin.eventHandler.ready = true;
-
-    await test(ngin, width, height, margin, (i,j)=>i<j);
-    await test(ngin, width, height, margin, (i,j)=>j%2);
-    await test(ngin, width, height, margin, (i,j)=>j%2 != i%2);
-});
-*/
 function runq(func) {
     var _this = this;
     main('127.0.0.1', 4040, function (ngin) { return __awaiter(_this, void 0, void 0, function () {
@@ -365,7 +329,6 @@ var GameInputHandler = /** @class */ (function (_super) {
         var _this = _super.call(this, ngin) || this;
         _this.nginx = ngin;
         _this.ready = false;
-        _this.handleLog = function (cmd) { };
         return _this;
     }
     GameInputHandler.prototype.handleContact = function (contact) {
@@ -380,30 +343,9 @@ var GameInputHandler = /** @class */ (function (_super) {
     };
     GameInputHandler.prototype.handleEvent = function (event) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _a = event.name;
-                        switch (_a) {
-                            case 'fruit': return [3 /*break*/, 1];
-                            case 'actor': return [3 /*break*/, 4];
-                        }
-                        return [3 /*break*/, 5];
-                    case 1:
-                        if (!(event.type == 'complete')) return [3 /*break*/, 3];
-                        return [4 /*yield*/, this.ngin.setBodyOp(event.bid, 'remove', event.x, event.y)];
-                    case 2:
-                        _b.sent();
-                        _b.label = 3;
-                    case 3: return [3 /*break*/, 5];
-                    case 4:
-                        if (event.type == 'ready') {
-                            //
-                        }
-                        return [3 /*break*/, 5];
-                    case 5: return [2 /*return*/];
-                }
+            return __generator(this, function (_a) {
+                console.log(event);
+                return [2 /*return*/];
             });
         });
     };
@@ -434,8 +376,7 @@ var GameInputHandler = /** @class */ (function (_super) {
     GameInputHandler.prototype.handleCmd = function (cmd) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                //console.log(cmd);
-                this.handleLog(cmd);
+                console.log(cmd);
                 return [2 /*return*/];
             });
         });

@@ -39,17 +39,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.main = exports.NginEx = void 0;
 var fs = require('fs');
 var runInThisContext = require('vm').runInThisContext;
-var _a = require("./ngin"), EventHandler = _a.EventHandler, mainInternal = _a.mainInternal;
-//var {NginX} = require("./nginx");
+var _a = require("./ngin"), Ngin = _a.Ngin, EventHandler = _a.EventHandler, mainInternal = _a.mainInternal;
+//var {ngin} = require("./ngin");
 var EventEmitter = require('events');
 //var {Pos, Size, BodyType, BodyShape, TilesInfo, Pobj, Stage, JoystickDirectionals} = require("./pobj");
 //import {Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./pobj";
 var cobj_1 = require("./cobj");
-var nginx_1 = require("./nginx");
+//import { ngin } from "./ngin";
 var _b = require("./gen"), l1 = _b.l1, l2 = _b.l2; //
 var NginEx = /** @class */ (function () {
-    function NginEx(nginx) {
-        this.nginx = nginx;
+    function NginEx(ngin) {
+        this.ngin = ngin;
         //this.init(root);
     }
     NginEx.prototype.sendObj = function (obj) {
@@ -58,13 +58,13 @@ var NginEx = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         if (!(obj instanceof cobj_1.CObject)) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.nginx.addCObjectInternal(obj.build())];
+                        return [4 /*yield*/, this.ngin.addCObjectInternal(obj.build())];
                     case 1:
                         _a.sent();
                         return [3 /*break*/, 4];
                     case 2:
                         if (!(obj instanceof cobj_1.Stage)) return [3 /*break*/, 4];
-                        return [4 /*yield*/, this.nginx.initScreen(obj.build())];
+                        return [4 /*yield*/, this.ngin.initScreen(obj.build())];
                     case 3:
                         _a.sent();
                         _a.label = 4;
@@ -78,11 +78,11 @@ var NginEx = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        this.nginx.ackEmitter = new EventEmitter();
+                        this.ngin.ackEmitter = new EventEmitter();
                         return [4 /*yield*/, this.sendObj(obj)];
                     case 1:
                         _a.sent();
-                        return [4 /*yield*/, EventEmitter.once(this.nginx.ackEmitter, 'ack')];
+                        return [4 /*yield*/, EventEmitter.once(this.ngin.ackEmitter, 'ack')];
                     case 2: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -92,7 +92,7 @@ var NginEx = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.nginx.command({
+                    case 0: return [4 /*yield*/, this.ngin.command({
                             strings: ['forward'],
                             ints: [id],
                             floats: [pos.x, pos.y],
@@ -108,7 +108,7 @@ var NginEx = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.nginx.command({
+                    case 0: return [4 /*yield*/, this.ngin.command({
                             strings: ['follow'],
                             ints: [id],
                         })];
@@ -123,7 +123,7 @@ var NginEx = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.nginx.command({
+                    case 0: return [4 /*yield*/, this.ngin.command({
                             strings: ['remove'],
                             ints: [id],
                         })];
@@ -140,14 +140,14 @@ var NginEx = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        this.nginx.cmdEmitter = new EventEmitter();
-                        return [4 /*yield*/, this.nginx.command({
+                        this.ngin.cmdEmitter = new EventEmitter();
+                        return [4 /*yield*/, this.ngin.command({
                                 strings: ['bodyinfo'],
                                 ints: [id],
                             })];
                     case 1:
                         _a.sent();
-                        return [4 /*yield*/, EventEmitter.once(this.nginx.cmdEmitter, 'cmd')];
+                        return [4 /*yield*/, EventEmitter.once(this.ngin.cmdEmitter, 'cmd')];
                     case 2:
                         value = _a.sent();
                         return [2 /*return*/, value[0].floats];
@@ -160,14 +160,14 @@ var NginEx = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: 
-                    //await this.nginx.setBodyOp(id, 'angularVelocity', value, 0);
-                    return [4 /*yield*/, this.nginx.command({
+                    //await this.ngin.setBodyOp(id, 'angularVelocity', value, 0);
+                    return [4 /*yield*/, this.ngin.command({
                             strings: ['angular'],
                             ints: [id],
                             floats: [value]
                         })];
                     case 1:
-                        //await this.nginx.setBodyOp(id, 'angularVelocity', value, 0);
+                        //await this.ngin.setBodyOp(id, 'angularVelocity', value, 0);
                         _a.sent();
                         return [2 /*return*/];
                 }
@@ -360,11 +360,11 @@ var NginEx = /** @class */ (function () {
                 switch (_a.label) {
                     case 0: 
                     //const obj = this.getObj(bid);
-                    //await this.nginx.setCActionTypeInternal(bid, skin, facingLeft, skinType);
-                    return [4 /*yield*/, this.nginx.command({})];
+                    //await this.ngin.setCActionTypeInternal(bid, skin, facingLeft, skinType);
+                    return [4 /*yield*/, this.ngin.command({})];
                     case 1:
                         //const obj = this.getObj(bid);
-                        //await this.nginx.setCActionTypeInternal(bid, skin, facingLeft, skinType);
+                        //await this.ngin.setCActionTypeInternal(bid, skin, facingLeft, skinType);
                         _a.sent();
                         return [2 /*return*/];
                 }
@@ -381,8 +381,8 @@ function main(type, port, body) {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        x = new NginEx(new nginx_1.NginX(root));
-                        return [4 /*yield*/, x.nginx.connect(host, port)];
+                        x = new NginEx(new Ngin(root));
+                        return [4 /*yield*/, x.ngin.connect(host, port)];
                     case 1:
                         _a.sent();
                         //ngin.eventHandler = eventHandler; //new InputHandler(ngin);

@@ -54,14 +54,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var fs = require('fs');
 var EventHandler = require("./ngin").EventHandler;
 var util_1 = require("./util");
-//import {Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./pobj";
 var cobj_1 = require("./cobj");
 (0, util_1.main)('127.0.0.1', 4040, function (x) { return __awaiter(void 0, void 0, void 0, function () {
     var d, j, tiles, objlayer, data, tileSize, precision, size, stage, obj, value, value;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                x.nginx.eventHandler = new InputHandler(x);
+                x.ngin.eventHandler = new InputHandler(x);
                 d = fs.readFileSync('planes0.tmj', 'utf8');
                 j = JSON.parse(d);
                 tiles = j.layers[0];
@@ -90,7 +89,7 @@ var cobj_1 = require("./cobj");
             case 3:
                 value = _a.sent();
                 console.log('1', value);
-                x.nginx.eventHandler.ready = true;
+                x.ngin.eventHandler.ready = true;
                 return [4 /*yield*/, x.follow(100)];
             case 4:
                 _a.sent();
@@ -119,7 +118,7 @@ var cobj_1 = require("./cobj");
 var InputHandler = /** @class */ (function (_super) {
     __extends(InputHandler, _super);
     function InputHandler(x) {
-        var _this = _super.call(this, x.nginx) || this;
+        var _this = _super.call(this, x.ngin) || this;
         _this.missile_id = 800;
         _this.x = x;
         _this.key_down_left = false;
@@ -140,22 +139,20 @@ var InputHandler = /** @class */ (function (_super) {
                         if (!this.ready)
                             return [2 /*return*/];
                         console.log(contact);
-                        if (!(contact.isEnded == false)) return [3 /*break*/, 4];
-                        if (!(contact.id2 == 101)) return [3 /*break*/, 2];
+                        if (!(contact.isEnded == false)) return [3 /*break*/, 3];
+                        if (!(contact.id2 == 101)) return [3 /*break*/, 3];
                         return [4 /*yield*/, this.x.remove(contact.id2)];
                     case 1:
                         _a.sent();
-                        _a.label = 2;
-                    case 2:
                         obj = new cobj_1.CObject(1000);
-                        obj.tid = contact.id2;
+                        obj.tid = contact.id1;
                         obj.visible = new cobj_1.CVisible([new cobj_1.CAction('kenney_pixelshmup/tiles_packed.png', new cobj_1.Size(16, 16), [5], cobj_1.CActionType.idle)]);
                         obj.visible.pos = new cobj_1.Pos(0, 0);
                         return [4 /*yield*/, this.x.sendObj(obj)];
-                    case 3:
+                    case 2:
                         _a.sent();
-                        _a.label = 4;
-                    case 4: return [2 /*return*/];
+                        _a.label = 3;
+                    case 3: return [2 /*return*/];
                 }
             });
         });
