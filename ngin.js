@@ -244,7 +244,7 @@ class Ngin {
       cobj.visible.current = this.CActionType.values[cobj.visible.current];
       for (var i = 0; i < cobj.visible.actions.length; i++) {
         var a = cobj.visible.actions[i];
-        a.action = this.CActionType.values[a.action];
+        a.type = this.CActionType.values[a.type];
       }
     }
 
@@ -336,10 +336,6 @@ class Ngin {
     }).finish();
     await this.send(buf_body, this.Head.values.bodyop);
   } */
-  
-  async cmdIF2(cmd, bid, x, y) {
-
-  }
 
   async send(buf_body, head)
   {
@@ -351,11 +347,6 @@ class Ngin {
     //console.log(head, buf_body.length);
     //console.log(buf);
     await client.write(buf);
-  }
-
-  
-  async scan() {
-
   }
 
   async queryBodyinfo(bid) {

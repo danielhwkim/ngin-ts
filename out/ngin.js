@@ -347,7 +347,7 @@ var Ngin = /** @class */ (function () {
                             cobj.visible.current = this.CActionType.values[cobj.visible.current];
                             for (i = 0; i < cobj.visible.actions.length; i++) {
                                 a = cobj.visible.actions[i];
-                                a.action = this.CActionType.values[a.action];
+                                a.type = this.CActionType.values[a.type];
                             }
                         }
                         if ('physical' in cobj) {

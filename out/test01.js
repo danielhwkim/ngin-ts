@@ -81,8 +81,6 @@ function test01(ngin, width, height, margin, func, stopwatch) {
                     return [4 /*yield*/, util.countDown(width, height, 3, 1)];
                 case 3:
                     _a.sent();
-                    //await ngin.addCoin(1000, 3, 4);
-                    //let stopwatch = new Stopwatch(ngin, 200, [12,0,2,1]);
                     stopwatch.run();
                     return [4 /*yield*/, ngin.command({ strings: ['enable'], ints: [4041, 1] })];
                 case 4:

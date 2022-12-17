@@ -1,11 +1,11 @@
 
 var {EventHandler, Ngin} = require("./ngin");
 var fs = require('fs');
-import {main} from "./util";
+import {main, NginEx} from "./util";
 import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./cobj";
 
-main('127.0.0.1', 4040, async (x) =>  {
-    x.nginx.eventHandler = new GameInputHandler(x.nginx);
+main('127.0.0.1', 4040, async (x:NginEx) =>  {
+    x.ngin.eventHandler = new GameInputHandler(x.ngin);
 
     const size = new Size(12, 12);
 
@@ -13,6 +13,7 @@ main('127.0.0.1', 4040, async (x) =>  {
     stage.debug = true;
     stage.joystickDirectionals = JoystickDirectionals.horizontal;
     await x.sendObjWait(stage);
+    
 
     await x.addStage(0, 0, 0, size.w, size.h);
     var gid = 300;
@@ -23,8 +24,9 @@ main('127.0.0.1', 4040, async (x) =>  {
     await x.addSpike(gid++, 3, 4);
     await x.addCoin(gid++, 4, 4);
     await x.addActor(1, 'Mask Dude', 5, 4);
+    
+    //await x.moveLeft(1);
     /*
-    await ngin.moveLeft(1);
     //console.log('mid');
     await ngin.moveUp(1);
     //console.log('end');  
@@ -46,29 +48,29 @@ main('127.0.0.1', 4040, async (x) =>  {
 });
 
 class GameInputHandler extends EventHandler {
-    nginx;
+    ngin;
     constructor(ngin:typeof Ngin) {
         super(ngin);
-        this.nginx = ngin;
+        this.ngin = ngin;
     }
 
     async handleContact(contact:any) {
         console.log(contact);
         /*
-        if (this.nginx.omap.size == 0) return;
-        const obj1 = this.nginx.getObj(contact.bid1);
-        const obj2 = this.nginx.getObj(contact.bid2);
+        if (this.ngin.omap.size == 0) return;
+        const obj1 = this.ngin.getObj(contact.bid1);
+        const obj2 = this.ngin.getObj(contact.bid2);
         console.log(obj1.name, obj2.name);
         if (obj1.name == 'actor') {
             switch(obj2.name) {
             case 'fruit':
-                if (contact.type == this.nginx.ContactType.values.begin) {
-                    this.nginx.playHitNotify(obj2.bid);
+                if (contact.type == this.ngin.ContactType.values.begin) {
+                    this.ngin.playHitNotify(obj2.bid);
                 }
                 break;
             case 'void':
-                if (contact.type == this.nginx.ContactType.values.begin) {
-                    this.nginx.moveBack(obj1.bid);
+                if (contact.type == this.ngin.ContactType.values.begin) {
+                    this.ngin.moveBack(obj1.bid);
                 }                
                 break;
             case 'animated_obj':
@@ -77,7 +79,7 @@ class GameInputHandler extends EventHandler {
 
                     break;
                 case 'coin':
-                    this.nginx.opRemove(obj2.bid);
+                    this.ngin.opRemove(obj2.bid);
                     break;
                 }
                 break;                                    

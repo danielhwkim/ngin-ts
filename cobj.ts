@@ -76,8 +76,8 @@ export interface Buildable {
     build();
 }
 
-function buildCActionType(action:CActionType) {
-    switch(action) {
+function buildCActionType(type:CActionType) {
+    switch(type) {
         case CActionType.idle: return "idle";
         case CActionType.run: return "run";
         case CActionType.jump: return "jump";
@@ -124,13 +124,13 @@ export class CAction implements Buildable {
     tileSize: Size;
     indices: number[];
     stepTime: number = 0.2;
-    action: CActionType;
+    type: CActionType;
     repeat: boolean = true;
-    constructor(path:string, tileSize:Size, indices:number[], action:CActionType) {
+    constructor(path:string, tileSize:Size, indices:number[], type:CActionType) {
         this.path = path;
         this.tileSize = tileSize;
         this.indices = indices;
-        this.action = action;
+        this.type = type;
     }
     build() {
         return {
@@ -139,7 +139,7 @@ export class CAction implements Buildable {
             tileSizeY:this.tileSize.h,
             indices:this.indices,
             stepTime:this.stepTime,
-            action:buildCActionType(this.action),
+            type: buildCActionType(this.type),
             repeat:this.repeat,
         };
     }

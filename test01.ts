@@ -27,14 +27,6 @@ export async function test01(ngin, width, height, margin, func, stopwatch) {
 
     await ngin.command({strings:['enable'], ints:[4041, 0]});    
 
-    /*
-    await ngin.command({
-        strings:['svg', util.drawSvgGrid(width, height, func)], 
-        ints:[100,100], 
-        floats:[0, 0, width, height],
-    });*/
-
-    
     var obj = new CObject(100);
     obj.visible = new CVisible([new CAction(util.drawSvgGrid(width, height, func), new Size(width, height), [], CActionType.svg)]);
     obj.visible.current = CActionType.svg;
@@ -42,15 +34,8 @@ export async function test01(ngin, width, height, margin, func, stopwatch) {
     obj.visible.anchor = new Pos(0,0);    
     await ngin.addCObjectInternal(obj.build());
 
-  
-
     await util.countDown(width, height, 3, 1);
-
-    //await ngin.addCoin(1000, 3, 4);
-  
-    //let stopwatch = new Stopwatch(ngin, 200, [12,0,2,1]);
     stopwatch.run();
-
 
     await ngin.command({strings:['enable'], ints:[4041, 1]});
     ngin.prepareAck();    
@@ -58,7 +43,6 @@ export async function test01(ngin, width, height, margin, func, stopwatch) {
     const value = await ngin.waitAckValue(4040);
     console.log('ack:', value);  
 
-    //console.log(set);
     let message;
     let size;    
     let fill;

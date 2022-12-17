@@ -284,7 +284,7 @@ var NginEx = /** @class */ (function () {
                         obj = new cobj_1.CObject(id);
                         obj.info = "spike";
                         obj.physical = new cobj_1.CPhysical(cobj_1.BodyShape.rectangle, new cobj_1.Pos(x, y), cobj_1.BodyType.static);
-                        //obj.physical.isSensor = true;
+                        obj.physical.isSensor = true;
                         obj.visible = new cobj_1.CVisible([new cobj_1.CAction('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new cobj_1.Size(16, 16), [929, 930, 931, 932, 931, 930], cobj_1.CActionType.idle)]);
                         return [4 /*yield*/, this.sendObj(obj)];
                     case 1:
@@ -303,7 +303,7 @@ var NginEx = /** @class */ (function () {
                         obj = new cobj_1.CObject(id);
                         obj.info = "coin";
                         obj.physical = new cobj_1.CPhysical(cobj_1.BodyShape.rectangle, new cobj_1.Pos(x, y), cobj_1.BodyType.static);
-                        //obj.physical.isSensor = true;
+                        obj.physical.isSensor = true;
                         obj.visible = new cobj_1.CVisible([new cobj_1.CAction('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new cobj_1.Size(16, 16), [403, 404, 405, 406], cobj_1.CActionType.idle)]);
                         return [4 /*yield*/, this.sendObj(obj)];
                     case 1:
@@ -325,6 +325,7 @@ var NginEx = /** @class */ (function () {
                         obj.info = "actor";
                         obj.physical = new cobj_1.CPhysical(cobj_1.BodyShape.polygon, new cobj_1.Pos(x, y), cobj_1.BodyType.dynamic);
                         obj.physical.floats = [-hx, -hy, -hx, hy, hx, hy, hx, -hy];
+                        obj.physical.fixedRotation = true;
                         //obj.physical.size = new Size(0.5, 0.5);
                         obj.visible = new cobj_1.CVisible([
                             new cobj_1.CAction('Main Characters/' + character + '/Idle (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CActionType.idle),

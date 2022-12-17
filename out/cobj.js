@@ -77,8 +77,8 @@ var CActionType;
     CActionType[CActionType["tiles"] = 16] = "tiles";
     CActionType[CActionType["svg"] = 17] = "svg";
 })(CActionType = exports.CActionType || (exports.CActionType = {}));
-function buildCActionType(action) {
-    switch (action) {
+function buildCActionType(type) {
+    switch (type) {
         case CActionType.idle: return "idle";
         case CActionType.run: return "run";
         case CActionType.jump: return "jump";
@@ -117,13 +117,13 @@ function buildShape(shape) {
     }
 }
 var CAction = /** @class */ (function () {
-    function CAction(path, tileSize, indices, action) {
+    function CAction(path, tileSize, indices, type) {
         this.stepTime = 0.2;
         this.repeat = true;
         this.path = path;
         this.tileSize = tileSize;
         this.indices = indices;
-        this.action = action;
+        this.type = type;
     }
     CAction.prototype.build = function () {
         return {
@@ -132,7 +132,7 @@ var CAction = /** @class */ (function () {
             tileSizeY: this.tileSize.h,
             indices: this.indices,
             stepTime: this.stepTime,
-            action: buildCActionType(this.action),
+            type: buildCActionType(this.type),
             repeat: this.repeat,
         };
     };

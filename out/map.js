@@ -60,7 +60,7 @@ var cobj_1 = require("./cobj");
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                x.nginx.eventHandler = new GameInputHandler(x.nginx);
+                x.ngin.eventHandler = new GameInputHandler(x.ngin);
                 size = new cobj_1.Size(12, 12);
                 stage = new cobj_1.Stage(size);
                 stage.debug = true;
@@ -100,7 +100,7 @@ var GameInputHandler = /** @class */ (function (_super) {
     __extends(GameInputHandler, _super);
     function GameInputHandler(ngin) {
         var _this = _super.call(this, ngin) || this;
-        _this.nginx = ngin;
+        _this.ngin = ngin;
         return _this;
     }
     GameInputHandler.prototype.handleContact = function (contact) {

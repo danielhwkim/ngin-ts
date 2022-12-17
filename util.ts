@@ -135,7 +135,7 @@ export class NginEx {
         var obj = new CObject(id);
         obj.info = "spike";
         obj.physical = new CPhysical(BodyShape.rectangle, new Pos(x,y), BodyType.static);
-        //obj.physical.isSensor = true;
+        obj.physical.isSensor = true;
         obj.visible = new CVisible([new CAction('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new Size(16, 16), [929,930,931,932, 931, 930], CActionType.idle)]);
         await this.sendObj(obj);
     }
@@ -144,7 +144,7 @@ export class NginEx {
         var obj = new CObject(id);
         obj.info = "coin";
         obj.physical = new CPhysical(BodyShape.rectangle, new Pos(x,y), BodyType.static);
-        //obj.physical.isSensor = true;
+        obj.physical.isSensor = true;
         obj.visible = new CVisible([new CAction('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new Size(16, 16), [403,404,405,406], CActionType.idle)]);
         await this.sendObj(obj);
     }
@@ -157,6 +157,7 @@ export class NginEx {
         obj.info = "actor";
         obj.physical = new CPhysical(BodyShape.polygon, new Pos(x,y), BodyType.dynamic);
         obj.physical.floats = [-hx, -hy, -hx, hy, hx, hy, hx, -hy];
+        obj.physical.fixedRotation = true;
         //obj.physical.size = new Size(0.5, 0.5);
         
         obj.visible = new CVisible([
@@ -166,7 +167,7 @@ export class NginEx {
             new CAction('Main Characters/' + character +'/Hit (32x32).png', new Size(32, 32), [], CActionType.hit),
             new CAction('Main Characters/' + character +'/Fall (32x32).png', new Size(32, 32), [], CActionType.fall),
             new CAction('Main Characters/' + character +'/Wall Jump (32x32).png', new Size(32, 32), [], CActionType.wallJump),
-            new CAction('Main Characters/' + character +'/Double Jump (32x32).png', new Size(32, 32), [], CActionType.doubleJump),                                                                        
+            new CAction('Main Characters/' + character +'/Double Jump (32x32).png', new Size(32, 32), [], CActionType.doubleJump),
         ]);
         for (var i=0; i<obj.visible.actions.length; i++) {
             obj.visible.actions[i].stepTime = 50/1000;
@@ -199,32 +200,6 @@ export class NginEx {
 
         });
     }
-      
-      
-    /*
-  
-    
-  
-    async addActor(bid, name, x, y) {
-      //console.log('wait - addActor');    
-      this.prepareAck(bid);
-      const hx = 0.25/2;
-          const hy = 0.25/2;
-      await this.addBody({
-        bid:bid,
-        name:'actor',
-        skin:name,
-        shape:'polygon',
-        x:x,
-        y:y-0.2,
-        width:1,
-        height:1,
-        type:'dynamic',
-        facingLeft:true,
-        floats:[-hx, -hy/2, hx, hy/2, hx, hy*2, -hx, hy*2]
-      });  
-      const value = await this.waitAckValue(bid);
-    }*/    
 }
 
 export function main(type, port, body) {
