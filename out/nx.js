@@ -272,18 +272,26 @@ var Nx = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: 
-                    //const obj = this.getObj(bid);
-                    //await this.setCActionTypeInternal(bid, skin, facingLeft, skinType);
-                    return [4 /*yield*/, this.command({
+                    case 0: return [4 /*yield*/, this.command({
                             strings: ['actionType', (0, cobj_1.buildCActionType)(actionType)],
                             ints: [id, isFlipHorizontal == true ? 1 : 0],
                         })];
                     case 1:
-                        //const obj = this.getObj(bid);
-                        //await this.setCActionTypeInternal(bid, skin, facingLeft, skinType);
                         _a.sent();
                         return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Nx.prototype.getCObjectInfo = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = cobj_1.CObjectInfo.bind;
+                        return [4 /*yield*/, this.getObjinfo(id)];
+                    case 1: return [2 /*return*/, new (_a.apply(cobj_1.CObjectInfo, [void 0, _b.sent()]))()];
                 }
             });
         });

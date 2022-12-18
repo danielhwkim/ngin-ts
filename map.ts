@@ -4,6 +4,7 @@ var fs = require('fs');
 import {main, Nx} from "./nx";
 import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./cobj";
 
+
 main('127.0.0.1', 4040, async (nx:Nx) =>  {
     nx.eventHandler = new GameInputHandler(nx);
 
@@ -24,10 +25,15 @@ main('127.0.0.1', 4040, async (nx:Nx) =>  {
     await nx.addSpike(gid++, 3, 4);
     await nx.addCoin(gid++, 4, 4);
     await nx.sendObjWait(nx.actor(1, 'Mask Dude', 5, 4));
+
+    var info = await nx.getCObjectInfo(1);
+    console.log(info);
+    //nx.leanerTo(info.pos.x + 1, info.pos.y);
     
-    await nx.setActionType(1, CActionType.run, true);
-    await nx.setActionType(1, CActionType.doubleJump, false);    
+    //await nx.setActionType(1, CActionType.run, true);
+    //await nx.setActionType(1, CActionType.doubleJump, false);    
     //await nx.moveLeft(1);
+
     /*
     //console.log('mid');
     await ngin.moveUp(1);

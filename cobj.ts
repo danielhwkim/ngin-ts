@@ -328,4 +328,20 @@ export class Stage implements Buildable {
         button2: this.buildActionEvent(this.button2),
       };
     }
-  }
+}
+
+
+export class CObjectInfo{
+    constructor(info:number[]) {
+        this.pos = new Pos(info[0], info[1]);
+        this.size = new Size(info[2], info[3]);
+        this.angle = info[4];
+        this.linear = new Pos(info[5], info[6]);
+        this.angular = info[7];
+    }
+    pos:Pos;
+    size:Size;
+    angle:number;
+    linear:Pos;
+    angular:number;
+}

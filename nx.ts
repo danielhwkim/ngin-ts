@@ -1,7 +1,7 @@
 var fs = require('fs');
 const {Ngin, EventHandler, mainInternal} = require("./ngin");
 const EventEmitter = require('events');
-import {CObject, CActionType, CAction, CPhysical, CVisible, Buildable, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals, buildCActionType} from "./cobj";
+import {CObject, CActionType, CAction, CPhysical, CVisible, Buildable, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals, buildCActionType, CObjectInfo} from "./cobj";
 const { NginX } = require("./nginx");
 const {l1, l2} = require("./gen");//
 
@@ -137,12 +137,14 @@ export class Nx extends NginX {
     }
 
     async setActionType(id, actionType, isFlipHorizontal = false) {
-        //const obj = this.getObj(bid);
-        //await this.setCActionTypeInternal(bid, skin, facingLeft, skinType);
         await this.command({
             strings:['actionType', buildCActionType(actionType)], 
             ints:[id, isFlipHorizontal == true? 1:0],
         });      
+    }
+
+    async getCObjectInfo(id) {
+        return new CObjectInfo(await this.getObjinfo(id));
     }
 }
 

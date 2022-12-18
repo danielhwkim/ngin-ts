@@ -34,10 +34,10 @@ class NginX extends Ngin {
 
 
 
-    async getBodyinfo(id) {
+    async getObjinfo(id) {
         this.cmdEmitter = new EventEmitter();    
         await this.command({
-          strings:['bodyinfo'], 
+          strings:['objinfo'], 
           ints:[id], 
         });
         var value = await EventEmitter.once(this.cmdEmitter, 'cmd');
@@ -50,6 +50,17 @@ class NginX extends Ngin {
             ints:[id],
             floats:[value]
         });        
+    }
+
+    async linearTo(id, x, y) {
+        this.cmdEmitter = new EventEmitter();        
+        await this.ngin.command({
+            strings:['linearTo'], 
+            ints:[id], 
+            floats:[x, y],
+        });
+        var value = await EventEmitter.once(this.cmdEmitter, 'cmd');
+        return value[0].floats;        
     }
 
 

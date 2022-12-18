@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Stage = exports.CTileObject = exports.CObject = exports.CPhysical = exports.CVisible = exports.CAction = exports.buildCActionType = exports.CActionType = exports.JoystickDirectionals = exports.ActionEvent = exports.BodyShape = exports.BodyType = exports.Size = exports.Pos = void 0;
+exports.CObjectInfo = exports.Stage = exports.CTileObject = exports.CObject = exports.CPhysical = exports.CVisible = exports.CAction = exports.buildCActionType = exports.CActionType = exports.JoystickDirectionals = exports.ActionEvent = exports.BodyShape = exports.BodyType = exports.Size = exports.Pos = void 0;
 var Pos = /** @class */ (function () {
     function Pos(x, y) {
         if (x === void 0) { x = 0; }
@@ -314,4 +314,15 @@ var Stage = /** @class */ (function () {
     return Stage;
 }());
 exports.Stage = Stage;
+var CObjectInfo = /** @class */ (function () {
+    function CObjectInfo(info) {
+        this.pos = new Pos(info[0], info[1]);
+        this.size = new Size(info[2], info[3]);
+        this.angle = info[4];
+        this.linear = new Pos(info[5], info[6]);
+        this.angular = info[7];
+    }
+    return CObjectInfo;
+}());
+exports.CObjectInfo = CObjectInfo;
 //# sourceMappingURL=cobj.js.map

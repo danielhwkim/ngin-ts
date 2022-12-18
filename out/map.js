@@ -56,7 +56,7 @@ var fs = require('fs');
 var nx_1 = require("./nx");
 var cobj_1 = require("./cobj");
 (0, nx_1.main)('127.0.0.1', 4040, function (nx) { return __awaiter(void 0, void 0, void 0, function () {
-    var size, stage, gid, i;
+    var size, stage, gid, i, info;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -92,12 +92,10 @@ var cobj_1 = require("./cobj");
                 return [4 /*yield*/, nx.sendObjWait(nx.actor(1, 'Mask Dude', 5, 4))];
             case 9:
                 _a.sent();
-                return [4 /*yield*/, nx.setActionType(1, cobj_1.CActionType.run, true)];
+                return [4 /*yield*/, nx.getCObjectInfo(1)];
             case 10:
-                _a.sent();
-                return [4 /*yield*/, nx.setActionType(1, cobj_1.CActionType.doubleJump, false)];
-            case 11:
-                _a.sent();
+                info = _a.sent();
+                console.log(info);
                 return [2 /*return*/];
         }
     });
