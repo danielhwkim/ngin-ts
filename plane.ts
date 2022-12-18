@@ -36,7 +36,7 @@ main('127.0.0.1', 4040, async (nx) =>  {
 
     await nx.follow(100);
   
-    await nx.forward(100, new Pos(5, 0));
+    await nx.forward(100, 0, 5);
 
     obj.id = 200;
     obj.physical.pos = new Pos(11, 0);
@@ -46,7 +46,7 @@ main('127.0.0.1', 4040, async (nx) =>  {
     var value = await nx.sendObjWait(obj);
     console.log('2', value); 
     
-    await nx.forward(200, new Pos(5, 0));
+    await nx.forward(200, 0, 5);
     await nx.angularVelocity(200, 1);    
 
 });
@@ -100,16 +100,15 @@ class InputHandler extends EventHandler {
 
     async missile()
     {
-      var x,y,w,h,a,lvx,lvy,av;
-      [x,y,w,h,a,lvx,lvy,av] = await this.nx.getBodyinfo(100);
+      var info = await this.nx.getCObjectInfo(100);
 
       var obj = new CObject(101);
-      obj.physical = new CPhysical(BodyShape.rectangle, new Pos(x-0.5 + 2*Math.sin(a), y-0.5 - 2*Math.cos(a)), BodyType.dynamic);
-      obj.physical.angle = a;
+      obj.physical = new CPhysical(BodyShape.rectangle, new Pos(info.pos.x-0.5 + 2*Math.sin(info.angle), info.pos.y-0.5 - 2*Math.cos(info.angle)), BodyType.dynamic);
+      obj.physical.angle = info.angle;
       obj.visible = new CVisible([ new CAction('kenney_pixelshmup/tiles_packed.png', new Size(16, 16), [1, 2, 3], CActionType.idle)]);
       var value = await this.nx.sendObjWait(obj);
       console.log('1', value);
-      await this.nx.forward(101, new Pos(20, 0));
+      await this.nx.forward(101, 0, 20);
     }
 
     missile_id = 800;

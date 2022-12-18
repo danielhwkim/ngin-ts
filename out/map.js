@@ -96,6 +96,15 @@ var cobj_1 = require("./cobj");
             case 10:
                 info = _a.sent();
                 console.log(info);
+                return [4 /*yield*/, nx.setActionType(1, cobj_1.CActionType.run, true)];
+            case 11:
+                _a.sent();
+                return [4 /*yield*/, nx.linearTo(1, new cobj_1.Pos(info.pos.x - 1, info.pos.y), 2)];
+            case 12:
+                _a.sent();
+                return [4 /*yield*/, nx.setActionType(1, cobj_1.CActionType.idle, true)];
+            case 13:
+                _a.sent();
                 return [2 /*return*/];
         }
     });

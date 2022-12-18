@@ -296,6 +296,44 @@ var Nx = /** @class */ (function (_super) {
             });
         });
     };
+    Nx.prototype.linearTo = function (id, pos, speed) {
+        return __awaiter(this, void 0, void 0, function () {
+            var value;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.cmdEmitter = new EventEmitter();
+                        return [4 /*yield*/, this.command({
+                                strings: ['linearTo'],
+                                ints: [id],
+                                floats: [pos.x, pos.y, speed],
+                            })];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, EventEmitter.once(this.cmdEmitter, 'cmd')];
+                    case 2:
+                        value = _a.sent();
+                        return [2 /*return*/, value[0].floats];
+                }
+            });
+        });
+    };
+    Nx.prototype.forward = function (id, angle, speed) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.command({
+                            strings: ['forward'],
+                            ints: [id],
+                            floats: [angle, speed],
+                        })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     return Nx;
 }(NginX));
 exports.Nx = Nx;

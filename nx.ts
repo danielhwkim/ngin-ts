@@ -146,6 +146,26 @@ export class Nx extends NginX {
     async getCObjectInfo(id) {
         return new CObjectInfo(await this.getObjinfo(id));
     }
+
+    async linearTo(id, pos:Pos, speed) {
+        this.cmdEmitter = new EventEmitter();        
+        await this.command({
+            strings:['linearTo'], 
+            ints:[id], 
+            floats:[pos.x, pos.y, speed],
+        });
+        var value = await EventEmitter.once(this.cmdEmitter, 'cmd');
+        return value[0].floats;        
+    }
+    
+
+    async forward(id, angle, speed) {
+        await this.command({
+            strings: ['forward'],
+            ints:[id],
+            floats:[angle, speed],
+        });
+    }    
 }
 
 export function main(type, port, body) {

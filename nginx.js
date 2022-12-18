@@ -10,13 +10,6 @@ class NginX extends Ngin {
         super(root);
     }
 
-    async forward(id, pos) {
-        await this.command({
-            strings: ['forward'],
-            ints:[id],
-            floats:[pos.x, pos.y],
-        });
-    }
 
     async follow(id) {
         await this.command({
@@ -52,16 +45,7 @@ class NginX extends Ngin {
         });        
     }
 
-    async linearTo(id, x, y) {
-        this.cmdEmitter = new EventEmitter();        
-        await this.ngin.command({
-            strings:['linearTo'], 
-            ints:[id], 
-            floats:[x, y],
-        });
-        var value = await EventEmitter.once(this.cmdEmitter, 'cmd');
-        return value[0].floats;        
-    }
+
 
 
 

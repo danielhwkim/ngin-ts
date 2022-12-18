@@ -28,7 +28,9 @@ main('127.0.0.1', 4040, async (nx:Nx) =>  {
 
     var info = await nx.getCObjectInfo(1);
     console.log(info);
-    //nx.leanerTo(info.pos.x + 1, info.pos.y);
+    await nx.setActionType(1, CActionType.run, true);    
+    await nx.linearTo(1, new Pos(info.pos.x - 1, info.pos.y), 2);
+    await nx.setActionType(1, CActionType.idle, true);
     
     //await nx.setActionType(1, CActionType.run, true);
     //await nx.setActionType(1, CActionType.doubleJump, false);    

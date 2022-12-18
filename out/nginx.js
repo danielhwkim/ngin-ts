@@ -60,22 +60,6 @@ var NginX = /** @class */ (function (_super) {
     function NginX(root) {
         return _super.call(this, root) || this;
     }
-    NginX.prototype.forward = function (id, pos) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.command({
-                            strings: ['forward'],
-                            ints: [id],
-                            floats: [pos.x, pos.y],
-                        })];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
     NginX.prototype.follow = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -139,28 +123,6 @@ var NginX = /** @class */ (function (_super) {
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
-                }
-            });
-        });
-    };
-    NginX.prototype.linearTo = function (id, x, y) {
-        return __awaiter(this, void 0, void 0, function () {
-            var value;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        this.cmdEmitter = new EventEmitter();
-                        return [4 /*yield*/, this.ngin.command({
-                                strings: ['linearTo'],
-                                ints: [id],
-                                floats: [x, y],
-                            })];
-                    case 1:
-                        _a.sent();
-                        return [4 /*yield*/, EventEmitter.once(this.cmdEmitter, 'cmd')];
-                    case 2:
-                        value = _a.sent();
-                        return [2 /*return*/, value[0].floats];
                 }
             });
         });
