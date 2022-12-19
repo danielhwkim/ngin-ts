@@ -1,7 +1,7 @@
 var fs = require('fs');
 var {EventHandler} = require("./ngin");
 import {main} from "./nx";
-import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./cobj";
+import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, CStage, CPos, CSize, CBodyType, CBodyShape, CJoystickDirectionals} from "./cobj";
 
 main('127.0.0.1', 4040, async (nx) =>  {
     nx.eventHandler = new InputHandler(nx);
@@ -14,9 +14,9 @@ main('127.0.0.1', 4040, async (nx) =>  {
     const tileSize = j['tilewidth'];
     const precision = 3;
     console.log(j);
-    var size = new Size(tiles.width, tiles.height);
+    var size = new CSize(tiles.width, tiles.height);
 
-    var stage = new Stage(size);
+    var stage = new CStage(size);
     //stage.debug = true;
     stage.joystickDirectionals = JoystickDirectionals.horizontal;
     await nx.sendObjWait(stage);
