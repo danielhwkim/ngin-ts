@@ -1,7 +1,7 @@
 var fs = require('fs');
 const {Ngin, EventHandler, mainInternal} = require("./ngin");
 const EventEmitter = require('events');
-import {CObject, CActionType, CAction, CPhysical, CVisible, CBuildable, CStage, CPos, CSize, CBodyType, CBodyShape, CJoystickDirectionals, buildCActionType, CObjectInfo} from "./cobj";
+import {CObject, CActionType, CAction, CPhysical, CVisible, CBuildable, CStage, CVector2, CSize, CBodyType, CBodyShape, CJoystickDirectionals, buildCActionType, CObjectInfo} from "./cobj";
 const { NginX } = require("./nginx");
 const {l1, l2} = require("./gen");//
 
@@ -25,11 +25,11 @@ export class Nx extends NginX {
         return await EventEmitter.once(this.ackEmitter, 'ack');
     }    
 
-    async add(pos:CPos) {
+    async add(pos:CVector2) {
         await this.addFruit(200, pos, 'Bananas');
     }
 
-    async addFruit(id:number, pos:CPos, fruit:string) {
+    async addFruit(id:number, pos:CVector2, fruit:string) {
         var obj = new CObject(id);
         obj.info = "fruit";
         obj.physical = new CPhysical(CBodyShape.circle, pos, CBodyType.static);
@@ -37,7 +37,7 @@ export class Nx extends NginX {
         var a1 = new CAction('Items/Fruits/' + fruit + '.png', new CSize(32, 32), [/*0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16*/], CActionType.idle);
         a1.stepTime = 50/1000;
         obj.visible = new CVisible([a1]);
-        obj.visible.scale = new CPos(1.5, 1.5);
+        obj.visible.scale = new CVector2(1.5, 1.5);
         await this.sendObj(obj);
     }
 
@@ -49,9 +49,9 @@ export class Nx extends NginX {
         var obj = new CObject(bid);
         obj.visible = new CVisible([ new CAction('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new CSize(16, 16), data, CActionType.idle)]);
         obj.visible.current = CActionType.tiles;
-        obj.visible.pos = new CPos(x,y);
+        obj.visible.pos = new CVector2(x,y);
         obj.visible.size = new CSize(width, height);
-        obj.visible.anchor = new CPos(0,0);
+        obj.visible.anchor = new CVector2(0,0);
         //obj.visible.priority = 0;
         await this.sendObj(obj);
 
@@ -83,7 +83,7 @@ export class Nx extends NginX {
   
         var obj = new CObject(bid);
         obj.info = "wall";
-        obj.physical = new CPhysical(CBodyShape.rectangle, new CPos(x, y), CBodyType.static);
+        obj.physical = new CPhysical(CBodyShape.rectangle, new CVector2(x, y), CBodyType.static);
         obj.physical.size = new CSize(width, height);
         await this.sendObj(obj);
     }
@@ -92,7 +92,7 @@ export class Nx extends NginX {
     async addSpike(id, x, y) {
         var obj = new CObject(id);
         obj.info = "spike";
-        obj.physical = new CPhysical(CBodyShape.rectangle, new CPos(x,y), CBodyType.static);
+        obj.physical = new CPhysical(CBodyShape.rectangle, new CVector2(x,y), CBodyType.static);
         obj.physical.isSensor = true;
         obj.visible = new CVisible([new CAction('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new CSize(16, 16), [929,930,931,932, 931, 930], CActionType.idle)]);
         await this.sendObj(obj);
@@ -101,13 +101,13 @@ export class Nx extends NginX {
     async addCoin(id, x, y) {
         var obj = new CObject(id);
         obj.info = "coin";
-        obj.physical = new CPhysical(CBodyShape.rectangle, new CPos(x,y), CBodyType.static);
+        obj.physical = new CPhysical(CBodyShape.rectangle, new CVector2(x,y), CBodyType.static);
         obj.physical.isSensor = true;
         obj.visible = new CVisible([new CAction('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new CSize(16, 16), [403,404,405,406], CActionType.idle)]);
         await this.sendObj(obj);
     }
 
-    hero(id:number, character:string, pos:CPos) {
+    hero(id:number, character:string, pos:CVector2) {
         const hx = 0.25;
         const hy = 0.25;
 
@@ -130,9 +130,9 @@ export class Nx extends NginX {
         for (var i=0; i<obj.visible.actions.length; i++) {
             obj.visible.actions[i].stepTime = 50/1000;
         }
-        obj.visible.pos = new CPos(0, -0.2);
+        obj.visible.pos = new CVector2(0, -0.2);
         
-        //obj.visible.scale = new CPos(1.5, 1.5);
+        //obj.visible.scale = new CVector2(1.5, 1.5);
         return obj;
     }
 
@@ -147,7 +147,7 @@ export class Nx extends NginX {
         return new CObjectInfo(await this.getObjinfo(id));
     }
 
-    async linearTo(id, pos:CPos, speed) {
+    async linearTo(id, pos:CVector2, speed) {
         this.cmdEmitter = new EventEmitter();        
         await this.command({
             strings:['linearTo'], 

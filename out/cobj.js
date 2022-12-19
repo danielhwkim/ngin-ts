@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CObjectInfo = exports.CStage = exports.CTileObject = exports.CObject = exports.CPhysical = exports.CVisible = exports.CAction = exports.buildCActionType = exports.CActionType = exports.CJoystickDirectionals = exports.CActionEvent = exports.CBodyShape = exports.CBodyType = exports.CSize = exports.CPos = void 0;
-var CPos = /** @class */ (function () {
-    function CPos(x, y) {
+exports.CObjectInfo = exports.CStage = exports.CTileObject = exports.CObject = exports.CPhysical = exports.CVisible = exports.CAction = exports.buildCActionType = exports.CActionType = exports.CJoystickDirectionals = exports.CActionEvent = exports.CBodyShape = exports.CBodyType = exports.CSize = exports.CVector2 = void 0;
+var CVector2 = /** @class */ (function () {
+    function CVector2(x, y) {
         if (x === void 0) { x = 0; }
         if (y === void 0) { y = 0; }
         this.x = 0;
@@ -10,9 +10,9 @@ var CPos = /** @class */ (function () {
         this.x = x;
         this.y = y;
     }
-    return CPos;
+    return CVector2;
 }());
-exports.CPos = CPos;
+exports.CVector2 = CVector2;
 var CSize = /** @class */ (function () {
     function CSize(w, h) {
         this.w = 1;
@@ -145,10 +145,10 @@ var CVisible = /** @class */ (function () {
     function CVisible(actions) {
         this.current = CActionType.idle;
         this.priority = 0;
-        this.pos = new CPos(0, 0);
+        this.pos = new CVector2(0, 0);
         this.size = new CSize(1, 1);
-        this.scale = new CPos(1, 1);
-        this.anchor = new CPos(0.5, 0.5);
+        this.scale = new CVector2(1, 1);
+        this.anchor = new CVector2(0.5, 0.5);
         this.tid = 0;
         this.actions = actions;
     }
@@ -262,15 +262,15 @@ function CTileObject(path, tileSize, data, pos, size) {
     obj.visible = new CVisible([new CAction(path, tileSize, data, CActionType.tiles)]);
     obj.visible.current = CActionType.tiles;
     obj.visible.pos = pos;
-    obj.visible.anchor = new CPos(0, 0);
+    obj.visible.anchor = new CVector2(0, 0);
     obj.visible.size = size;
     return obj;
 }
 exports.CTileObject = CTileObject;
 var CStage = /** @class */ (function () {
     function CStage(size) {
-        this.gravity = new CPos(0, 0);
-        this.pos = new CPos(0, 0);
+        this.gravity = new CVector2(0, 0);
+        this.pos = new CVector2(0, 0);
         this.debug = false;
         this.joystickDirectionals = CJoystickDirectionals.none;
         this.joystickPrecision = 3;
@@ -319,10 +319,10 @@ var CStage = /** @class */ (function () {
 exports.CStage = CStage;
 var CObjectInfo = /** @class */ (function () {
     function CObjectInfo(info) {
-        this.pos = new CPos(info[0], info[1]);
+        this.pos = new CVector2(info[0], info[1]);
         this.size = new CSize(info[2], info[3]);
         this.angle = info[4];
-        this.linear = new CPos(info[5], info[6]);
+        this.linear = new CVector2(info[5], info[6]);
         this.angular = info[7];
     }
     return CObjectInfo;

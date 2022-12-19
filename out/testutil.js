@@ -100,7 +100,7 @@ var TestUtil = /** @class */ (function () {
                         obj.visible = new cobj_1.CVisible([new cobj_1.CAction(this.drawSvgTextFullScreen(width, height, "".concat(num), textsize, "#111", fillopacity), new cobj_1.CSize(width, height), [], cobj_1.CActionType.svg)]);
                         obj.visible.current = cobj_1.CActionType.svg;
                         obj.visible.size = new cobj_1.CSize(width, height);
-                        obj.visible.anchor = new cobj_1.CPos(0, 0);
+                        obj.visible.anchor = new cobj_1.CVector2(0, 0);
                         return [4 /*yield*/, this.ngin.addCObjectInternal(obj.build())];
                     case 1:
                         _a.sent();
@@ -126,7 +126,7 @@ var TestUtil = /** @class */ (function () {
                         obj.visible = new cobj_1.CVisible([new cobj_1.CAction(this.drawSvgTextFullScreen(width, height, "".concat(num), textsize, "#111", fillopacity), new cobj_1.CSize(width, height), [], cobj_1.CActionType.svg)]);
                         obj.visible.current = cobj_1.CActionType.svg;
                         obj.visible.size = new cobj_1.CSize(width, height);
-                        obj.visible.anchor = new cobj_1.CPos(0, 0);
+                        obj.visible.anchor = new cobj_1.CVector2(0, 0);
                         return [4 /*yield*/, this.ngin.addCObjectInternal(obj.build())];
                     case 5:
                         _a.sent();
@@ -216,8 +216,8 @@ var Stopwatch = /** @class */ (function () {
                         obj.visible = new cobj_1.CVisible([new cobj_1.CAction(this.util.drawSvgText(this.w, this.h, "".concat(this.num)), new cobj_1.CSize(this.w, this.h), [], cobj_1.CActionType.svg)]);
                         obj.visible.current = cobj_1.CActionType.svg;
                         obj.visible.size = new cobj_1.CSize(this.w, this.h);
-                        obj.visible.pos = new cobj_1.CPos(this.rect[0], this.rect[1]);
-                        obj.visible.anchor = new cobj_1.CPos(0, 0);
+                        obj.visible.pos = new cobj_1.CVector2(this.rect[0], this.rect[1]);
+                        obj.visible.anchor = new cobj_1.CVector2(0, 0);
                         return [4 /*yield*/, this.thisNgin.addCObjectInternal(obj.build())];
                     case 2:
                         _a.sent();
@@ -241,8 +241,8 @@ var Stopwatch = /** @class */ (function () {
                         obj.visible = new cobj_1.CVisible([new cobj_1.CAction(this.util.drawSvgText(this.w, this.h, "".concat(this.num)), new cobj_1.CSize(this.w, this.h), [], cobj_1.CActionType.svg)]);
                         obj.visible.current = cobj_1.CActionType.svg;
                         obj.visible.size = new cobj_1.CSize(this.w, this.h);
-                        obj.visible.pos = new cobj_1.CPos(this.rect[0], this.rect[1]);
-                        obj.visible.anchor = new cobj_1.CPos(0, 0);
+                        obj.visible.pos = new cobj_1.CVector2(this.rect[0], this.rect[1]);
+                        obj.visible.anchor = new cobj_1.CVector2(0, 0);
                         return [4 /*yield*/, this.thisNgin.addCObjectInternal(obj.build())];
                     case 1:
                         _a.sent();

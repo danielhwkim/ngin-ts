@@ -1,7 +1,7 @@
 var fs = require('fs');
 var {EventHandler} = require("./ngin");
 import {main, Nx} from "./nx";
-import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, CStage, CPos, CSize, CBodyType, CBodyShape, CJoystickDirectionals} from "./cobj";
+import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, CStage, CVector2, CSize, CBodyType, CBodyShape, CJoystickDirectionals} from "./cobj";
 
 
 function conv(v, tileSize) {
@@ -16,7 +16,7 @@ function convInfo(info, tileSize) {
     return info;
 }  
 
-function addFruit(id:number, pos:CPos, name:string) {
+function addFruit(id:number, pos:CVector2, name:string) {
   var cobj = new CObject(id);
   cobj.info = "fruit";
   cobj.physical = new CPhysical(CBodyShape.circle, pos, CBodyType.static);
@@ -25,7 +25,7 @@ function addFruit(id:number, pos:CPos, name:string) {
     new CAction('Items/Fruits/' + name + '.png', new CSize(32, 32), [], CActionType.idle),
     new CAction('Items/Fruits/Collected.png', new CSize(32, 32), [], CActionType.hit, false),            
   ]);
-  cobj.visible.scale = new CPos(1.5, 1.5);
+  cobj.visible.scale = new CVector2(1.5, 1.5);
   for (var i=0; i<cobj.visible.actions.length; i++) {
     cobj.visible.actions[i].stepTime = 50/1000;
   }
@@ -48,12 +48,12 @@ main('127.0.0.1', 4040, async (nx:Nx) =>  {
     var stage = new CStage(size);
     //stage.debug = true;
     stage.background = 'Blue';
-    stage.gravity = new CPos(0, 60);
+    stage.gravity = new CVector2(0, 60);
     stage.joystickDirectionals = CJoystickDirectionals.horizontal;
     await nx.sendObjWait(stage);
 
 
-    await nx.sendObj(CTileObject('Terrain/Terrain (16x16).png', new CSize(tileSize, tileSize), data, new CPos(0,0), size));
+    await nx.sendObj(CTileObject('Terrain/Terrain (16x16).png', new CSize(tileSize, tileSize), data, new CVector2(0,0), size));
     nx.eventHandler.ready = true;
     const objs = objlayer.objects;
 
@@ -71,17 +71,17 @@ main('127.0.0.1', 4040, async (nx:Nx) =>  {
         case 'Orange':
         case 'Pineapple':
         case 'Strawberry':    
-          await nx.sendObj(addFruit(obj.id, new CPos(obj.x, obj.y), obj.name));
+          await nx.sendObj(addFruit(obj.id, new CVector2(obj.x, obj.y), obj.name));
           break;
 
         case 'hero':
           obj.id = 1;
-          var hero = nx.hero(obj.id, 'Mask Dude', new CPos(obj.x - 0.5, obj.y - 2));
+          var hero = nx.hero(obj.id, 'Mask Dude', new CVector2(obj.x - 0.5, obj.y - 2));
           hero.physical.shape = CBodyShape.actor;
           hero.physical.size = new CSize(2, 2);
           hero.physical.maskBits = 0x00FF;
-          hero.visible.scale = new CPos(2,2);
-          hero.visible.pos = new CPos(0, 0);
+          hero.visible.scale = new CVector2(2,2);
+          hero.visible.pos = new CVector2(0, 0);
           await nx.sendObjWait(hero);
           nx.eventHandler.heroId = hero.id;
           break;
@@ -89,7 +89,7 @@ main('127.0.0.1', 4040, async (nx:Nx) =>  {
           case 'floor':
             var cobj = new CObject(obj.id);
             cobj.info = obj.name;
-            cobj.physical = new CPhysical(CBodyShape.rectangle, new CPos(obj.x, obj.y), CBodyType.static);
+            cobj.physical = new CPhysical(CBodyShape.rectangle, new CVector2(obj.x, obj.y), CBodyType.static);
             cobj.physical.size = new CSize(obj.width,obj.height);
             await nx.sendObj(cobj);
             break;
@@ -97,7 +97,7 @@ main('127.0.0.1', 4040, async (nx:Nx) =>  {
           case 'bar':
             var cobj = new CObject(obj.id);
             cobj.info = obj.name;
-            cobj.physical = new CPhysical(CBodyShape.rectangle, new CPos(obj.x, obj.y), CBodyType.static);
+            cobj.physical = new CPhysical(CBodyShape.rectangle, new CVector2(obj.x, obj.y), CBodyType.static);
             cobj.physical.size = new CSize(obj.width,obj.height);
             cobj.physical.passableBottom = true;
             await nx.sendObj(cobj);            
@@ -108,13 +108,13 @@ main('127.0.0.1', 4040, async (nx:Nx) =>  {
           case 'Box3':
             var cobj = new CObject(obj.id);
             cobj.info = 'box';
-            cobj.physical = new CPhysical(CBodyShape.rectangle, new CPos(obj.x, obj.y), CBodyType.static);
+            cobj.physical = new CPhysical(CBodyShape.rectangle, new CVector2(obj.x, obj.y), CBodyType.static);
             cobj.physical.size = new CSize(obj.width,obj.height);
             cobj.visible = new CVisible([
               new CAction('Items/Boxes/' + obj.name + '/Idle.png', new CSize(28, 24), [], CActionType.idle),
               new CAction('Items/Boxes/' + obj.name + '/Hit (28x24).png', new CSize(28, 24), [], CActionType.hit, false),
             ]);
-            cobj.visible.scale = new CPos(28 / 18, 24 / 18);
+            cobj.visible.scale = new CVector2(28 / 18, 24 / 18);
             for (var i=0; i<cobj.visible.actions.length; i++) {
               cobj.visible.actions[i].stepTime = 50/1000;
             }            
@@ -125,7 +125,7 @@ main('127.0.0.1', 4040, async (nx:Nx) =>  {
           case 'Trampoline':
             var cobj = new CObject(obj.id);
             cobj.info = obj.name;
-            cobj.physical = new CPhysical(CBodyShape.rectangle, new CPos(obj.x, obj.y), CBodyType.static);
+            cobj.physical = new CPhysical(CBodyShape.rectangle, new CVector2(obj.x, obj.y), CBodyType.static);
             cobj.physical.size = new CSize(obj.width,obj.height);
             cobj.physical.isSensor = true;
             cobj.visible = new CVisible([
@@ -135,8 +135,8 @@ main('127.0.0.1', 4040, async (nx:Nx) =>  {
             for (var i=0; i<cobj.visible.actions.length; i++) {
               cobj.visible.actions[i].stepTime = 50/1000;
             }
-            cobj.visible.scale = new CPos(1.7, 1.7);
-            cobj.visible.pos = new CPos(0, -0.4);
+            cobj.visible.scale = new CVector2(1.7, 1.7);
+            cobj.visible.pos = new CVector2(0, -0.4);
             await nx.sendObj(cobj); 
             break;
 
@@ -238,7 +238,7 @@ class InputHandler extends EventHandler {
             for (var i = 0; i < 4; i++) {
               var cobj = new CObject(this.dynamic_id++);
               cobj.info = "parts";
-              cobj.physical = new CPhysical(CBodyShape.circle, new CPos(event.x - 0.5 +0.1*i, event.y - 0.5), CBodyType.dynamic);
+              cobj.physical = new CPhysical(CBodyShape.circle, new CVector2(event.x - 0.5 +0.1*i, event.y - 0.5), CBodyType.dynamic);
               cobj.physical.categoryBits = 0x0100;
               cobj.physical.maskBits = 0x0FFF;
               cobj.physical.size = new CSize(0.5, 0.5);
@@ -247,13 +247,13 @@ class InputHandler extends EventHandler {
               cobj.visible = new CVisible([
                 new CAction('Items/Boxes/' + obj.name + '/Break.png', new CSize(28, 24), [i], CActionType.idle),
               ]);
-              cobj.visible.scale = new CPos(28 / 16, 24 / 16);
+              cobj.visible.scale = new CVector2(28 / 16, 24 / 16);
               await this.nx.sendObj(cobj);
             }
 
             //await this.nginx.opAction(c.id, c.x, c.y);
             await this.nx.remove(event.id);
-            var cobj = addFruit(this.dynamic_id++, new CPos(event.x - 0.5, event.y - 0.5), 'Bananas');
+            var cobj = addFruit(this.dynamic_id++, new CVector2(event.x - 0.5, event.y - 0.5), 'Bananas');
             //cobj.physical.type = CBodyType.dynamic;
             await this.nx.sendObj(cobj);
           } else {

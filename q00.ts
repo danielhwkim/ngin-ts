@@ -1,6 +1,6 @@
 import {runq, TestUtil, Stopwatch} from "./testutil.js";
 import {test01} from "./test01.js";
-import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, CStage, CPos, CSize, CBodyType, CBodyShape, CJoystickDirectionals} from "./cobj";
+import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, CStage, CVector2, CSize, CBodyType, CBodyShape, CJoystickDirectionals} from "./cobj";
 import {Nx} from "./nx";
 
 const hint = "\

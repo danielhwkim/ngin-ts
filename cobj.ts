@@ -1,4 +1,4 @@
-export class CPos {
+export class CVector2 {
     constructor(x:number = 0, y:number = 0) {
       this.x = x;
       this.y = y;
@@ -149,10 +149,10 @@ export class CAction implements CBuildable {
 export class CVisible implements CBuildable {
     current: CActionType = CActionType.idle;
     priority: number = 0;
-    pos: CPos = new CPos(0,0);
+    pos: CVector2 = new CVector2(0,0);
     size: CSize = new CSize(1,1);
-    scale: CPos = new CPos(1,1);
-    anchor: CPos = new CPos(0.5,0.5);
+    scale: CVector2 = new CVector2(1,1);
+    anchor: CVector2 = new CVector2(0.5,0.5);
     actions: CAction[];
     tid: number = 0;
     constructor(actions: CAction[]) {
@@ -184,7 +184,7 @@ export class CVisible implements CBuildable {
 
 export class CPhysical implements CBuildable {
     shape: CBodyShape;
-    pos: CPos;
+    pos: CVector2;
     size: CSize = new CSize(1,1);
     restitution: number = 0;
     friction: number = 0;
@@ -199,7 +199,7 @@ export class CPhysical implements CBuildable {
     contactReport: boolean = true;
     floats: number[];
     passableBottom: boolean = false;
-    constructor(shape:CBodyShape, pos:CPos, type:CBodyType) {
+    constructor(shape:CBodyShape, pos:CVector2, type:CBodyType) {
         this.shape = shape;
         this.pos = pos;
         this.type = type;
@@ -269,12 +269,12 @@ export class CObject implements CBuildable {
     }
 }
 
-export function CTileObject(path:string, tileSize:CSize, data:number[], pos:CPos, size:CSize) {
+export function CTileObject(path:string, tileSize:CSize, data:number[], pos:CVector2, size:CSize) {
     var obj = new CObject(0);
     obj.visible = new CVisible([ new CAction(path, tileSize, data, CActionType.tiles)]);
     obj.visible.current = CActionType.tiles;
     obj.visible.pos = pos;
-    obj.visible.anchor = new CPos(0,0);
+    obj.visible.anchor = new CVector2(0,0);
     obj.visible.size = size;
     return obj;
 }
@@ -284,9 +284,9 @@ export class CStage implements CBuildable {
       this.size = size;
     }
     background: string;
-    gravity: CPos = new CPos(0, 0);
+    gravity: CVector2 = new CVector2(0, 0);
     size: CSize;
-    pos: CPos = new CPos(0, 0);
+    pos: CVector2 = new CVector2(0, 0);
     debug: boolean = false;
     joystickDirectionals:CJoystickDirectionals = CJoystickDirectionals.none;
     joystickPrecision: number = 3;
@@ -336,15 +336,15 @@ export class CStage implements CBuildable {
 
 export class CObjectInfo{
     constructor(info:number[]) {
-        this.pos = new CPos(info[0], info[1]);
+        this.pos = new CVector2(info[0], info[1]);
         this.size = new CSize(info[2], info[3]);
         this.angle = info[4];
-        this.linear = new CPos(info[5], info[6]);
+        this.linear = new CVector2(info[5], info[6]);
         this.angular = info[7];
     }
-    pos:CPos;
+    pos:CVector2;
     size:CSize;
     angle:number;
-    linear:CPos;
+    linear:CVector2;
     angular:number;
 }
