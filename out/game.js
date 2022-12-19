@@ -65,13 +65,29 @@ function convInfo(info, tileSize) {
     info.height = conv(info.height, tileSize);
     return info;
 }
+function addFruit(id, pos, name) {
+    var cobj = new cobj_1.CObject(id);
+    cobj.info = "fruit";
+    cobj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.circle, pos, cobj_1.CBodyType.static);
+    cobj.physical.isSensor = true;
+    cobj.visible = new cobj_1.CVisible([
+        new cobj_1.CAction('Items/Fruits/' + name + '.png', new cobj_1.CSize(32, 32), [], cobj_1.CActionType.idle),
+        new cobj_1.CAction('Items/Fruits/Collected.png', new cobj_1.CSize(32, 32), [], cobj_1.CActionType.hit, false),
+    ]);
+    cobj.visible.scale = new cobj_1.CPos(1.5, 1.5);
+    for (var i = 0; i < cobj.visible.actions.length; i++) {
+        cobj.visible.actions[i].stepTime = 50 / 1000;
+    }
+    return cobj;
+}
 (0, nx_1.main)('127.0.0.1', 4040, function (nx) { return __awaiter(void 0, void 0, void 0, function () {
-    var j, tiles, objlayer, data, tileSize, size, stage, objs, _a, _b, _i, key, obj, _c, cobj, i, hero, cobj, cobj, cobj, cobj, i;
+    var j, tiles, objlayer, data, tileSize, size, stage, objs, _a, _b, _i, key, obj, _c, hero, cobj, cobj, cobj, i, cobj, i;
     return __generator(this, function (_d) {
         switch (_d.label) {
             case 0:
                 nx.eventHandler = new InputHandler(nx);
-                j = JSON.parse(fs.readFileSync('./data/level01.json', 'utf8'));
+                nx.eventHandler.objs = {};
+                j = JSON.parse(fs.readFileSync('./data/level02.json', 'utf8'));
                 tiles = j.layers[0];
                 objlayer = j.layers[1];
                 data = tiles['data'];
@@ -120,20 +136,7 @@ function convInfo(info, tileSize) {
                     case 'Trampoline': return [3 /*break*/, 14];
                 }
                 return [3 /*break*/, 16];
-            case 4:
-                cobj = new cobj_1.CObject(obj.id);
-                cobj.info = "fruit";
-                cobj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.circle, new cobj_1.CPos(obj.x, obj.y), cobj_1.CBodyType.static);
-                cobj.physical.isSensor = true;
-                cobj.visible = new cobj_1.CVisible([
-                    new cobj_1.CAction('Items/Fruits/' + obj.name + '.png', new cobj_1.CSize(32, 32), [], cobj_1.CActionType.idle),
-                    new cobj_1.CAction('Items/Fruits/Collected.png', new cobj_1.CSize(32, 32), [], cobj_1.CActionType.hit, false),
-                ]);
-                cobj.visible.scale = new cobj_1.CPos(1.5, 1.5);
-                for (i = 0; i < cobj.visible.actions.length; i++) {
-                    cobj.visible.actions[i].stepTime = 50 / 1000;
-                }
-                return [4 /*yield*/, nx.sendObj(cobj)];
+            case 4: return [4 /*yield*/, nx.sendObj(addFruit(obj.id, new cobj_1.CPos(obj.x, obj.y), obj.name))];
             case 5:
                 _d.sent();
                 return [3 /*break*/, 17];
@@ -148,19 +151,15 @@ function convInfo(info, tileSize) {
                 return [4 /*yield*/, nx.sendObjWait(hero)];
             case 7:
                 _d.sent();
-                if (nx.eventHandler) {
-                    nx.eventHandler.heroId = hero.id;
-                }
+                nx.eventHandler.heroId = hero.id;
                 return [3 /*break*/, 17];
             case 8:
                 cobj = new cobj_1.CObject(obj.id);
                 cobj.info = obj.name;
                 cobj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.rectangle, new cobj_1.CPos(obj.x, obj.y), cobj_1.CBodyType.static);
                 cobj.physical.size = new cobj_1.CSize(obj.width, obj.height);
-                //cobj.physical.anchor = new CPos(0, 0);
                 return [4 /*yield*/, nx.sendObj(cobj)];
             case 9:
-                //cobj.physical.anchor = new CPos(0, 0);
                 _d.sent();
                 return [3 /*break*/, 17];
             case 10:
@@ -169,21 +168,26 @@ function convInfo(info, tileSize) {
                 cobj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.rectangle, new cobj_1.CPos(obj.x, obj.y), cobj_1.CBodyType.static);
                 cobj.physical.size = new cobj_1.CSize(obj.width, obj.height);
                 cobj.physical.passableBottom = true;
-                //cobj.physical.anchor = new CPos(0, 0);
                 return [4 /*yield*/, nx.sendObj(cobj)];
             case 11:
-                //cobj.physical.anchor = new CPos(0, 0);
                 _d.sent();
                 return [3 /*break*/, 17];
             case 12:
                 cobj = new cobj_1.CObject(obj.id);
-                cobj.info = obj.name;
+                cobj.info = 'box';
                 cobj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.rectangle, new cobj_1.CPos(obj.x, obj.y), cobj_1.CBodyType.static);
                 cobj.physical.size = new cobj_1.CSize(obj.width, obj.height);
-                //cobj.physical.anchor = new CPos(0, 0);
+                cobj.visible = new cobj_1.CVisible([
+                    new cobj_1.CAction('Items/Boxes/' + obj.name + '/Idle.png', new cobj_1.CSize(28, 24), [], cobj_1.CActionType.idle),
+                    new cobj_1.CAction('Items/Boxes/' + obj.name + '/Hit (28x24).png', new cobj_1.CSize(28, 24), [], cobj_1.CActionType.hit, false),
+                ]);
+                cobj.visible.scale = new cobj_1.CPos(28 / 18, 24 / 18);
+                for (i = 0; i < cobj.visible.actions.length; i++) {
+                    cobj.visible.actions[i].stepTime = 50 / 1000;
+                }
+                nx.eventHandler.objs[obj.id] = { name: obj.name, count: 0 };
                 return [4 /*yield*/, nx.sendObj(cobj)];
             case 13:
-                //cobj.physical.anchor = new CPos(0, 0);
                 _d.sent();
                 return [3 /*break*/, 17];
             case 14:
@@ -230,24 +234,24 @@ var InputHandler = /** @class */ (function (_super) {
     }
     InputHandler.prototype.handleContact = function (contact) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
+            var _a, obj;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         if (!this.ready)
                             return [2 /*return*/];
                         console.log(contact);
-                        if (!(contact.info1 == 'hero')) return [3 /*break*/, 19];
+                        if (!(contact.info1 == 'hero')) return [3 /*break*/, 23];
                         _a = contact.info2;
                         switch (_a) {
                             case 'floor': return [3 /*break*/, 1];
                             case 'bar': return [3 /*break*/, 1];
                             case 'fruit': return [3 /*break*/, 10];
                             case 'box': return [3 /*break*/, 13];
-                            case 'Trampoline': return [3 /*break*/, 14];
-                            case 'Blocks': return [3 /*break*/, 18];
+                            case 'Trampoline': return [3 /*break*/, 18];
+                            case 'Blocks': return [3 /*break*/, 22];
                         }
-                        return [3 /*break*/, 19];
+                        return [3 /*break*/, 23];
                     case 1:
                         if (!(contact.isEnded == false)) return [3 /*break*/, 8];
                         if (!(contact.y < 0)) return [3 /*break*/, 7];
@@ -273,58 +277,56 @@ var InputHandler = /** @class */ (function (_super) {
                             this.hero_contacts.delete(contact.id2);
                         }
                         _b.label = 9;
-                    case 9: return [3 /*break*/, 19];
+                    case 9: return [3 /*break*/, 23];
                     case 10:
                         if (!(contact.isEnded == false)) return [3 /*break*/, 12];
                         return [4 /*yield*/, this.nx.setActionType(contact.id2, cobj_1.CActionType.hit, this.facingLeft)];
                     case 11:
                         _b.sent();
                         _b.label = 12;
-                    case 12: return [3 /*break*/, 19];
-                    case 13: 
-                    /*
-                    if (contact.type == 'begin') {
-                      //print(contact.x, contact.y)
-                      if (Math.abs(contact.y) > Math.abs(contact.x)) {
-                        const obj = this.nginx.omap.get(contact.id2);
-                        if (obj.count) {
-                          obj.count += 1
-                        } else {
-                          obj.count = 1
-                        }
-                        await this.nginx.playHitOnce(contact.id2, this.facingLeft);
-                      }
-                      if (contact.y < 0) {
-                        this.hero_jump_count = 0;
-                        await this.nginx.opVel(this.heroId, 0, -20);
-                      }
-                    }*/
-                    return [3 /*break*/, 19];
-                    case 14:
+                    case 12: return [3 /*break*/, 23];
+                    case 13:
                         if (!(contact.isEnded == false)) return [3 /*break*/, 17];
+                        if (!(Math.abs(contact.y) > Math.abs(contact.x))) return [3 /*break*/, 15];
+                        obj = this.objs[contact.id2];
+                        obj.count += 1;
                         return [4 /*yield*/, this.nx.setActionType(contact.id2, cobj_1.CActionType.hit, this.facingLeft)];
-                    case 15:
+                    case 14:
                         _b.sent();
-                        return [4 /*yield*/, this.nx.lineary(contact.id1, -30)];
+                        _b.label = 15;
+                    case 15:
+                        if (!(contact.y < 0)) return [3 /*break*/, 17];
+                        this.hero_jump_count = 0;
+                        return [4 /*yield*/, this.nx.lineary(contact.id1, -20)];
                     case 16:
                         _b.sent();
-                        this.hero_jump_count = 0;
                         _b.label = 17;
-                    case 17: return [3 /*break*/, 19];
-                    case 18: 
+                    case 17: return [3 /*break*/, 23];
+                    case 18:
+                        if (!(contact.isEnded == false)) return [3 /*break*/, 21];
+                        return [4 /*yield*/, this.nx.setActionType(contact.id2, cobj_1.CActionType.hit, this.facingLeft)];
+                    case 19:
+                        _b.sent();
+                        return [4 /*yield*/, this.nx.lineary(contact.id1, -30)];
+                    case 20:
+                        _b.sent();
+                        this.hero_jump_count = 0;
+                        _b.label = 21;
+                    case 21: return [3 /*break*/, 23];
+                    case 22: 
                     /*
                     if (contact.type == 'begin') {
                       await this.nginx.cmdIF2('action', contact.id2, contact.x, contact.y);
                     }*/
-                    return [3 /*break*/, 19];
-                    case 19: return [2 /*return*/];
+                    return [3 /*break*/, 23];
+                    case 23: return [2 /*return*/];
                 }
             });
         });
     };
     InputHandler.prototype.handleEvent = function (event) {
         return __awaiter(this, void 0, void 0, function () {
-            var c, _a;
+            var c, _a, obj, i, cobj, cobj;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -335,45 +337,69 @@ var InputHandler = /** @class */ (function (_super) {
                         _a = event.name;
                         switch (_a) {
                             case 'box': return [3 /*break*/, 1];
-                            case 'Trampoline': return [3 /*break*/, 2];
-                            case 'fruit': return [3 /*break*/, 4];
-                            case 'hero': return [3 /*break*/, 6];
+                            case 'Trampoline': return [3 /*break*/, 11];
+                            case 'fruit': return [3 /*break*/, 13];
+                            case 'hero': return [3 /*break*/, 15];
                         }
-                        return [3 /*break*/, 8];
-                    case 1: 
-                    /*
-                    //print(f"box - {omap[c.id]['count']}")
-                    if (obj.count == 2) {
-                      //print(obj)
-                      await this.nginx.opAction(c.id, c.x, c.y);
-                      await this.nginx.addBody({
-                        id:this.dynamic_id,
-                        name:'fruit',
-                        skin:'Bananas',
-                        type:'dynamic',
-                        x:c.x-0.5,
-                        y:c.y-0.5,
-                        width:1,
-                        height:1});
-                      this.dynamic_id += 1
-                      } else {
-                        await this.nginx.playIdle(c.id, this.facingLeft);
-                      }
-                      */
-                    return [3 /*break*/, 8];
-                    case 2: return [4 /*yield*/, this.nx.setActionType(event.id, cobj_1.CActionType.idle)];
+                        return [3 /*break*/, 17];
+                    case 1:
+                        obj = this.objs[event.id];
+                        console.log(obj);
+                        if (!(obj.count == 2)) return [3 /*break*/, 8];
+                        i = 0;
+                        _b.label = 2;
+                    case 2:
+                        if (!(i < 4)) return [3 /*break*/, 5];
+                        cobj = new cobj_1.CObject(this.dynamic_id++);
+                        cobj.info = "parts";
+                        cobj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.circle, new cobj_1.CPos(event.x - 0.5 + 0.1 * i, event.y - 0.5), cobj_1.CBodyType.dynamic);
+                        cobj.physical.categoryBits = 0x0100;
+                        cobj.physical.maskBits = 0x0FFF;
+                        cobj.physical.size = new cobj_1.CSize(0.5, 0.5);
+                        //cobj.physical.density = 1.0;
+                        cobj.physical.contactReport = false;
+                        cobj.visible = new cobj_1.CVisible([
+                            new cobj_1.CAction('Items/Boxes/' + obj.name + '/Break.png', new cobj_1.CSize(28, 24), [i], cobj_1.CActionType.idle),
+                        ]);
+                        cobj.visible.scale = new cobj_1.CPos(28 / 16, 24 / 16);
+                        return [4 /*yield*/, this.nx.sendObj(cobj)];
                     case 3:
                         _b.sent();
-                        return [3 /*break*/, 8];
-                    case 4: return [4 /*yield*/, this.nx.remove(event.id)];
-                    case 5:
+                        _b.label = 4;
+                    case 4:
+                        i++;
+                        return [3 /*break*/, 2];
+                    case 5: 
+                    //await this.nginx.opAction(c.id, c.x, c.y);
+                    return [4 /*yield*/, this.nx.remove(event.id)];
+                    case 6:
+                        //await this.nginx.opAction(c.id, c.x, c.y);
                         _b.sent();
-                        return [3 /*break*/, 8];
-                    case 6: return [4 /*yield*/, this.nx.setActionType(event.id, cobj_1.CActionType.jump, this.facingLeft)];
+                        cobj = addFruit(this.dynamic_id++, new cobj_1.CPos(event.x - 0.5, event.y - 0.5), 'Bananas');
+                        //cobj.physical.type = CBodyType.dynamic;
+                        return [4 /*yield*/, this.nx.sendObj(cobj)];
                     case 7:
+                        //cobj.physical.type = CBodyType.dynamic;
                         _b.sent();
-                        return [3 /*break*/, 8];
-                    case 8: return [2 /*return*/];
+                        return [3 /*break*/, 10];
+                    case 8: return [4 /*yield*/, this.nx.setActionType(event.id, cobj_1.CActionType.idle)];
+                    case 9:
+                        _b.sent();
+                        _b.label = 10;
+                    case 10: return [3 /*break*/, 17];
+                    case 11: return [4 /*yield*/, this.nx.setActionType(event.id, cobj_1.CActionType.idle)];
+                    case 12:
+                        _b.sent();
+                        return [3 /*break*/, 17];
+                    case 13: return [4 /*yield*/, this.nx.remove(event.id)];
+                    case 14:
+                        _b.sent();
+                        return [3 /*break*/, 17];
+                    case 15: return [4 /*yield*/, this.nx.setActionType(event.id, cobj_1.CActionType.jump, this.facingLeft)];
+                    case 16:
+                        _b.sent();
+                        return [3 /*break*/, 17];
+                    case 17: return [2 /*return*/];
                 }
             });
         });

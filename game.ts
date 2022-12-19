@@ -16,9 +16,26 @@ function convInfo(info, tileSize) {
     return info;
 }  
 
+function addFruit(id:number, pos:CPos, name:string) {
+  var cobj = new CObject(id);
+  cobj.info = "fruit";
+  cobj.physical = new CPhysical(CBodyShape.circle, pos, CBodyType.static);
+  cobj.physical.isSensor = true;
+  cobj.visible = new CVisible([
+    new CAction('Items/Fruits/' + name + '.png', new CSize(32, 32), [], CActionType.idle),
+    new CAction('Items/Fruits/Collected.png', new CSize(32, 32), [], CActionType.hit, false),            
+  ]);
+  cobj.visible.scale = new CPos(1.5, 1.5);
+  for (var i=0; i<cobj.visible.actions.length; i++) {
+    cobj.visible.actions[i].stepTime = 50/1000;
+  }
+  return cobj;
+}
+
 main('127.0.0.1', 4040, async (nx:Nx) =>  {
     nx.eventHandler = new InputHandler(nx);
-    const j = JSON.parse(fs.readFileSync('./data/level01.json', 'utf8'));
+    nx.eventHandler.objs = {};
+    const j = JSON.parse(fs.readFileSync('./data/level02.json', 'utf8'));
   
     const tiles = j.layers[0];
     const objlayer = j.layers[1];
@@ -54,19 +71,7 @@ main('127.0.0.1', 4040, async (nx:Nx) =>  {
         case 'Orange':
         case 'Pineapple':
         case 'Strawberry':    
-          var cobj = new CObject(obj.id);
-          cobj.info = "fruit";
-          cobj.physical = new CPhysical(CBodyShape.circle, new CPos(obj.x, obj.y), CBodyType.static);
-          cobj.physical.isSensor = true;
-          cobj.visible = new CVisible([
-            new CAction('Items/Fruits/' + obj.name + '.png', new CSize(32, 32), [], CActionType.idle),
-            new CAction('Items/Fruits/Collected.png', new CSize(32, 32), [], CActionType.hit, false),            
-          ]);
-          cobj.visible.scale = new CPos(1.5, 1.5);
-          for (var i=0; i<cobj.visible.actions.length; i++) {
-            cobj.visible.actions[i].stepTime = 50/1000;
-          }
-          await nx.sendObj(cobj);
+          await nx.sendObj(addFruit(obj.id, new CPos(obj.x, obj.y), obj.name));
           break;
 
         case 'hero':
@@ -78,9 +83,7 @@ main('127.0.0.1', 4040, async (nx:Nx) =>  {
           hero.visible.scale = new CPos(2,2);
           hero.visible.pos = new CPos(0, 0);
           await nx.sendObjWait(hero);
-          if (nx.eventHandler) {
-            nx.eventHandler.heroId = hero.id;
-          }
+          nx.eventHandler.heroId = hero.id;
           break;
 
           case 'floor':
@@ -88,9 +91,7 @@ main('127.0.0.1', 4040, async (nx:Nx) =>  {
             cobj.info = obj.name;
             cobj.physical = new CPhysical(CBodyShape.rectangle, new CPos(obj.x, obj.y), CBodyType.static);
             cobj.physical.size = new CSize(obj.width,obj.height);
-            //cobj.physical.anchor = new CPos(0, 0);
             await nx.sendObj(cobj);
-
             break;
 
           case 'bar':
@@ -99,17 +100,25 @@ main('127.0.0.1', 4040, async (nx:Nx) =>  {
             cobj.physical = new CPhysical(CBodyShape.rectangle, new CPos(obj.x, obj.y), CBodyType.static);
             cobj.physical.size = new CSize(obj.width,obj.height);
             cobj.physical.passableBottom = true;
-            //cobj.physical.anchor = new CPos(0, 0);
             await nx.sendObj(cobj);            
             break;
+
           case 'Box1':
           case 'Box2':
           case 'Box3':
             var cobj = new CObject(obj.id);
-            cobj.info = obj.name;
+            cobj.info = 'box';
             cobj.physical = new CPhysical(CBodyShape.rectangle, new CPos(obj.x, obj.y), CBodyType.static);
             cobj.physical.size = new CSize(obj.width,obj.height);
-            //cobj.physical.anchor = new CPos(0, 0);
+            cobj.visible = new CVisible([
+              new CAction('Items/Boxes/' + obj.name + '/Idle.png', new CSize(28, 24), [], CActionType.idle),
+              new CAction('Items/Boxes/' + obj.name + '/Hit (28x24).png', new CSize(28, 24), [], CActionType.hit, false),
+            ]);
+            cobj.visible.scale = new CPos(28 / 18, 24 / 18);
+            for (var i=0; i<cobj.visible.actions.length; i++) {
+              cobj.visible.actions[i].stepTime = 50/1000;
+            }            
+            nx.eventHandler.objs[obj.id] = {name:obj.name, count:0};
             await nx.sendObj(cobj); 
             break;
 
@@ -183,24 +192,19 @@ class InputHandler extends EventHandler {
               await this.nx.setActionType(contact.id2, CActionType.hit, this.facingLeft);
             }
             break;
-          case 'box':
-            /*
-            if (contact.type == 'begin') {
+            case 'box':
+            if (contact.isEnded == false) {
               //print(contact.x, contact.y)
               if (Math.abs(contact.y) > Math.abs(contact.x)) {
-                const obj = this.nginx.omap.get(contact.id2);
-                if (obj.count) {
-                  obj.count += 1
-                } else {
-                  obj.count = 1
-                }
-                await this.nginx.playHitOnce(contact.id2, this.facingLeft);
+                const obj = this.objs[contact.id2];
+                obj.count += 1
+                await this.nx.setActionType(contact.id2, CActionType.hit, this.facingLeft);
               }
               if (contact.y < 0) {
                 this.hero_jump_count = 0;
-                await this.nginx.opVel(this.heroId, 0, -20);
+                await this.nx.lineary(contact.id1, -20);
               }
-            }*/
+            }
             break;
           case 'Trampoline':
             if (contact.isEnded == false) {
@@ -227,25 +231,34 @@ class InputHandler extends EventHandler {
   
       switch(event.name) {
         case 'box':
-          /*
-          //print(f"box - {omap[c.id]['count']}")
+          var obj = this.objs[event.id];
+          console.log(obj);
+          
           if (obj.count == 2) {
-            //print(obj)
-            await this.nginx.opAction(c.id, c.x, c.y);
-            await this.nginx.addBody({
-              id:this.dynamic_id, 
-              name:'fruit', 
-              skin:'Bananas', 
-              type:'dynamic', 
-              x:c.x-0.5, 
-              y:c.y-0.5, 
-              width:1, 
-              height:1});
-            this.dynamic_id += 1
-            } else {
-              await this.nginx.playIdle(c.id, this.facingLeft);
+            for (var i = 0; i < 4; i++) {
+              var cobj = new CObject(this.dynamic_id++);
+              cobj.info = "parts";
+              cobj.physical = new CPhysical(CBodyShape.circle, new CPos(event.x - 0.5 +0.1*i, event.y - 0.5), CBodyType.dynamic);
+              cobj.physical.categoryBits = 0x0100;
+              cobj.physical.maskBits = 0x0FFF;
+              cobj.physical.size = new CSize(0.5, 0.5);
+              //cobj.physical.density = 1.0;
+              cobj.physical.contactReport = false;
+              cobj.visible = new CVisible([
+                new CAction('Items/Boxes/' + obj.name + '/Break.png', new CSize(28, 24), [i], CActionType.idle),
+              ]);
+              cobj.visible.scale = new CPos(28 / 16, 24 / 16);
+              await this.nx.sendObj(cobj);
             }
-            */
+
+            //await this.nginx.opAction(c.id, c.x, c.y);
+            await this.nx.remove(event.id);
+            var cobj = addFruit(this.dynamic_id++, new CPos(event.x - 0.5, event.y - 0.5), 'Bananas');
+            //cobj.physical.type = CBodyType.dynamic;
+            await this.nx.sendObj(cobj);
+          } else {
+            await this.nx.setActionType(event.id, CActionType.idle);
+          }
           break;
         case 'Trampoline':
           await this.nx.setActionType(event.id, CActionType.idle);
