@@ -122,10 +122,10 @@ export class Nx extends NginX {
             new CAction('Main Characters/' + character +'/Idle (32x32).png', new CSize(32, 32), [], CActionType.idle),
             new CAction('Main Characters/' + character +'/Run (32x32).png', new CSize(32, 32), [], CActionType.run),
             new CAction('Main Characters/' + character +'/Jump (32x32).png', new CSize(32, 32), [], CActionType.jump),
-            new CAction('Main Characters/' + character +'/Hit (32x32).png', new CSize(32, 32), [], CActionType.hit),
+            new CAction('Main Characters/' + character +'/Hit (32x32).png', new CSize(32, 32), [], CActionType.hit, false),
             new CAction('Main Characters/' + character +'/Fall (32x32).png', new CSize(32, 32), [], CActionType.fall),
-            new CAction('Main Characters/' + character +'/Wall Jump (32x32).png', new CSize(32, 32), [], CActionType.wallJump),
-            new CAction('Main Characters/' + character +'/Double Jump (32x32).png', new CSize(32, 32), [], CActionType.doubleJump),
+            new CAction('Main Characters/' + character +'/Wall Jump (32x32).png', new CSize(32, 32), [], CActionType.wallJump, false),
+            new CAction('Main Characters/' + character +'/Double Jump (32x32).png', new CSize(32, 32), [], CActionType.doubleJump, false),
         ]);
         for (var i=0; i<obj.visible.actions.length; i++) {
             obj.visible.actions[i].stepTime = 50/1000;
@@ -164,6 +164,29 @@ export class Nx extends NginX {
             strings: ['forward'],
             ints:[id],
             floats:[angle, speed],
+        });
+    }    
+
+    async lineary(id:number, velocity:number) {
+        await this.command({
+            strings:['lineary'], 
+            ints:[id], 
+            floats:[velocity],
+        });
+    }
+    
+    async remove(id:number) {
+        await this.command({
+            strings:['remove'], 
+            ints:[id],
+        });
+    }   
+    
+    async constx(id:number, velocity:number) {
+        await this.command({
+            strings:['constx'], 
+            ints:[id], 
+            floats:[velocity],
         });
     }    
 }

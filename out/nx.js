@@ -255,10 +255,10 @@ var Nx = /** @class */ (function (_super) {
             new cobj_1.CAction('Main Characters/' + character + '/Idle (32x32).png', new cobj_1.CSize(32, 32), [], cobj_1.CActionType.idle),
             new cobj_1.CAction('Main Characters/' + character + '/Run (32x32).png', new cobj_1.CSize(32, 32), [], cobj_1.CActionType.run),
             new cobj_1.CAction('Main Characters/' + character + '/Jump (32x32).png', new cobj_1.CSize(32, 32), [], cobj_1.CActionType.jump),
-            new cobj_1.CAction('Main Characters/' + character + '/Hit (32x32).png', new cobj_1.CSize(32, 32), [], cobj_1.CActionType.hit),
+            new cobj_1.CAction('Main Characters/' + character + '/Hit (32x32).png', new cobj_1.CSize(32, 32), [], cobj_1.CActionType.hit, false),
             new cobj_1.CAction('Main Characters/' + character + '/Fall (32x32).png', new cobj_1.CSize(32, 32), [], cobj_1.CActionType.fall),
-            new cobj_1.CAction('Main Characters/' + character + '/Wall Jump (32x32).png', new cobj_1.CSize(32, 32), [], cobj_1.CActionType.wallJump),
-            new cobj_1.CAction('Main Characters/' + character + '/Double Jump (32x32).png', new cobj_1.CSize(32, 32), [], cobj_1.CActionType.doubleJump),
+            new cobj_1.CAction('Main Characters/' + character + '/Wall Jump (32x32).png', new cobj_1.CSize(32, 32), [], cobj_1.CActionType.wallJump, false),
+            new cobj_1.CAction('Main Characters/' + character + '/Double Jump (32x32).png', new cobj_1.CSize(32, 32), [], cobj_1.CActionType.doubleJump, false),
         ]);
         for (var i = 0; i < obj.visible.actions.length; i++) {
             obj.visible.actions[i].stepTime = 50 / 1000;
@@ -326,6 +326,53 @@ var Nx = /** @class */ (function (_super) {
                             strings: ['forward'],
                             ints: [id],
                             floats: [angle, speed],
+                        })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Nx.prototype.lineary = function (id, velocity) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.command({
+                            strings: ['lineary'],
+                            ints: [id],
+                            floats: [velocity],
+                        })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Nx.prototype.remove = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.command({
+                            strings: ['remove'],
+                            ints: [id],
+                        })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Nx.prototype.constx = function (id, velocity) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.command({
+                            strings: ['constx'],
+                            ints: [id],
+                            floats: [velocity],
                         })];
                     case 1:
                         _a.sent();

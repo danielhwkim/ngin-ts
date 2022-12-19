@@ -65,470 +65,17 @@ function convInfo(info, tileSize) {
     info.height = conv(info.height, tileSize);
     return info;
 }
-function getGameData() {
-    return '{ "compressionlevel":-1,\
-"height":17,\
-"infinite":false,\
-"layers":[\
-       {\
-        "data":[200, 180, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 5, 200, 201, 101, 102, 103, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23, 200, 201, 123, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23, 200, 201, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23, 200, 201, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 123, 23, 200, 201, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 123, 124, 125, 183, 184, 184, 184, 184, 185, 23, 200, 201, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 146, 147, 205, 206, 206, 206, 206, 207, 23, 200, 201, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 205, 206, 228, 228, 206, 207, 23, 200, 201, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 205, 207, 0, 0, 205, 207, 23, 200, 201, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 205, 207, 0, 123, 205, 207, 23, 200, 201, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 205, 208, 184, 184, 209, 207, 23, 180, 223, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 205, 206, 206, 206, 206, 207, 23, 201, 183, 184, 184, 185, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 205, 206, 206, 206, 206, 207, 23, 201, 205, 206, 206, 207, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 183, 184, 184, 184, 184, 184, 184, 184, 184, 184, 209, 206, 123, 206, 104, 23, 201, 227, 123, 205, 208, 184, 185, 0, 0, 0, 0, 0, 0, 0, 183, 184, 184, 209, 206, 206, 206, 206, 206, 206, 206, 206, 206, 124, 125, 206, 126, 23, 202, 178, 178, 178, 178, 178, 178, 178, 178, 178, 178, 178, 178, 178, 178, 179, 206, 206, 206, 206, 206, 206, 206, 123, 206, 206, 206, 146, 147, 123, 148, 23, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 202, 178, 178, 178, 178, 178, 178, 178, 178, 178, 178, 178, 178, 178, 178, 178, 203],\
-        "height":17,\
-        "id":1,\
-        "name":"Tile Layer 1",\
-        "opacity":1,\
-        "type":"tilelayer",\
-        "visible":true,\
-        "width":32,\
-        "x":0,\
-        "y":0\
-       }, \
-       {\
-        "draworder":"topdown",\
-        "id":2,\
-        "name":"Object Layer 1",\
-        "objects":[\
-               {\
-                "height":16,\
-                "id":1,\
-                "name":"floor",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":32,\
-                "x":80,\
-                "y":224\
-               }, \
-               {\
-                "height":16,\
-                "id":32,\
-                "name":"floor",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":32,\
-                "x":48,\
-                "y":16\
-               }, \
-               {\
-                "height":16,\
-                "id":33,\
-                "name":"floor",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":16,\
-                "x":32,\
-                "y":32\
-               }, \
-               {\
-                "height":16,\
-                "id":16,\
-                "name":"Bananas",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":16,\
-                "x":160,\
-                "y":192\
-               }, \
-               {\
-                "height":16,\
-                "id":21,\
-                "name":"Bananas",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":16,\
-                "x":144,\
-                "y":128\
-               }, \
-               {\
-                "height":16,\
-                "id":23,\
-                "name":"Apple",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":16,\
-                "x":384,\
-                "y":48\
-               }, \
-               {\
-                "height":16,\
-                "id":27,\
-                "name":"Bananas",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":16,\
-                "x":208,\
-                "y":128\
-               }, \
-               {\
-                "height":16,\
-                "id":24,\
-                "name":"Apple",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":16,\
-                "x":432,\
-                "y":32\
-               }, \
-               {\
-                "height":16,\
-                "id":29,\
-                "name":"Apple",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":16,\
-                "x":320,\
-                "y":144\
-               }, \
-               {\
-                "height":16,\
-                "id":26,\
-                "name":"Trampoline",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":16,\
-                "x":160,\
-                "y":224\
-               }, \
-               {\
-                "height":16,\
-                "id":17,\
-                "name":"Bananas",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":16,\
-                "x":176,\
-                "y":128\
-               }, \
-               {\
-                "height":16,\
-                "id":20,\
-                "name":"Apple",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":16,\
-                "x":400,\
-                "y":32\
-               }, \
-               {\
-                "height":16,\
-                "id":28,\
-                "name":"Trampoline",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":16,\
-                "x":320,\
-                "y":192\
-               }, \
-               {\
-                "height":16,\
-                "id":30,\
-                "name":"Apple",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":16,\
-                "x":320,\
-                "y":80\
-               }, \
-               {\
-                "height":16,\
-                "id":22,\
-                "name":"Apple",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":16,\
-                "x":416,\
-                "y":48\
-               }, \
-               {\
-                "height":16,\
-                "id":25,\
-                "name":"Apple",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":16,\
-                "x":320,\
-                "y":112\
-               }, \
-               {\
-                "height":16,\
-                "id":18,\
-                "name":"Bananas",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":16,\
-                "x":160,\
-                "y":160\
-               }, \
-               {\
-                "height":16,\
-                "id":19,\
-                "name":"Apple",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":16,\
-                "x":448,\
-                "y":48\
-               }, \
-               {\
-                "height":16,\
-                "id":13,\
-                "name":"floor",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":128,\
-                "x":352,\
-                "y":80\
-               }, \
-               {\
-                "height":16,\
-                "id":34,\
-                "name":"floor",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":32,\
-                "x":368,\
-                "y":96\
-               }, \
-               {\
-                "height":31.4545454545455,\
-                "id":9,\
-                "name":"floor",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":48,\
-                "x":32,\
-                "y":192\
-               }, \
-               {\
-                "height":16.3636363636364,\
-                "id":10,\
-                "name":"Bananas",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":15.8181818181818,\
-                "x":112,\
-                "y":128\
-               }, \
-               {\
-                "height":16,\
-                "id":2,\
-                "name":"floor",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":32,\
-                "x":224,\
-                "y":224\
-               }, \
-               {\
-                "height":16,\
-                "id":6,\
-                "name":"floor",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":416,\
-                "x":80,\
-                "y":-0.181818181818184\
-               }, \
-               {\
-                "height":16,\
-                "id":3,\
-                "name":"floor",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":112,\
-                "x":112,\
-                "y":240\
-               }, \
-               {\
-                "height":48,\
-                "id":4,\
-                "name":"floor",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":144,\
-                "x":256,\
-                "y":208\
-               }, \
-               {\
-                "height":64,\
-                "id":5,\
-                "name":"floor",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":15.636363636364,\
-                "x":496,\
-                "y":0\
-               }, \
-               {\
-                "height":96,\
-                "id":7,\
-                "name":"floor",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":16,\
-                "x":400,\
-                "y":112\
-               }, \
-               {\
-                "height":144,\
-                "id":8,\
-                "name":"floor",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":16.1818181818182,\
-                "x":16,\
-                "y":48\
-               }, \
-               {\
-                "height":15.6364,\
-                "id":31,\
-                "name":"floor",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":31.6364,\
-                "x":480,\
-                "y":64\
-               }, \
-               {\
-                "height":16,\
-                "id":35,\
-                "name":"Bananas",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":16,\
-                "x":160,\
-                "y":96\
-               }, \
-               {\
-                "height":16,\
-                "id":36,\
-                "name":"Bananas",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":16,\
-                "x":144,\
-                "y":64\
-               }, \
-               {\
-                "height":16,\
-                "id":37,\
-                "name":"Bananas",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":16,\
-                "x":192,\
-                "y":96\
-               }, \
-               {\
-                "height":16.3636,\
-                "id":38,\
-                "name":"Bananas",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":15.8182,\
-                "x":128,\
-                "y":96\
-               }, \
-               {\
-                "height":16,\
-                "id":39,\
-                "name":"Bananas",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":16,\
-                "x":176,\
-                "y":64\
-               }, \
-               {\
-                "height":16,\
-                "id":40,\
-                "name":"Bananas",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":16,\
-                "x":160,\
-                "y":32\
-               }, \
-               {\
-                "height":16,\
-                "id":41,\
-                "name":"hero",\
-                "rotation":0,\
-                "type":"",\
-                "visible":true,\
-                "width":16,\
-                "x":48,\
-                "y":176\
-               }],\
-        "opacity":1,\
-        "type":"objectgroup",\
-        "visible":true,\
-        "x":0,\
-        "y":0\
-       }],\
-"nextlayerid":3,\
-"nextobjectid":42,\
-"orientation":"orthogonal",\
-"renderorder":"right-down",\
-"tiledversion":"1.7.2",\
-"tileheight":16,\
-"tilesets":[\
-       {\
-        "firstgid":1,\
-        "source":"Terrain (16x16).json"\
-       }],\
-"tilewidth":16,\
-"type":"map",\
-"version":"1.6",\
-"width":32\
-}';
-}
 (0, nx_1.main)('127.0.0.1', 4040, function (nx) { return __awaiter(void 0, void 0, void 0, function () {
-    var j, tiles, objlayer, data, tileSize, precision, size, stage, objs, _a, _b, _i, key, obj, _c, hero, cobj, cobj, cobj, cobj, i;
+    var j, tiles, objlayer, data, tileSize, size, stage, objs, _a, _b, _i, key, obj, _c, cobj, i, hero, cobj, cobj, cobj, cobj, i;
     return __generator(this, function (_d) {
         switch (_d.label) {
             case 0:
                 nx.eventHandler = new InputHandler(nx);
-                j = JSON.parse(getGameData());
+                j = JSON.parse(fs.readFileSync('./data/level01.json', 'utf8'));
                 tiles = j.layers[0];
                 objlayer = j.layers[1];
                 data = tiles['data'];
                 tileSize = j['tilewidth'];
-                precision = 3;
                 size = new cobj_1.CSize(tiles.width, tiles.height);
                 stage = new cobj_1.CStage(size);
                 //stage.debug = true;
@@ -549,7 +96,7 @@ function getGameData() {
                 _i = 0;
                 _d.label = 3;
             case 3:
-                if (!(_i < _a.length)) return [3 /*break*/, 17];
+                if (!(_i < _a.length)) return [3 /*break*/, 18];
                 key = _a[_i];
                 obj = objs[key];
                 console.log(obj.name, obj.id);
@@ -564,19 +111,33 @@ function getGameData() {
                     case 'Orange': return [3 /*break*/, 4];
                     case 'Pineapple': return [3 /*break*/, 4];
                     case 'Strawberry': return [3 /*break*/, 4];
-                    case 'hero': return [3 /*break*/, 5];
-                    case 'floor': return [3 /*break*/, 7];
-                    case 'bar': return [3 /*break*/, 9];
-                    case 'Box1': return [3 /*break*/, 11];
-                    case 'Box2': return [3 /*break*/, 11];
-                    case 'Box3': return [3 /*break*/, 11];
-                    case 'Trampoline': return [3 /*break*/, 13];
+                    case 'hero': return [3 /*break*/, 6];
+                    case 'floor': return [3 /*break*/, 8];
+                    case 'bar': return [3 /*break*/, 10];
+                    case 'Box1': return [3 /*break*/, 12];
+                    case 'Box2': return [3 /*break*/, 12];
+                    case 'Box3': return [3 /*break*/, 12];
+                    case 'Trampoline': return [3 /*break*/, 14];
                 }
-                return [3 /*break*/, 15];
-            case 4:
-                nx.addFruit(obj.id, new cobj_1.CPos(obj.x, obj.y), obj.name);
                 return [3 /*break*/, 16];
+            case 4:
+                cobj = new cobj_1.CObject(obj.id);
+                cobj.info = "fruit";
+                cobj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.circle, new cobj_1.CPos(obj.x, obj.y), cobj_1.CBodyType.static);
+                cobj.physical.isSensor = true;
+                cobj.visible = new cobj_1.CVisible([
+                    new cobj_1.CAction('Items/Fruits/' + obj.name + '.png', new cobj_1.CSize(32, 32), [], cobj_1.CActionType.idle),
+                    new cobj_1.CAction('Items/Fruits/Collected.png', new cobj_1.CSize(32, 32), [], cobj_1.CActionType.hit, false),
+                ]);
+                cobj.visible.scale = new cobj_1.CPos(1.5, 1.5);
+                for (i = 0; i < cobj.visible.actions.length; i++) {
+                    cobj.visible.actions[i].stepTime = 50 / 1000;
+                }
+                return [4 /*yield*/, nx.sendObj(cobj)];
             case 5:
+                _d.sent();
+                return [3 /*break*/, 17];
+            case 6:
                 obj.id = 1;
                 hero = nx.hero(obj.id, 'Mask Dude', new cobj_1.CPos(obj.x - 0.5, obj.y - 2));
                 hero.physical.shape = cobj_1.CBodyShape.actor;
@@ -585,84 +146,82 @@ function getGameData() {
                 hero.visible.scale = new cobj_1.CPos(2, 2);
                 hero.visible.pos = new cobj_1.CPos(0, 0);
                 return [4 /*yield*/, nx.sendObjWait(hero)];
-            case 6:
+            case 7:
                 _d.sent();
                 if (nx.eventHandler) {
-                    nx.eventHandler.actorBid = hero.id;
+                    nx.eventHandler.heroId = hero.id;
                 }
-                return [3 /*break*/, 16];
-            case 7:
-                cobj = new cobj_1.CObject(obj.id);
-                cobj.info = obj.name;
-                cobj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.rectangle, new cobj_1.CPos(obj.x, obj.y), cobj_1.CBodyType.static);
-                cobj.physical.size = new cobj_1.CSize(obj.width, obj.height);
-                //cobj.physical.anchor = new CPos(0, 0);
-                return [4 /*yield*/, nx.sendObj(cobj)];
+                return [3 /*break*/, 17];
             case 8:
+                cobj = new cobj_1.CObject(obj.id);
+                cobj.info = obj.name;
+                cobj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.rectangle, new cobj_1.CPos(obj.x, obj.y), cobj_1.CBodyType.static);
+                cobj.physical.size = new cobj_1.CSize(obj.width, obj.height);
                 //cobj.physical.anchor = new CPos(0, 0);
-                _d.sent();
-                return [3 /*break*/, 16];
+                return [4 /*yield*/, nx.sendObj(cobj)];
             case 9:
-                cobj = new cobj_1.CObject(obj.id);
-                cobj.info = obj.name;
-                cobj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.rectangle, new cobj_1.CPos(obj.x, obj.y), cobj_1.CBodyType.static);
-                cobj.physical.size = new cobj_1.CSize(obj.width, obj.height);
                 //cobj.physical.anchor = new CPos(0, 0);
-                return [4 /*yield*/, nx.sendObj(cobj)];
+                _d.sent();
+                return [3 /*break*/, 17];
             case 10:
-                //cobj.physical.anchor = new CPos(0, 0);
-                _d.sent();
-                return [3 /*break*/, 16];
-            case 11:
                 cobj = new cobj_1.CObject(obj.id);
                 cobj.info = obj.name;
                 cobj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.rectangle, new cobj_1.CPos(obj.x, obj.y), cobj_1.CBodyType.static);
                 cobj.physical.size = new cobj_1.CSize(obj.width, obj.height);
                 //cobj.physical.anchor = new CPos(0, 0);
                 return [4 /*yield*/, nx.sendObj(cobj)];
-            case 12:
+            case 11:
                 //cobj.physical.anchor = new CPos(0, 0);
                 _d.sent();
-                return [3 /*break*/, 16];
-            case 13:
+                return [3 /*break*/, 17];
+            case 12:
                 cobj = new cobj_1.CObject(obj.id);
                 cobj.info = obj.name;
                 cobj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.rectangle, new cobj_1.CPos(obj.x, obj.y), cobj_1.CBodyType.static);
                 cobj.physical.size = new cobj_1.CSize(obj.width, obj.height);
+                //cobj.physical.anchor = new CPos(0, 0);
+                return [4 /*yield*/, nx.sendObj(cobj)];
+            case 13:
+                //cobj.physical.anchor = new CPos(0, 0);
+                _d.sent();
+                return [3 /*break*/, 17];
+            case 14:
+                cobj = new cobj_1.CObject(obj.id);
+                cobj.info = obj.name;
+                cobj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.rectangle, new cobj_1.CPos(obj.x, obj.y), cobj_1.CBodyType.static);
+                cobj.physical.size = new cobj_1.CSize(obj.width, obj.height);
+                cobj.physical.isSensor = true;
                 cobj.visible = new cobj_1.CVisible([
                     new cobj_1.CAction('Traps/Trampoline/Idle.png', new cobj_1.CSize(28, 28), [], cobj_1.CActionType.idle),
-                    new cobj_1.CAction('Traps/Trampoline/Jump (28x28).png', new cobj_1.CSize(28, 28), [], cobj_1.CActionType.hit),
+                    new cobj_1.CAction('Traps/Trampoline/Jump (28x28).png', new cobj_1.CSize(28, 28), [], cobj_1.CActionType.hit, false),
                 ]);
                 for (i = 0; i < cobj.visible.actions.length; i++) {
                     cobj.visible.actions[i].stepTime = 50 / 1000;
                 }
                 cobj.visible.scale = new cobj_1.CPos(1.7, 1.7);
                 cobj.visible.pos = new cobj_1.CPos(0, -0.4);
-                //cobj.visible.current = CActionType.hit;
                 return [4 /*yield*/, nx.sendObj(cobj)];
-            case 14:
-                //cobj.visible.current = CActionType.hit;
+            case 15:
                 _d.sent();
-                return [3 /*break*/, 16];
-            case 15: return [3 /*break*/, 16];
-            case 16:
+                return [3 /*break*/, 17];
+            case 16: return [3 /*break*/, 17];
+            case 17:
                 _i++;
                 return [3 /*break*/, 3];
-            case 17: return [2 /*return*/];
+            case 18: return [2 /*return*/];
         }
     });
 }); });
 var InputHandler = /** @class */ (function (_super) {
     __extends(InputHandler, _super);
-    //nginx;
-    function InputHandler(ngin) {
-        var _this = _super.call(this, ngin) || this;
-        _this.nginx = ngin;
+    function InputHandler(nx) {
+        var _this = _super.call(this, nx) || this;
+        _this.nx = nx;
         _this.key_down_left = false;
         _this.key_down_right = false;
-        //actor_contact_count = 0;
-        _this.actor_contacts = new Set();
-        _this.actor_jump_count = 0;
+        //hero_contact_count = 0;
+        _this.hero_contacts = new Set();
+        _this.hero_jump_count = 0;
         _this.dynamic_id = 1000;
         _this.facingLeft = false;
         _this.ready = false;
@@ -670,43 +229,386 @@ var InputHandler = /** @class */ (function (_super) {
     }
     InputHandler.prototype.handleContact = function (contact) {
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                if (!this.ready)
-                    return [2 /*return*/];
-                console.log(contact);
-                return [2 /*return*/];
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        if (!this.ready)
+                            return [2 /*return*/];
+                        console.log(contact);
+                        if (!(contact.info1 == 'hero')) return [3 /*break*/, 19];
+                        _a = contact.info2;
+                        switch (_a) {
+                            case 'floor': return [3 /*break*/, 1];
+                            case 'fruit': return [3 /*break*/, 10];
+                            case 'box': return [3 /*break*/, 13];
+                            case 'Trampoline': return [3 /*break*/, 14];
+                            case 'Blocks': return [3 /*break*/, 18];
+                        }
+                        return [3 /*break*/, 19];
+                    case 1:
+                        if (!(contact.isEnded == false)) return [3 /*break*/, 8];
+                        if (!(contact.y < 0)) return [3 /*break*/, 7];
+                        if (!(this.hero_contacts.size == 0)) return [3 /*break*/, 6];
+                        if (!(this.key_down_left || this.key_down_right)) return [3 /*break*/, 3];
+                        return [4 /*yield*/, this.nx.setActionType(contact.id1, cobj_1.CActionType.run, this.facingLeft)];
+                    case 2:
+                        _b.sent();
+                        return [3 /*break*/, 5];
+                    case 3: return [4 /*yield*/, this.nx.setActionType(contact.id1, cobj_1.CActionType.idle, this.facingLeft)];
+                    case 4:
+                        _b.sent();
+                        _b.label = 5;
+                    case 5:
+                        this.hero_jump_count = 0;
+                        _b.label = 6;
+                    case 6:
+                        this.hero_contacts.add(contact.id2);
+                        _b.label = 7;
+                    case 7: return [3 /*break*/, 9];
+                    case 8:
+                        if (this.hero_contacts.has(contact.id2)) {
+                            this.hero_contacts.delete(contact.id2);
+                        }
+                        _b.label = 9;
+                    case 9: return [3 /*break*/, 19];
+                    case 10:
+                        if (!(contact.isEnded == false)) return [3 /*break*/, 12];
+                        return [4 /*yield*/, this.nx.setActionType(contact.id2, cobj_1.CActionType.hit, this.facingLeft)];
+                    case 11:
+                        _b.sent();
+                        _b.label = 12;
+                    case 12: return [3 /*break*/, 19];
+                    case 13: 
+                    /*
+                    if (contact.type == 'begin') {
+                      //print(contact.x, contact.y)
+                      if (Math.abs(contact.y) > Math.abs(contact.x)) {
+                        const obj = this.nginx.omap.get(contact.id2);
+                        if (obj.count) {
+                          obj.count += 1
+                        } else {
+                          obj.count = 1
+                        }
+                        await this.nginx.playHitOnce(contact.id2, this.facingLeft);
+                      }
+                      if (contact.y < 0) {
+                        this.hero_jump_count = 0;
+                        await this.nginx.opVel(this.heroId, 0, -20);
+                      }
+                    }*/
+                    return [3 /*break*/, 19];
+                    case 14:
+                        if (!(contact.isEnded == false)) return [3 /*break*/, 17];
+                        return [4 /*yield*/, this.nx.setActionType(contact.id2, cobj_1.CActionType.hit, this.facingLeft)];
+                    case 15:
+                        _b.sent();
+                        return [4 /*yield*/, this.nx.lineary(contact.id1, -30)];
+                    case 16:
+                        _b.sent();
+                        this.hero_jump_count = 0;
+                        _b.label = 17;
+                    case 17: return [3 /*break*/, 19];
+                    case 18: 
+                    /*
+                    if (contact.type == 'begin') {
+                      await this.nginx.cmdIF2('action', contact.id2, contact.x, contact.y);
+                    }*/
+                    return [3 /*break*/, 19];
+                    case 19: return [2 /*return*/];
+                }
             });
         });
     };
     InputHandler.prototype.handleEvent = function (event) {
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                console.log(event);
-                return [2 /*return*/];
+            var c, _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        console.log(event);
+                        c = event;
+                        if (c.type == 'ready')
+                            return [2 /*return*/];
+                        _a = event.name;
+                        switch (_a) {
+                            case 'box': return [3 /*break*/, 1];
+                            case 'Trampoline': return [3 /*break*/, 2];
+                            case 'fruit': return [3 /*break*/, 4];
+                            case 'hero': return [3 /*break*/, 6];
+                        }
+                        return [3 /*break*/, 8];
+                    case 1: 
+                    /*
+                    //print(f"box - {omap[c.id]['count']}")
+                    if (obj.count == 2) {
+                      //print(obj)
+                      await this.nginx.opAction(c.id, c.x, c.y);
+                      await this.nginx.addBody({
+                        id:this.dynamic_id,
+                        name:'fruit',
+                        skin:'Bananas',
+                        type:'dynamic',
+                        x:c.x-0.5,
+                        y:c.y-0.5,
+                        width:1,
+                        height:1});
+                      this.dynamic_id += 1
+                      } else {
+                        await this.nginx.playIdle(c.id, this.facingLeft);
+                      }
+                      */
+                    return [3 /*break*/, 8];
+                    case 2: return [4 /*yield*/, this.nx.setActionType(event.id, cobj_1.CActionType.idle)];
+                    case 3:
+                        _b.sent();
+                        return [3 /*break*/, 8];
+                    case 4: return [4 /*yield*/, this.nx.remove(event.id)];
+                    case 5:
+                        _b.sent();
+                        return [3 /*break*/, 8];
+                    case 6: return [4 /*yield*/, this.nx.setActionType(event.id, cobj_1.CActionType.jump, this.facingLeft)];
+                    case 7:
+                        _b.sent();
+                        return [3 /*break*/, 8];
+                    case 8: return [2 /*return*/];
+                }
             });
         });
     };
     InputHandler.prototype.handleKey = function (key) {
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                console.log(key);
-                return [2 /*return*/];
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        console.log(key);
+                        if (!(key.isPressed == false)) return [3 /*break*/, 26];
+                        _a = key.name;
+                        switch (_a) {
+                            case 'Arrow Left': return [3 /*break*/, 1];
+                            case 'Arrow Right': return [3 /*break*/, 13];
+                        }
+                        return [3 /*break*/, 25];
+                    case 1:
+                        this.key_down_left = false;
+                        if (!this.key_down_right) return [3 /*break*/, 7];
+                        this.facingLeft = false;
+                        return [4 /*yield*/, this.nx.constx(this.heroId, 7)];
+                    case 2:
+                        _c.sent();
+                        if (!(this.hero_contacts.size != 0)) return [3 /*break*/, 4];
+                        return [4 /*yield*/, this.nx.setActionType(this.heroId, cobj_1.CActionType.run, this.facingLeft)];
+                    case 3:
+                        _c.sent();
+                        return [3 /*break*/, 6];
+                    case 4: return [4 /*yield*/, this.nx.setActionType(this.heroId, cobj_1.CActionType.noChange, this.facingLeft)];
+                    case 5:
+                        _c.sent();
+                        _c.label = 6;
+                    case 6: return [3 /*break*/, 12];
+                    case 7: return [4 /*yield*/, this.nx.constx(this.heroId, 0)];
+                    case 8:
+                        _c.sent();
+                        if (!(this.hero_contacts.size != 0)) return [3 /*break*/, 10];
+                        return [4 /*yield*/, this.nx.setActionType(this.heroId, cobj_1.CActionType.idle, this.facingLeft)];
+                    case 9:
+                        _c.sent();
+                        return [3 /*break*/, 12];
+                    case 10: return [4 /*yield*/, this.nx.setActionType(this.heroId, cobj_1.CActionType.noChange, this.facingLeft)];
+                    case 11:
+                        _c.sent();
+                        _c.label = 12;
+                    case 12: return [3 /*break*/, 25];
+                    case 13:
+                        this.key_down_right = false;
+                        if (!this.key_down_left) return [3 /*break*/, 19];
+                        this.facingLeft = true;
+                        return [4 /*yield*/, this.nx.constx(this.heroId, -7)];
+                    case 14:
+                        _c.sent();
+                        if (!(this.hero_contacts.size != 0)) return [3 /*break*/, 16];
+                        return [4 /*yield*/, this.nx.setActionType(this.heroId, cobj_1.CActionType.run, this.facingLeft)];
+                    case 15:
+                        _c.sent();
+                        return [3 /*break*/, 18];
+                    case 16: return [4 /*yield*/, this.nx.setActionType(this.heroId, cobj_1.CActionType.noChange, this.facingLeft)];
+                    case 17:
+                        _c.sent();
+                        _c.label = 18;
+                    case 18: return [3 /*break*/, 24];
+                    case 19: return [4 /*yield*/, this.nx.constx(this.heroId, 0)];
+                    case 20:
+                        _c.sent();
+                        if (!(this.hero_contacts.size != 0)) return [3 /*break*/, 22];
+                        return [4 /*yield*/, this.nx.setActionType(this.heroId, cobj_1.CActionType.idle, this.facingLeft)];
+                    case 21:
+                        _c.sent();
+                        return [3 /*break*/, 24];
+                    case 22: return [4 /*yield*/, this.nx.setActionType(this.heroId, cobj_1.CActionType.noChange, this.facingLeft)];
+                    case 23:
+                        _c.sent();
+                        _c.label = 24;
+                    case 24: return [3 /*break*/, 25];
+                    case 25: return [3 /*break*/, 52];
+                    case 26:
+                        _b = key.name;
+                        switch (_b) {
+                            case 'Arrow Left': return [3 /*break*/, 27];
+                            case 'Arrow Right': return [3 /*break*/, 36];
+                            case 'Arrow Up': return [3 /*break*/, 45];
+                        }
+                        return [3 /*break*/, 52];
+                    case 27:
+                        if (!!this.key_down_left) return [3 /*break*/, 33];
+                        this.key_down_left = true;
+                        this.facingLeft = true;
+                        return [4 /*yield*/, this.nx.constx(this.heroId, -7)];
+                    case 28:
+                        _c.sent();
+                        if (!(this.hero_contacts.size != 0)) return [3 /*break*/, 30];
+                        return [4 /*yield*/, this.nx.setActionType(this.heroId, cobj_1.CActionType.run, this.facingLeft)];
+                    case 29:
+                        _c.sent();
+                        return [3 /*break*/, 32];
+                    case 30: return [4 /*yield*/, this.nx.setActionType(this.heroId, cobj_1.CActionType.noChange, this.facingLeft)];
+                    case 31:
+                        _c.sent();
+                        _c.label = 32;
+                    case 32: return [3 /*break*/, 35];
+                    case 33: return [4 /*yield*/, this.nx.setActionType(this.heroId, cobj_1.CActionType.noChange, this.facingLeft)];
+                    case 34:
+                        _c.sent();
+                        _c.label = 35;
+                    case 35: return [3 /*break*/, 52];
+                    case 36:
+                        if (!!this.key_down_right) return [3 /*break*/, 42];
+                        this.key_down_right = true;
+                        this.facingLeft = false;
+                        return [4 /*yield*/, this.nx.constx(this.heroId, 7)];
+                    case 37:
+                        _c.sent();
+                        if (!(this.hero_contacts.size != 0)) return [3 /*break*/, 39];
+                        return [4 /*yield*/, this.nx.setActionType(this.heroId, cobj_1.CActionType.run, this.facingLeft)];
+                    case 38:
+                        _c.sent();
+                        return [3 /*break*/, 41];
+                    case 39: return [4 /*yield*/, this.nx.setActionType(this.heroId, cobj_1.CActionType.noChange, this.facingLeft)];
+                    case 40:
+                        _c.sent();
+                        _c.label = 41;
+                    case 41: return [3 /*break*/, 44];
+                    case 42: return [4 /*yield*/, this.nx.setActionType(this.heroId, cobj_1.CActionType.noChange, this.facingLeft)];
+                    case 43:
+                        _c.sent();
+                        _c.label = 44;
+                    case 44: return [3 /*break*/, 52];
+                    case 45:
+                        if (!(this.hero_contacts.size != 0)) return [3 /*break*/, 48];
+                        return [4 /*yield*/, this.nx.lineary(this.heroId, -20)];
+                    case 46:
+                        _c.sent();
+                        return [4 /*yield*/, this.nx.setActionType(this.heroId, cobj_1.CActionType.jump, this.facingLeft)];
+                    case 47:
+                        _c.sent();
+                        this.hero_jump_count = 0;
+                        return [3 /*break*/, 51];
+                    case 48:
+                        if (!(this.hero_jump_count < 1)) return [3 /*break*/, 51];
+                        return [4 /*yield*/, this.nx.lineary(this.heroId, -20)];
+                    case 49:
+                        _c.sent();
+                        return [4 /*yield*/, this.nx.setActionType(this.heroId, cobj_1.CActionType.doubleJump, this.facingLeft)];
+                    case 50:
+                        _c.sent();
+                        this.hero_jump_count = 1;
+                        _c.label = 51;
+                    case 51: return [3 /*break*/, 52];
+                    case 52: return [2 /*return*/];
+                }
             });
         });
     };
     InputHandler.prototype.handleDirectional = function (directional) {
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                console.log(directional);
-                return [2 /*return*/];
+            var c, _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        console.log(directional);
+                        c = directional;
+                        _a = c.direction;
+                        switch (_a) {
+                            case 'IDLE': return [3 /*break*/, 1];
+                            case 'MOVE_RIGHT': return [3 /*break*/, 4];
+                            case 'MOVE_LEFT': return [3 /*break*/, 7];
+                        }
+                        return [3 /*break*/, 10];
+                    case 1: return [4 /*yield*/, this.nx.setActionType(this.heroId, cobj_1.CActionType.idle, this.facingLeft)];
+                    case 2:
+                        _b.sent();
+                        return [4 /*yield*/, this.nx.constx(this.heroId, 0)];
+                    case 3:
+                        _b.sent();
+                        this.key_down_right = false;
+                        this.key_down_left = false;
+                        return [3 /*break*/, 10];
+                    case 4:
+                        this.facingLeft = false;
+                        return [4 /*yield*/, this.nx.setActionType(this.heroId, cobj_1.CActionType.run, this.facingLeft)];
+                    case 5:
+                        _b.sent();
+                        return [4 /*yield*/, this.nx.constx(this.heroId, 7 * c.intensity / this.nx.precision)];
+                    case 6:
+                        _b.sent();
+                        this.key_down_right = true;
+                        this.key_down_left = true;
+                        return [3 /*break*/, 10];
+                    case 7:
+                        this.facingLeft = true;
+                        return [4 /*yield*/, this.nx.setActionType(this.heroId, cobj_1.CActionType.run, this.facingLeft)];
+                    case 8:
+                        _b.sent();
+                        return [4 /*yield*/, this.nx.constx(this.heroId, -7 * c.intensity / this.nx.precision)];
+                    case 9:
+                        _b.sent();
+                        this.key_down_right = true;
+                        this.key_down_left = true;
+                        return [3 /*break*/, 10];
+                    case 10:
+                        console.log(c.direction);
+                        return [2 /*return*/];
+                }
             });
         });
     };
     InputHandler.prototype.handleButton = function (button) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                console.log(button);
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0:
+                        console.log(button);
+                        if (!(this.hero_contacts.size != 0)) return [3 /*break*/, 3];
+                        return [4 /*yield*/, this.nx.lineary(this.heroId, -20)];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, this.nx.setActionType(this.heroId, cobj_1.CActionType.jump, this.facingLeft)];
+                    case 2:
+                        _a.sent();
+                        this.hero_jump_count = 0;
+                        return [3 /*break*/, 6];
+                    case 3:
+                        if (!(this.hero_jump_count < 1)) return [3 /*break*/, 6];
+                        return [4 /*yield*/, this.nx.lineary(this.heroId, -20)];
+                    case 4:
+                        _a.sent();
+                        return [4 /*yield*/, this.nx.setActionType(this.heroId, cobj_1.CActionType.doubleJump, this.facingLeft)];
+                    case 5:
+                        _a.sent();
+                        this.hero_jump_count = 1;
+                        _a.label = 6;
+                    case 6: return [2 /*return*/];
+                }
             });
         });
     };

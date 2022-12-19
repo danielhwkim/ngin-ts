@@ -118,13 +118,14 @@ function buildShape(shape) {
     }
 }
 var CAction = /** @class */ (function () {
-    function CAction(path, tileSize, indices, type) {
+    function CAction(path, tileSize, indices, type, repeat) {
+        if (repeat === void 0) { repeat = true; }
         this.stepTime = 0.2;
-        this.repeat = true;
         this.path = path;
         this.tileSize = tileSize;
         this.indices = indices;
         this.type = type;
+        this.repeat = repeat;
     }
     CAction.prototype.build = function () {
         return {

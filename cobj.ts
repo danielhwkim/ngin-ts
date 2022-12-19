@@ -125,12 +125,13 @@ export class CAction implements CBuildable {
     indices: number[];
     stepTime: number = 0.2;
     type: CActionType;
-    repeat: boolean = true;
-    constructor(path:string, tileSize:CSize, indices:number[], type:CActionType) {
+    repeat: boolean;
+    constructor(path:string, tileSize:CSize, indices:number[], type:CActionType, repeat:boolean = true) {
         this.path = path;
         this.tileSize = tileSize;
         this.indices = indices;
         this.type = type;
+        this.repeat = repeat;
     }
     build() {
         return {
