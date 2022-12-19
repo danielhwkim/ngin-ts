@@ -25,14 +25,14 @@ export class Nx extends NginX {
         return await EventEmitter.once(this.ackEmitter, 'ack');
     }    
 
-    async add(x, y) {
-        await this.addFruit(200, x, y, 'Bananas');
+    async add(pos:CPos) {
+        await this.addFruit(200, pos, 'Bananas');
     }
 
-    async addFruit(id, x, y, fruit) {
+    async addFruit(id:number, pos:CPos, fruit:string) {
         var obj = new CObject(id);
         obj.info = "fruit";
-        obj.physical = new CPhysical(CBodyShape.circle, new CPos(x,y), CBodyType.static);
+        obj.physical = new CPhysical(CBodyShape.circle, pos, CBodyType.static);
         //obj.physical.isSensor = true;
         var a1 = new CAction('Items/Fruits/' + fruit + '.png', new CSize(32, 32), [/*0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16*/], CActionType.idle);
         a1.stepTime = 50/1000;
@@ -107,13 +107,13 @@ export class Nx extends NginX {
         await this.sendObj(obj);
     }
 
-    actor(id, character, x, y) {
+    hero(id:number, character:string, pos:CPos) {
         const hx = 0.25;
         const hy = 0.25;
 
         var obj = new CObject(id);
-        obj.info = "actor";
-        obj.physical = new CPhysical(CBodyShape.polygon, new CPos(x,y), CBodyType.dynamic);
+        obj.info = "hero";
+        obj.physical = new CPhysical(CBodyShape.polygon, pos, CBodyType.dynamic);
         obj.physical.floats = [-hx, -hy, -hx, hy, hx, hy, hx, -hy];
         obj.physical.fixedRotation = true;
         //obj.physical.size = new CSize(0.5, 0.5);

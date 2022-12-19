@@ -19,12 +19,12 @@ main('127.0.0.1', 4040, async (nx:Nx) =>  {
     await nx.addCStage(0, 0, 0, size.w, size.h);
     var gid = 300;
     for (var i = 2; i<10; i++) {
-        await nx.addFruit(gid++, i, 3, 'Bananas');
+        await nx.addFruit(gid++, new CPos(i, 3), 'Bananas');
     }
 
     await nx.addSpike(gid++, 3, 4);
     await nx.addCoin(gid++, 4, 4);
-    await nx.sendObjWait(nx.actor(1, 'Mask Dude', 5, 4));
+    await nx.sendObjWait(nx.actor(1, 'Mask Dude', new CPos(5, 4)));
 
     var info = await nx.getCObjectInfo(1);
     console.log(info);

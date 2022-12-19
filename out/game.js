@@ -54,6 +54,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var fs = require('fs');
 var EventHandler = require("./ngin").EventHandler;
 var nx_1 = require("./nx");
+var cobj_1 = require("./cobj");
 function conv(v, tileSize) {
     return Math.round(v * 2.0 / tileSize) / 2.0;
 }
@@ -516,33 +517,138 @@ function getGameData() {
 "width":32\
 }';
 }
-(0, nx_1.main)('192.168.86.68', 4040, function (ngin) { return __awaiter(void 0, void 0, void 0, function () {
-    var j, tiles, objlayer, data, tileSize, precision;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+(0, nx_1.main)('127.0.0.1', 4040, function (nx) { return __awaiter(void 0, void 0, void 0, function () {
+    var j, tiles, objlayer, data, tileSize, precision, size, stage, objs, _a, _b, _i, key, obj, _c, hero, cobj, cobj, cobj, cobj, i;
+    return __generator(this, function (_d) {
+        switch (_d.label) {
             case 0:
-                ngin.eventHandler = new InputHandler(ngin);
+                nx.eventHandler = new InputHandler(nx);
                 j = JSON.parse(getGameData());
                 tiles = j.layers[0];
                 objlayer = j.layers[1];
                 data = tiles['data'];
                 tileSize = j['tilewidth'];
                 precision = 3;
-                return [4 /*yield*/, ngin.initScreen({
-                        background: 'Blue',
-                        gravityX: 0.0,
-                        gravityY: 60.0,
-                        width: tiles.width,
-                        height: tiles.height,
-                        debug: false,
-                        joystickDirectionals: 'horizontal',
-                        joystickPrecision: precision,
-                        button1: 'DOWN',
-                        button2: 'DOWN',
-                    })];
+                size = new cobj_1.CSize(tiles.width, tiles.height);
+                stage = new cobj_1.CStage(size);
+                //stage.debug = true;
+                stage.background = 'Blue';
+                stage.gravity = new cobj_1.CPos(0, 60);
+                stage.joystickDirectionals = cobj_1.CJoystickDirectionals.horizontal;
+                return [4 /*yield*/, nx.sendObjWait(stage)];
             case 1:
-                _a.sent();
-                return [2 /*return*/];
+                _d.sent();
+                return [4 /*yield*/, nx.sendObj((0, cobj_1.CTileObject)('Terrain/Terrain (16x16).png', new cobj_1.CSize(tileSize, tileSize), data, new cobj_1.CPos(0, 0), size))];
+            case 2:
+                _d.sent();
+                nx.eventHandler.ready = true;
+                objs = objlayer.objects;
+                _a = [];
+                for (_b in objs)
+                    _a.push(_b);
+                _i = 0;
+                _d.label = 3;
+            case 3:
+                if (!(_i < _a.length)) return [3 /*break*/, 17];
+                key = _a[_i];
+                obj = objs[key];
+                console.log(obj.name, obj.id);
+                obj.id += 100;
+                convInfo(obj, tileSize);
+                _c = obj.name;
+                switch (_c) {
+                    case 'Apple': return [3 /*break*/, 4];
+                    case 'Bananas': return [3 /*break*/, 4];
+                    case 'Cherries': return [3 /*break*/, 4];
+                    case 'Kiwi': return [3 /*break*/, 4];
+                    case 'Orange': return [3 /*break*/, 4];
+                    case 'Pineapple': return [3 /*break*/, 4];
+                    case 'Strawberry': return [3 /*break*/, 4];
+                    case 'hero': return [3 /*break*/, 5];
+                    case 'floor': return [3 /*break*/, 7];
+                    case 'bar': return [3 /*break*/, 9];
+                    case 'Box1': return [3 /*break*/, 11];
+                    case 'Box2': return [3 /*break*/, 11];
+                    case 'Box3': return [3 /*break*/, 11];
+                    case 'Trampoline': return [3 /*break*/, 13];
+                }
+                return [3 /*break*/, 15];
+            case 4:
+                nx.addFruit(obj.id, new cobj_1.CPos(obj.x, obj.y), obj.name);
+                return [3 /*break*/, 16];
+            case 5:
+                obj.id = 1;
+                hero = nx.hero(obj.id, 'Mask Dude', new cobj_1.CPos(obj.x - 0.5, obj.y - 2));
+                hero.physical.shape = cobj_1.CBodyShape.actor;
+                hero.physical.size = new cobj_1.CSize(2, 2);
+                hero.physical.maskBits = 0x00FF;
+                hero.visible.scale = new cobj_1.CPos(2, 2);
+                hero.visible.pos = new cobj_1.CPos(0, 0);
+                return [4 /*yield*/, nx.sendObjWait(hero)];
+            case 6:
+                _d.sent();
+                if (nx.eventHandler) {
+                    nx.eventHandler.actorBid = hero.id;
+                }
+                return [3 /*break*/, 16];
+            case 7:
+                cobj = new cobj_1.CObject(obj.id);
+                cobj.info = obj.name;
+                cobj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.rectangle, new cobj_1.CPos(obj.x, obj.y), cobj_1.CBodyType.static);
+                cobj.physical.size = new cobj_1.CSize(obj.width, obj.height);
+                //cobj.physical.anchor = new CPos(0, 0);
+                return [4 /*yield*/, nx.sendObj(cobj)];
+            case 8:
+                //cobj.physical.anchor = new CPos(0, 0);
+                _d.sent();
+                return [3 /*break*/, 16];
+            case 9:
+                cobj = new cobj_1.CObject(obj.id);
+                cobj.info = obj.name;
+                cobj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.rectangle, new cobj_1.CPos(obj.x, obj.y), cobj_1.CBodyType.static);
+                cobj.physical.size = new cobj_1.CSize(obj.width, obj.height);
+                //cobj.physical.anchor = new CPos(0, 0);
+                return [4 /*yield*/, nx.sendObj(cobj)];
+            case 10:
+                //cobj.physical.anchor = new CPos(0, 0);
+                _d.sent();
+                return [3 /*break*/, 16];
+            case 11:
+                cobj = new cobj_1.CObject(obj.id);
+                cobj.info = obj.name;
+                cobj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.rectangle, new cobj_1.CPos(obj.x, obj.y), cobj_1.CBodyType.static);
+                cobj.physical.size = new cobj_1.CSize(obj.width, obj.height);
+                //cobj.physical.anchor = new CPos(0, 0);
+                return [4 /*yield*/, nx.sendObj(cobj)];
+            case 12:
+                //cobj.physical.anchor = new CPos(0, 0);
+                _d.sent();
+                return [3 /*break*/, 16];
+            case 13:
+                cobj = new cobj_1.CObject(obj.id);
+                cobj.info = obj.name;
+                cobj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.rectangle, new cobj_1.CPos(obj.x, obj.y), cobj_1.CBodyType.static);
+                cobj.physical.size = new cobj_1.CSize(obj.width, obj.height);
+                cobj.visible = new cobj_1.CVisible([
+                    new cobj_1.CAction('Traps/Trampoline/Idle.png', new cobj_1.CSize(28, 28), [], cobj_1.CActionType.idle),
+                    new cobj_1.CAction('Traps/Trampoline/Jump (28x28).png', new cobj_1.CSize(28, 28), [], cobj_1.CActionType.hit),
+                ]);
+                for (i = 0; i < cobj.visible.actions.length; i++) {
+                    cobj.visible.actions[i].stepTime = 50 / 1000;
+                }
+                cobj.visible.scale = new cobj_1.CPos(1.7, 1.7);
+                cobj.visible.pos = new cobj_1.CPos(0, -0.4);
+                //cobj.visible.current = CActionType.hit;
+                return [4 /*yield*/, nx.sendObj(cobj)];
+            case 14:
+                //cobj.visible.current = CActionType.hit;
+                _d.sent();
+                return [3 /*break*/, 16];
+            case 15: return [3 /*break*/, 16];
+            case 16:
+                _i++;
+                return [3 /*break*/, 3];
+            case 17: return [2 /*return*/];
         }
     });
 }); });

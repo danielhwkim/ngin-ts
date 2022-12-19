@@ -1,6 +1,6 @@
 var fs = require('fs');
 var {EventHandler} = require("./ngin");
-import {main} from "./nx";
+import {main, Nx} from "./nx";
 import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, CStage, CPos, CSize, CBodyType, CBodyShape, CJoystickDirectionals} from "./cobj";
 
 
@@ -470,8 +470,8 @@ function getGameData() {
 }
 
 
-main('192.168.86.68', 4040, async (ngin) =>  {
-    ngin.eventHandler = new InputHandler(ngin);
+main('127.0.0.1', 4040, async (nx:Nx) =>  {
+    nx.eventHandler = new InputHandler(nx);
     //const d = fs.readFileSync('/Users/dkim/development/dengine/assets/images/Terrain/level03.json', 'utf8');
     const j = JSON.parse(getGameData());
   
@@ -480,41 +480,27 @@ main('192.168.86.68', 4040, async (ngin) =>  {
     const data = tiles['data'];
     const tileSize = j['tilewidth'];
     const precision = 3;
+    const size = new CSize(tiles.width, tiles.height);
   
-    await ngin.initScreen({
-        background: 'Blue',
-        gravityX: 0.0,
-        gravityY: 60.0,    
-        width: tiles.width,
-        height: tiles.height,
-        debug: false,
-        joystickDirectionals: 'horizontal',
-        joystickPrecision: precision,
-        button1: 'DOWN',
-        button2: 'DOWN',
-    });
 
-    /*
-    await ngin.addBody({
-        name:'tiles',
-        skin:'tiles',
-        width:tiles.width,
-        height:tiles.height,
-        tilesInfo: {
-            path:'Terrain/Terrain (16x16).png',
-            tileSizeX:tileSize,
-            tileSizeY:tileSize,
-            tileColumns:22,
-            data:data,
-        }
-    });
-    ngin.eventHandler.ready = true;
+    var stage = new CStage(size);
+    //stage.debug = true;
+    stage.background = 'Blue';
+    stage.gravity = new CPos(0, 60);
+    stage.joystickDirectionals = CJoystickDirectionals.horizontal;
+    await nx.sendObjWait(stage);
+
+
+    await nx.sendObj(CTileObject('Terrain/Terrain (16x16).png', new CSize(tileSize, tileSize), data, new CPos(0,0), size));
+    nx.eventHandler.ready = true;
     const objs = objlayer.objects;
-  
+
+
     for (let key in objs) {
       let obj = objs[key];
       console.log(obj.name, obj.id);
-      obj.bid = obj.id;
+      obj.id += 100;
+      convInfo(obj, tileSize);
       switch(obj.name) {
         case 'Apple':
         case 'Bananas':
@@ -522,64 +508,75 @@ main('192.168.86.68', 4040, async (ngin) =>  {
         case 'Kiwi':
         case 'Orange':
         case 'Pineapple':
-        case 'Strawberry':
-          obj.skin = obj.name;
-          obj.name = 'fruit';
-          obj.isSensor = true;
-          convInfo(obj, tileSize);
-          await ngin.addBody(obj);
+        case 'Strawberry':    
+          nx.addFruit(obj.id, new CPos(obj.x, obj.y), obj.name);
           break;
-  
+
         case 'hero':
-          obj.width *= 2;
-          obj.height *= 2;
-          obj.x -= 0.5*tileSize;
-          obj.y -= 2*tileSize;
-          obj.name = 'actor';
-          obj.skin = 'Mask Dude';
-          obj.shape = 'actor';
-          obj.type = 'dynamicBody';
-          obj.maskBits = 0x00FF;
-          obj.facingLeft = false;
-          obj.contactReport = true;
-          if (ngin.eventHandler) {
-              ngin.eventHandler.actorBid = obj.bid;
+          obj.id = 1;
+          var hero = nx.hero(obj.id, 'Mask Dude', new CPos(obj.x - 0.5, obj.y - 2));
+          hero.physical.shape = CBodyShape.actor;
+          hero.physical.size = new CSize(2, 2);
+          hero.physical.maskBits = 0x00FF;
+          hero.visible.scale = new CPos(2,2);
+          hero.visible.pos = new CPos(0, 0);
+          await nx.sendObjWait(hero);
+          if (nx.eventHandler) {
+            nx.eventHandler.actorBid = hero.id;
           }
-          convInfo(obj, tileSize);
-          await ngin.addBody(obj);
           break;
-          
-        case 'floor':
-        case 'bar':
-          obj.skin = obj.name;
-          obj.name = 'void';
-          obj.trackable = false;
-          convInfo(obj, tileSize);
-          await ngin.addBody(obj);
-          break;
-  
-        case 'Box1':
-        case 'Box2':
-        case 'Box3':
-          obj.skin = obj.name
-          obj.name = 'box'
-          convInfo(obj, tileSize);
-          await ngin.addBody(obj);
-          break;
-  
-        case 'Trampoline':
-          obj.skin = obj.name
-          obj.name = 'trampoline'
-          convInfo(obj, tileSize);
-          await ngin.addBody(obj);	
-          break;
-  
+
+          case 'floor':
+            var cobj = new CObject(obj.id);
+            cobj.info = obj.name;
+            cobj.physical = new CPhysical(CBodyShape.rectangle, new CPos(obj.x, obj.y), CBodyType.static);
+            cobj.physical.size = new CSize(obj.width,obj.height);
+            //cobj.physical.anchor = new CPos(0, 0);
+            await nx.sendObj(cobj);
+
+            break;
+
+          case 'bar':
+            var cobj = new CObject(obj.id);
+            cobj.info = obj.name;
+            cobj.physical = new CPhysical(CBodyShape.rectangle, new CPos(obj.x, obj.y), CBodyType.static);
+            cobj.physical.size = new CSize(obj.width,obj.height);
+            //cobj.physical.anchor = new CPos(0, 0);
+            await nx.sendObj(cobj);            
+            break;
+          case 'Box1':
+          case 'Box2':
+          case 'Box3':
+            var cobj = new CObject(obj.id);
+            cobj.info = obj.name;
+            cobj.physical = new CPhysical(CBodyShape.rectangle, new CPos(obj.x, obj.y), CBodyType.static);
+            cobj.physical.size = new CSize(obj.width,obj.height);
+            //cobj.physical.anchor = new CPos(0, 0);
+            await nx.sendObj(cobj); 
+            break;
+
+          case 'Trampoline':
+            var cobj = new CObject(obj.id);
+            cobj.info = obj.name;
+            cobj.physical = new CPhysical(CBodyShape.rectangle, new CPos(obj.x, obj.y), CBodyType.static);
+            cobj.physical.size = new CSize(obj.width,obj.height);
+            cobj.visible = new CVisible([
+              new CAction('Traps/Trampoline/Idle.png', new CSize(28, 28), [], CActionType.idle),
+              new CAction('Traps/Trampoline/Jump (28x28).png', new CSize(28, 28), [], CActionType.hit),
+            ]);
+            for (var i=0; i<cobj.visible.actions.length; i++) {
+              cobj.visible.actions[i].stepTime = 50/1000;
+            }
+            cobj.visible.scale = new CPos(1.7, 1.7);
+            cobj.visible.pos = new CPos(0, -0.4);
+            //cobj.visible.current = CActionType.hit;
+            await nx.sendObj(cobj); 
+            break;
+
         default:
           break;
       }
     }
-
-    await ngin.command({strings:['wakelock'], ints:[1]});*/
 });
 
 class InputHandler extends EventHandler {

@@ -99,11 +99,11 @@ var Nx = /** @class */ (function (_super) {
             });
         });
     };
-    Nx.prototype.add = function (x, y) {
+    Nx.prototype.add = function (pos) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.addFruit(200, x, y, 'Bananas')];
+                    case 0: return [4 /*yield*/, this.addFruit(200, pos, 'Bananas')];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -111,7 +111,7 @@ var Nx = /** @class */ (function (_super) {
             });
         });
     };
-    Nx.prototype.addFruit = function (id, x, y, fruit) {
+    Nx.prototype.addFruit = function (id, pos, fruit) {
         return __awaiter(this, void 0, void 0, function () {
             var obj, a1;
             return __generator(this, function (_a) {
@@ -119,7 +119,7 @@ var Nx = /** @class */ (function (_super) {
                     case 0:
                         obj = new cobj_1.CObject(id);
                         obj.info = "fruit";
-                        obj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.circle, new cobj_1.CPos(x, y), cobj_1.CBodyType.static);
+                        obj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.circle, pos, cobj_1.CBodyType.static);
                         a1 = new cobj_1.CAction('Items/Fruits/' + fruit + '.png', new cobj_1.CSize(32, 32), [ /*0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16*/], cobj_1.CActionType.idle);
                         a1.stepTime = 50 / 1000;
                         obj.visible = new cobj_1.CVisible([a1]);
@@ -242,12 +242,12 @@ var Nx = /** @class */ (function (_super) {
             });
         });
     };
-    Nx.prototype.actor = function (id, character, x, y) {
+    Nx.prototype.hero = function (id, character, pos) {
         var hx = 0.25;
         var hy = 0.25;
         var obj = new cobj_1.CObject(id);
-        obj.info = "actor";
-        obj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.polygon, new cobj_1.CPos(x, y), cobj_1.CBodyType.dynamic);
+        obj.info = "hero";
+        obj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.polygon, pos, cobj_1.CBodyType.dynamic);
         obj.physical.floats = [-hx, -hy, -hx, hy, hx, hy, hx, -hy];
         obj.physical.fixedRotation = true;
         //obj.physical.size = new CSize(0.5, 0.5);
