@@ -2,7 +2,7 @@
 var {EventHandler, Ngin} = require("./ngin");
 var fs = require('fs');
 import {main, Nx} from "./nx";
-import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, CStage, CVector2, CSize, CBodyType, CBodyShape, CJoystickDirectionals} from "./cobj";
+import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, CStage, CVec2, CSize, CBodyType, CBodyShape, CJoystickDirectionals} from "./cobj";
 
 
 main('127.0.0.1', 4040, async (nx:Nx) =>  {
@@ -19,17 +19,17 @@ main('127.0.0.1', 4040, async (nx:Nx) =>  {
     await nx.addCStage(0, 0, 0, size.w, size.h);
     var gid = 300;
     for (var i = 2; i<10; i++) {
-        await nx.addFruit(gid++, new CVector2(i, 3), 'Bananas');
+        await nx.addFruit(gid++, new CVec2(i, 3), 'Bananas');
     }
 
     await nx.addSpike(gid++, 3, 4);
     await nx.addCoin(gid++, 4, 4);
-    await nx.sendObjWait(nx.actor(1, 'Mask Dude', new CVector2(5, 4)));
+    await nx.sendObjWait(nx.actor(1, 'Mask Dude', new CVec2(5, 4)));
 
     var info = await nx.getCObjectInfo(1);
     console.log(info);
     await nx.setActionType(1, CActionType.run, true);    
-    await nx.linearTo(1, new CVector2(info.pos.x - 1, info.pos.y), 2);
+    await nx.linearTo(1, new CVec2(info.pos.x - 1, info.pos.y), 2);
     await nx.setActionType(1, CActionType.idle, true);
     
     //await nx.setActionType(1, CActionType.run, true);

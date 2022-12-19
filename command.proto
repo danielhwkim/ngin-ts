@@ -60,57 +60,6 @@ enum BodyType {
     dynamic = 2;
 }
 
-enum CActionType {
-    idle = 0;
-    run = 1;
-    jump = 2;
-    hit = 3;
-    fall = 4;
-    wallJump = 5;
-    doubleJump = 6;
-    hitSide = 7;
-    hitTop = 8;
-    off = 9;
-    on = 10;
-    blink = 11;
-    hitLeft = 12;
-    hitRight = 13;
-    hitBottom = 14;
-    noChange = 15;
-    tiles = 16;
-    svg = 17;
-}
-
-enum BodyOp {
-    linearVelocity = 0;
-    angularVelocity = 1;
-    force = 2;
-    linearImpulse = 3;
-    torque = 4;
-    xConstantVelocity = 5;
-    yConstantVelocity = 6;
-    xLinearVelocity = 7;    
-    yLinearVelocity = 8;
-    constantVelocity = 9;
-    action = 10;
-    remove = 11;
-    follow = 12;
-}
-
-message ContactInfo {
-    uint32 id1 = 1;
-    uint32 id2 = 2;
-    string info1 = 3;
-    string info2 = 4;
-    float x = 7;
-    float y = 8;
-    float x1 = 9;
-    float y1 = 10;
-    float x2 = 11;
-    float y2 = 12;
-    bool isEnded = 13;
-}
-
 message EventInfo {
     uint32 id = 1;
     string name = 2;
@@ -211,7 +160,45 @@ enum JoystickDirectionals {
     vertical = 3;
 }
 
-message InitInfo {
+//================================================
+
+
+enum CActionType {
+    idle = 0;
+    run = 1;
+    jump = 2;
+    hit = 3;
+    fall = 4;
+    wallJump = 5;
+    doubleJump = 6;
+    hitSide = 7;
+    hitTop = 8;
+    off = 9;
+    on = 10;
+    blink = 11;
+    hitLeft = 12;
+    hitRight = 13;
+    hitBottom = 14;
+    noChange = 15;
+    tiles = 16;
+    svg = 17;
+}
+
+message ContactInfo {
+    uint32 id1 = 1;
+    uint32 id2 = 2;
+    string info1 = 3;
+    string info2 = 4;
+    float x = 7;
+    float y = 8;
+    float x1 = 9;
+    float y1 = 10;
+    float x2 = 11;
+    float y2 = 12;
+    bool isEnded = 13;
+}
+
+message CStageInfo {
     string background = 1;
     double gravityX = 2;
     double gravityY = 3;
@@ -226,32 +213,10 @@ message InitInfo {
     repeated int32 tiles = 12;
 }
 
-enum CmdType {
-	RAWKEYDOWN = 0;
-	RAWKEYUP = 1;
-	COMMAND2 = 2;
-	COMMAND3 = 3;
-	COMMAND4 = 4;
-	COMMAND5 = 5;
-	COMMAND6 = 6;
-	COMMAND7 = 7;
-	COMMAND8 = 8;
-	COMMAND9 = 9;
-	MAPORIGINAL = 10;
-	MAP = 11;
-	ACK = 12;
-	ACK2 = 13;
-	HERO = 14;		
-	READY = 15;
-	INIT = 16;
-}
-
 message Cmd {
-	CmdType cmd = 1;
 	repeated int32 ints = 2;
 	repeated float floats = 3;
 	repeated string strings = 4;
-    Cmd sub = 5;
 }
 
 

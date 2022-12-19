@@ -76,11 +76,11 @@ var cobj_1 = require("./cobj");
                 return [4 /*yield*/, nx.sendObjWait(stage)];
             case 1:
                 _a.sent();
-                return [4 /*yield*/, nx.sendObj((0, cobj_1.CTileObject)('kenney_pixelshmup/tiles_packed.png', new cobj_1.CSize(tileCSize, tileCSize), data, new cobj_1.CVector2(0, 0), size))];
+                return [4 /*yield*/, nx.sendObj((0, cobj_1.CTileObject)('kenney_pixelshmup/tiles_packed.png', new cobj_1.CSize(tileCSize, tileCSize), data, new cobj_1.CVec2(0, 0), size))];
             case 2:
                 _a.sent();
                 obj = new cobj_1.CObject(100);
-                obj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.circle, new cobj_1.CVector2(11, 11), cobj_1.CBodyType.dynamic);
+                obj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.circle, new cobj_1.CVec2(11, 11), cobj_1.CBodyType.dynamic);
                 obj.physical.angle = 1.5;
                 obj.physical.size = new cobj_1.CSize(2, 2);
                 obj.visible = new cobj_1.CVisible([new cobj_1.CAction('kenney_pixelshmup/ships_packed.png', new cobj_1.CSize(32, 32), [1], cobj_1.CActionType.idle)]);
@@ -97,7 +97,7 @@ var cobj_1 = require("./cobj");
             case 5:
                 _a.sent();
                 obj.id = 200;
-                obj.physical.pos = new cobj_1.CVector2(11, 0);
+                obj.physical.pos = new cobj_1.CVec2(11, 0);
                 obj.physical.angle = 3;
                 //obj.visible.size = new CSize(2,2);    
                 obj.visible.actions[0].indices = [10];
@@ -147,7 +147,7 @@ var InputHandler = /** @class */ (function (_super) {
                         obj = new cobj_1.CObject(1000);
                         obj.tid = contact.id2;
                         obj.visible = new cobj_1.CVisible([new cobj_1.CAction('kenney_pixelshmup/tiles_packed.png', new cobj_1.CSize(16, 16), [5], cobj_1.CActionType.idle)]);
-                        obj.visible.pos = new cobj_1.CVector2(0, 0);
+                        obj.visible.pos = new cobj_1.CVec2(0, 0);
                         return [4 /*yield*/, this.nx.sendObj(obj)];
                     case 2:
                         _a.sent();
@@ -214,7 +214,7 @@ var InputHandler = /** @class */ (function (_super) {
                     case 1:
                         info = _a.sent();
                         obj = new cobj_1.CObject(101);
-                        obj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.rectangle, new cobj_1.CVector2(info.pos.x - 0.5 + 2 * Math.sin(info.angle), info.pos.y - 0.5 - 2 * Math.cos(info.angle)), cobj_1.CBodyType.dynamic);
+                        obj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.rectangle, new cobj_1.CVec2(info.pos.x - 0.5 + 2 * Math.sin(info.angle), info.pos.y - 0.5 - 2 * Math.cos(info.angle)), cobj_1.CBodyType.dynamic);
                         obj.physical.angle = info.angle;
                         obj.visible = new cobj_1.CVisible([new cobj_1.CAction('kenney_pixelshmup/tiles_packed.png', new cobj_1.CSize(16, 16), [1, 2, 3], cobj_1.CActionType.idle)]);
                         return [4 /*yield*/, this.nx.sendObjWait(obj)];

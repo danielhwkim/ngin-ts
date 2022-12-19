@@ -76,7 +76,7 @@ var cobj_1 = require("./cobj");
                 _a.label = 3;
             case 3:
                 if (!(i < 10)) return [3 /*break*/, 6];
-                return [4 /*yield*/, nx.addFruit(gid++, new cobj_1.CVector2(i, 3), 'Bananas')];
+                return [4 /*yield*/, nx.addFruit(gid++, new cobj_1.CVec2(i, 3), 'Bananas')];
             case 4:
                 _a.sent();
                 _a.label = 5;
@@ -89,7 +89,7 @@ var cobj_1 = require("./cobj");
                 return [4 /*yield*/, nx.addCoin(gid++, 4, 4)];
             case 8:
                 _a.sent();
-                return [4 /*yield*/, nx.sendObjWait(nx.actor(1, 'Mask Dude', new cobj_1.CVector2(5, 4)))];
+                return [4 /*yield*/, nx.sendObjWait(nx.actor(1, 'Mask Dude', new cobj_1.CVec2(5, 4)))];
             case 9:
                 _a.sent();
                 return [4 /*yield*/, nx.getCObjectInfo(1)];
@@ -99,7 +99,7 @@ var cobj_1 = require("./cobj");
                 return [4 /*yield*/, nx.setActionType(1, cobj_1.CActionType.run, true)];
             case 11:
                 _a.sent();
-                return [4 /*yield*/, nx.linearTo(1, new cobj_1.CVector2(info.pos.x - 1, info.pos.y), 2)];
+                return [4 /*yield*/, nx.linearTo(1, new cobj_1.CVec2(info.pos.x - 1, info.pos.y), 2)];
             case 12:
                 _a.sent();
                 return [4 /*yield*/, nx.setActionType(1, cobj_1.CActionType.idle, true)];

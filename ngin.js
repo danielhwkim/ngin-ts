@@ -8,7 +8,6 @@ var bonjour = require('bonjour')()
 
 
 var ngin;
-//exports.__esModule = true;
 
 function mainInternal(type, port, body) {
   // browse for all http services
@@ -50,58 +49,23 @@ export function main(type, port, body) {
 }
 
 class EventHandler {
-  //ngin;
-  actorBid = 0;
-  //directionMap = {};
   constructor(ngin) {
-    //this.ngin = ngin;
-
-    //for (const i in ngin.JoystickMoveDirectional.values) {
-      //console.log(i, typeof i, ngin.JoystickMoveDirectional.values[i]);
-      //this.directionMap[i] = 
-    //}
-
   }
 
   async handle(cmdinfo) {
     switch(cmdinfo.head) {
       case ngin.Head.values.contact:
-        /*
-        if (cmdinfo.contact.type == ngin.ContactType.values.begin) {
-          cmdinfo.contact.type = 'begin';
-        } else {
-          cmdinfo.contact.type = 'end';
-        }
-        */
         await this.handleContact(cmdinfo.contact);
         break;
-      case ngin.Head.values.event:
-        /*
-        if (cmdinfo.event.type == ngin.EventType.values.complete) {
-          cmdinfo.event.type = 'complete';
-        } else {
-          cmdinfo.event.type = 'ready';
-        } */       
+      case ngin.Head.values.event: 
         await this.handleEvent(cmdinfo.event);        
         break;
-      case ngin.Head.values.key:
-        /*
-        if (cmdinfo.key.type == ngin.KeyType.values.down) {
-          cmdinfo.key.type = 'down';
-        } else {
-          cmdinfo.key.type = 'up';
-        } */         
+      case ngin.Head.values.key:     
         await this.handleKey(cmdinfo.key);        
         break;        
       case ngin.Head.values.directional:
         cmdinfo.directional.direction = ngin.JoystickMoveDirectional.values[cmdinfo.directional.direction];
         cmdinfo.directional.iid = ngin.TouchInputId.values[cmdinfo.directional.iid];
-        /*
-        if (cmdinfo.directional.type == ngin.KeyType.values.down) {
-          cmdinfo.directional.type = 'down';
-        } else {
-          cmdinfo.directional.type = 'up';
-        } */            
         await this.handleDirectional(cmdinfo.directional);        
         break;
       case ngin.Head.values.button:
@@ -157,20 +121,10 @@ class EventHandler {
 
 class Ngin {
   CObject;
-  //BodyInfo;
-  InitInfo;
+  CStageInfo;
   BodyShape;
   BodyType;
-  //BodyOpInfo;
-  BodyOp;
-  //CActionInfo;
   CAction;
-  //CActionType;
-  //CActionExtra;
- // ContactType;
-  //EventType;
-  //KeyType;
-  CmdType;
   Cmd;
   CmdInfo;
   Head;
@@ -186,7 +140,6 @@ class Ngin {
   BodyInfoQuery;
   BodyInfoQueryResult;
   QueryInfo;
-  //omap;
   walls;
   precision = 3;
   eventHandler;
@@ -196,21 +149,10 @@ class Ngin {
     this.CObject = root.lookupType("commander.CObject");
     this.BodyShape = root.lookupEnum("commander.BodyShape");
     this.BodyType = root.lookupEnum("commander.BodyType");
-    //this.BodyOpInfo = root.lookupType("commander.BodyOpInfo");    
-    this.BodyOp = root.lookupEnum("commander.BodyOp");    
-    //this.CActionInfo = root.lookupType("commander.CActionInfo");
     this.CActionType = root.lookupEnum("commander.CActionType");
-    //this.CActionType = root.lookupEnum("commander.CActionType");
-    //this.CActionExtra = root.lookupEnum("commander.CActionExtra");         
-    //this.ContactType = root.lookupEnum("commander.ContactType");  
-    //this.EventType = root.lookupEnum("commander.EventType");    
-    //this.KeyType = root.lookupEnum("commander.KeyType"); 
-    //this.BodyInfo = root.lookupType("commander.BodyInfo");
     this.Head = root.lookupEnum("commander.Head");
-    this.InitInfo = root.lookupType("commander.InitInfo");
-    this.CmdType = root.lookupEnum("commander.CmdType");
+    this.CStageInfo = root.lookupType("commander.CStageInfo");
     this.Cmd = root.lookupType("commander.Cmd");    
-    //console.log(this.InitInfo);
     this.CmdInfo = root.lookupType("commander.CmdInfo");   
     this.JoystickDirectionals = root.lookupEnum("commander.JoystickDirectionals");
     this.JoystickMoveDirectional = root.lookupEnum("commander.JoystickMoveDirectional");
@@ -219,7 +161,6 @@ class Ngin {
     this.BodyInfoQuery = root.lookupType("commander.BodyInfoQuery");
     this.BodyInfoQueryResult = root.lookupType("commander.BodyInfoQueryResult");
     this.QueryInfo = root.lookupType("commander.QueryInfo");
-    //this.eventEmitter = new EventEmitter();
 
     this.walls = new Set();
     ngin = this;
@@ -254,7 +195,6 @@ class Ngin {
     }
     const buf_cobj = this.CObject.encode(cobj).finish();
 
-    //console.log(info.bid, info);  
     await this.send(buf_cobj, this.Head.values.cobject);
   }
   
@@ -272,7 +212,7 @@ class Ngin {
     if ('button2' in info) {
       info.button2 = this.ActionEvent.values[info.button2];
     }        
-    const buf_body = await this.InitInfo.encode(info).finish();
+    const buf_body = await this.CStageInfo.encode(info).finish();
     await this.send(buf_body, this.Head.values.init);
   }
 
@@ -322,20 +262,9 @@ class Ngin {
       type:skinType? this.CActionType.values[skinType]:0,
       extra:extra,
     };
-    //console.log(info);
     const buf_body = this.CActionInfo.encode(info).finish();
     await this.send(buf_body, this.Head.values.bodystatus);
   }
-  /*
-  async setBodyOp(bid, op, x, y) {
-    const buf_body = this.BodyOpInfo.encode({
-      bid:bid,
-      op:this.BodyOp.values[op],
-      x:x,
-      y:y,
-    }).finish();
-    await this.send(buf_body, this.Head.values.bodyop);
-  } */
 
   async send(buf_body, head)
   {
@@ -344,8 +273,6 @@ class Ngin {
     const buf_len = Buffer.alloc(4);
     buf_len.writeUInt32LE(buf_body.length);
     const buf = Buffer.concat([buf_head, buf_len, buf_body]);
-    //console.log(head, buf_body.length);
-    //console.log(buf);
     await client.write(buf);
   }
 
@@ -354,7 +281,6 @@ class Ngin {
     this.bodyinfoEmitter = new EventEmitter();
     await this.send(buf_body, this.Head.values.bodyinfoquery);
     const [value] = await EventEmitter.once(this.bodyinfoEmitter, 'bodyinfo');
-    //console.log('bodyinfo', value);
     return value;
   }
 

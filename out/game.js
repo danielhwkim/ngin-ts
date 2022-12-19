@@ -74,7 +74,7 @@ function addFruit(id, pos, name) {
         new cobj_1.CAction('Items/Fruits/' + name + '.png', new cobj_1.CSize(32, 32), [], cobj_1.CActionType.idle),
         new cobj_1.CAction('Items/Fruits/Collected.png', new cobj_1.CSize(32, 32), [], cobj_1.CActionType.hit, false),
     ]);
-    cobj.visible.scale = new cobj_1.CVector2(1.5, 1.5);
+    cobj.visible.scale = new cobj_1.CVec2(1.5, 1.5);
     for (var i = 0; i < cobj.visible.actions.length; i++) {
         cobj.visible.actions[i].stepTime = 50 / 1000;
     }
@@ -87,7 +87,7 @@ function addFruit(id, pos, name) {
             case 0:
                 nx.eventHandler = new InputHandler(nx);
                 nx.eventHandler.objs = {};
-                j = JSON.parse(fs.readFileSync('./data/level02.json', 'utf8'));
+                j = JSON.parse(fs.readFileSync('./data/level03.json', 'utf8'));
                 tiles = j.layers[0];
                 objlayer = j.layers[1];
                 data = tiles['data'];
@@ -96,12 +96,12 @@ function addFruit(id, pos, name) {
                 stage = new cobj_1.CStage(size);
                 //stage.debug = true;
                 stage.background = 'Blue';
-                stage.gravity = new cobj_1.CVector2(0, 60);
+                stage.gravity = new cobj_1.CVec2(0, 60);
                 stage.joystickDirectionals = cobj_1.CJoystickDirectionals.horizontal;
                 return [4 /*yield*/, nx.sendObjWait(stage)];
             case 1:
                 _d.sent();
-                return [4 /*yield*/, nx.sendObj((0, cobj_1.CTileObject)('Terrain/Terrain (16x16).png', new cobj_1.CSize(tileSize, tileSize), data, new cobj_1.CVector2(0, 0), size))];
+                return [4 /*yield*/, nx.sendObj((0, cobj_1.CTileObject)('Terrain/Terrain (16x16).png', new cobj_1.CSize(tileSize, tileSize), data, new cobj_1.CVec2(0, 0), size))];
             case 2:
                 _d.sent();
                 nx.eventHandler.ready = true;
@@ -136,18 +136,18 @@ function addFruit(id, pos, name) {
                     case 'Trampoline': return [3 /*break*/, 14];
                 }
                 return [3 /*break*/, 16];
-            case 4: return [4 /*yield*/, nx.sendObj(addFruit(obj.id, new cobj_1.CVector2(obj.x, obj.y), obj.name))];
+            case 4: return [4 /*yield*/, nx.sendObj(addFruit(obj.id, new cobj_1.CVec2(obj.x, obj.y), obj.name))];
             case 5:
                 _d.sent();
                 return [3 /*break*/, 17];
             case 6:
                 obj.id = 1;
-                hero = nx.hero(obj.id, 'Mask Dude', new cobj_1.CVector2(obj.x - 0.5, obj.y - 2));
+                hero = nx.hero(obj.id, 'Mask Dude', new cobj_1.CVec2(obj.x - 0.5, obj.y - 2));
                 hero.physical.shape = cobj_1.CBodyShape.actor;
                 hero.physical.size = new cobj_1.CSize(2, 2);
                 hero.physical.maskBits = 0x00FF;
-                hero.visible.scale = new cobj_1.CVector2(2, 2);
-                hero.visible.pos = new cobj_1.CVector2(0, 0);
+                hero.visible.scale = new cobj_1.CVec2(2, 2);
+                hero.visible.pos = new cobj_1.CVec2(0, 0);
                 return [4 /*yield*/, nx.sendObjWait(hero)];
             case 7:
                 _d.sent();
@@ -156,7 +156,7 @@ function addFruit(id, pos, name) {
             case 8:
                 cobj = new cobj_1.CObject(obj.id);
                 cobj.info = obj.name;
-                cobj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.rectangle, new cobj_1.CVector2(obj.x, obj.y), cobj_1.CBodyType.static);
+                cobj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.rectangle, new cobj_1.CVec2(obj.x, obj.y), cobj_1.CBodyType.static);
                 cobj.physical.size = new cobj_1.CSize(obj.width, obj.height);
                 return [4 /*yield*/, nx.sendObj(cobj)];
             case 9:
@@ -165,7 +165,7 @@ function addFruit(id, pos, name) {
             case 10:
                 cobj = new cobj_1.CObject(obj.id);
                 cobj.info = obj.name;
-                cobj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.rectangle, new cobj_1.CVector2(obj.x, obj.y), cobj_1.CBodyType.static);
+                cobj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.rectangle, new cobj_1.CVec2(obj.x, obj.y), cobj_1.CBodyType.static);
                 cobj.physical.size = new cobj_1.CSize(obj.width, obj.height);
                 cobj.physical.passableBottom = true;
                 return [4 /*yield*/, nx.sendObj(cobj)];
@@ -175,13 +175,13 @@ function addFruit(id, pos, name) {
             case 12:
                 cobj = new cobj_1.CObject(obj.id);
                 cobj.info = 'box';
-                cobj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.rectangle, new cobj_1.CVector2(obj.x, obj.y), cobj_1.CBodyType.static);
+                cobj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.rectangle, new cobj_1.CVec2(obj.x, obj.y), cobj_1.CBodyType.static);
                 cobj.physical.size = new cobj_1.CSize(obj.width, obj.height);
                 cobj.visible = new cobj_1.CVisible([
                     new cobj_1.CAction('Items/Boxes/' + obj.name + '/Idle.png', new cobj_1.CSize(28, 24), [], cobj_1.CActionType.idle),
                     new cobj_1.CAction('Items/Boxes/' + obj.name + '/Hit (28x24).png', new cobj_1.CSize(28, 24), [], cobj_1.CActionType.hit, false),
                 ]);
-                cobj.visible.scale = new cobj_1.CVector2(28 / 18, 24 / 18);
+                cobj.visible.scale = new cobj_1.CVec2(28 / 18, 24 / 18);
                 for (i = 0; i < cobj.visible.actions.length; i++) {
                     cobj.visible.actions[i].stepTime = 50 / 1000;
                 }
@@ -193,7 +193,7 @@ function addFruit(id, pos, name) {
             case 14:
                 cobj = new cobj_1.CObject(obj.id);
                 cobj.info = obj.name;
-                cobj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.rectangle, new cobj_1.CVector2(obj.x, obj.y), cobj_1.CBodyType.static);
+                cobj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.rectangle, new cobj_1.CVec2(obj.x, obj.y), cobj_1.CBodyType.static);
                 cobj.physical.size = new cobj_1.CSize(obj.width, obj.height);
                 cobj.physical.isSensor = true;
                 cobj.visible = new cobj_1.CVisible([
@@ -203,8 +203,8 @@ function addFruit(id, pos, name) {
                 for (i = 0; i < cobj.visible.actions.length; i++) {
                     cobj.visible.actions[i].stepTime = 50 / 1000;
                 }
-                cobj.visible.scale = new cobj_1.CVector2(1.7, 1.7);
-                cobj.visible.pos = new cobj_1.CVector2(0, -0.4);
+                cobj.visible.scale = new cobj_1.CVec2(1.7, 1.7);
+                cobj.visible.pos = new cobj_1.CVec2(0, -0.4);
                 return [4 /*yield*/, nx.sendObj(cobj)];
             case 15:
                 _d.sent();
@@ -352,7 +352,7 @@ var InputHandler = /** @class */ (function (_super) {
                         if (!(i < 4)) return [3 /*break*/, 5];
                         cobj = new cobj_1.CObject(this.dynamic_id++);
                         cobj.info = "parts";
-                        cobj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.circle, new cobj_1.CVector2(event.x - 0.5 + 0.1 * i, event.y - 0.5), cobj_1.CBodyType.dynamic);
+                        cobj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.circle, new cobj_1.CVec2(event.x - 0.5 + 0.1 * i, event.y - 0.5), cobj_1.CBodyType.dynamic);
                         cobj.physical.categoryBits = 0x0100;
                         cobj.physical.maskBits = 0x0FFF;
                         cobj.physical.size = new cobj_1.CSize(0.5, 0.5);
@@ -361,7 +361,7 @@ var InputHandler = /** @class */ (function (_super) {
                         cobj.visible = new cobj_1.CVisible([
                             new cobj_1.CAction('Items/Boxes/' + obj.name + '/Break.png', new cobj_1.CSize(28, 24), [i], cobj_1.CActionType.idle),
                         ]);
-                        cobj.visible.scale = new cobj_1.CVector2(28 / 16, 24 / 16);
+                        cobj.visible.scale = new cobj_1.CVec2(28 / 16, 24 / 16);
                         return [4 /*yield*/, this.nx.sendObj(cobj)];
                     case 3:
                         _b.sent();
@@ -375,7 +375,7 @@ var InputHandler = /** @class */ (function (_super) {
                     case 6:
                         //await this.nginx.opAction(c.id, c.x, c.y);
                         _b.sent();
-                        cobj = addFruit(this.dynamic_id++, new cobj_1.CVector2(event.x - 0.5, event.y - 0.5), 'Bananas');
+                        cobj = addFruit(this.dynamic_id++, new cobj_1.CVec2(event.x - 0.5, event.y - 0.5), 'Bananas');
                         //cobj.physical.type = CBodyType.dynamic;
                         return [4 /*yield*/, this.nx.sendObj(cobj)];
                     case 7:

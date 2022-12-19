@@ -1,7 +1,7 @@
 var fs = require('fs');
 var {EventHandler} = require("./ngin");
 import {main} from "./nx";
-import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, CStage, CVector2, CSize, CBodyType, CBodyShape, CJoystickDirectionals} from "./cobj";
+import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, CStage, CVec2, CSize, CBodyType, CBodyShape, CJoystickDirectionals} from "./cobj";
 
 main('127.0.0.1', 4040, async (nx) =>  {
     nx.eventHandler = new InputHandler(nx);
@@ -21,10 +21,10 @@ main('127.0.0.1', 4040, async (nx) =>  {
     stage.joystickDirectionals = CJoystickDirectionals.horizontal;
     await nx.sendObjWait(stage);
 
-    await nx.sendObj(CTileObject('kenney_pixelshmup/tiles_packed.png', new CSize(tileCSize, tileCSize), data, new CVector2(0,0), size));
+    await nx.sendObj(CTileObject('kenney_pixelshmup/tiles_packed.png', new CSize(tileCSize, tileCSize), data, new CVec2(0,0), size));
 
     var obj = new CObject(100);
-    obj.physical = new CPhysical(CBodyShape.circle, new CVector2(11,11), CBodyType.dynamic);
+    obj.physical = new CPhysical(CBodyShape.circle, new CVec2(11,11), CBodyType.dynamic);
     obj.physical.angle = 1.5;
     obj.physical.size = new CSize(2,2);
     obj.visible = new CVisible([ new CAction('kenney_pixelshmup/ships_packed.png', new CSize(32, 32), [1], CActionType.idle)]);
@@ -39,7 +39,7 @@ main('127.0.0.1', 4040, async (nx) =>  {
     await nx.forward(100, 0, 5);
 
     obj.id = 200;
-    obj.physical.pos = new CVector2(11, 0);
+    obj.physical.pos = new CVec2(11, 0);
     obj.physical.angle = 3;
     //obj.visible.size = new CSize(2,2);    
     obj.visible.actions[0].indices = [10];
@@ -73,7 +73,7 @@ class InputHandler extends EventHandler {
           var obj = new CObject(1000);
           obj.tid = contact.id2;
           obj.visible = new CVisible([ new CAction('kenney_pixelshmup/tiles_packed.png', new CSize(16, 16), [5], CActionType.idle)]);
-          obj.visible.pos = new CVector2(0,0);
+          obj.visible.pos = new CVec2(0,0);
           await this.nx.sendObj(obj);
         }
       }
@@ -103,7 +103,7 @@ class InputHandler extends EventHandler {
       var info = await this.nx.getCObjectInfo(100);
 
       var obj = new CObject(101);
-      obj.physical = new CPhysical(CBodyShape.rectangle, new CVector2(info.pos.x-0.5 + 2*Math.sin(info.angle), info.pos.y-0.5 - 2*Math.cos(info.angle)), CBodyType.dynamic);
+      obj.physical = new CPhysical(CBodyShape.rectangle, new CVec2(info.pos.x-0.5 + 2*Math.sin(info.angle), info.pos.y-0.5 - 2*Math.cos(info.angle)), CBodyType.dynamic);
       obj.physical.angle = info.angle;
       obj.visible = new CVisible([ new CAction('kenney_pixelshmup/tiles_packed.png', new CSize(16, 16), [1, 2, 3], CActionType.idle)]);
       var value = await this.nx.sendObjWait(obj);

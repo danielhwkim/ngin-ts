@@ -45,7 +45,6 @@ var EventEmitter = require('events');
 client.setNoDelay(true);
 var bonjour = require('bonjour')();
 var ngin;
-//exports.__esModule = true;
 function mainInternal(type, port, body) {
     var _this = this;
     // browse for all http services
@@ -120,15 +119,7 @@ function main(type, port, body) {
 }
 exports.main = main;
 var EventHandler = /** @class */ (function () {
-    //directionMap = {};
     function EventHandler(ngin) {
-        //this.ngin = ngin;
-        //ngin;
-        this.actorBid = 0;
-        //for (const i in ngin.JoystickMoveDirectional.values) {
-        //console.log(i, typeof i, ngin.JoystickMoveDirectional.values[i]);
-        //this.directionMap[i] = 
-        //}
     }
     EventHandler.prototype.handle = function (cmdinfo) {
         return __awaiter(this, void 0, void 0, function () {
@@ -146,76 +137,23 @@ var EventHandler = /** @class */ (function () {
                             case ngin.Head.values.cmd: return [3 /*break*/, 11];
                         }
                         return [3 /*break*/, 13];
-                    case 1: 
-                    /*
-                    if (cmdinfo.contact.type == ngin.ContactType.values.begin) {
-                      cmdinfo.contact.type = 'begin';
-                    } else {
-                      cmdinfo.contact.type = 'end';
-                    }
-                    */
-                    return [4 /*yield*/, this.handleContact(cmdinfo.contact)];
+                    case 1: return [4 /*yield*/, this.handleContact(cmdinfo.contact)];
                     case 2:
-                        /*
-                        if (cmdinfo.contact.type == ngin.ContactType.values.begin) {
-                          cmdinfo.contact.type = 'begin';
-                        } else {
-                          cmdinfo.contact.type = 'end';
-                        }
-                        */
                         _b.sent();
                         return [3 /*break*/, 13];
-                    case 3: 
-                    /*
-                    if (cmdinfo.event.type == ngin.EventType.values.complete) {
-                      cmdinfo.event.type = 'complete';
-                    } else {
-                      cmdinfo.event.type = 'ready';
-                    } */
-                    return [4 /*yield*/, this.handleEvent(cmdinfo.event)];
+                    case 3: return [4 /*yield*/, this.handleEvent(cmdinfo.event)];
                     case 4:
-                        /*
-                        if (cmdinfo.event.type == ngin.EventType.values.complete) {
-                          cmdinfo.event.type = 'complete';
-                        } else {
-                          cmdinfo.event.type = 'ready';
-                        } */
                         _b.sent();
                         return [3 /*break*/, 13];
-                    case 5: 
-                    /*
-                    if (cmdinfo.key.type == ngin.KeyType.values.down) {
-                      cmdinfo.key.type = 'down';
-                    } else {
-                      cmdinfo.key.type = 'up';
-                    } */
-                    return [4 /*yield*/, this.handleKey(cmdinfo.key)];
+                    case 5: return [4 /*yield*/, this.handleKey(cmdinfo.key)];
                     case 6:
-                        /*
-                        if (cmdinfo.key.type == ngin.KeyType.values.down) {
-                          cmdinfo.key.type = 'down';
-                        } else {
-                          cmdinfo.key.type = 'up';
-                        } */
                         _b.sent();
                         return [3 /*break*/, 13];
                     case 7:
                         cmdinfo.directional.direction = ngin.JoystickMoveDirectional.values[cmdinfo.directional.direction];
                         cmdinfo.directional.iid = ngin.TouchInputId.values[cmdinfo.directional.iid];
-                        /*
-                        if (cmdinfo.directional.type == ngin.KeyType.values.down) {
-                          cmdinfo.directional.type = 'down';
-                        } else {
-                          cmdinfo.directional.type = 'up';
-                        } */
                         return [4 /*yield*/, this.handleDirectional(cmdinfo.directional)];
                     case 8:
-                        /*
-                        if (cmdinfo.directional.type == ngin.KeyType.values.down) {
-                          cmdinfo.directional.type = 'down';
-                        } else {
-                          cmdinfo.directional.type = 'up';
-                        } */
                         _b.sent();
                         return [3 /*break*/, 13];
                     case 9:
@@ -291,21 +229,10 @@ var Ngin = /** @class */ (function () {
         this.CObject = root.lookupType("commander.CObject");
         this.BodyShape = root.lookupEnum("commander.BodyShape");
         this.BodyType = root.lookupEnum("commander.BodyType");
-        //this.BodyOpInfo = root.lookupType("commander.BodyOpInfo");    
-        this.BodyOp = root.lookupEnum("commander.BodyOp");
-        //this.CActionInfo = root.lookupType("commander.CActionInfo");
         this.CActionType = root.lookupEnum("commander.CActionType");
-        //this.CActionType = root.lookupEnum("commander.CActionType");
-        //this.CActionExtra = root.lookupEnum("commander.CActionExtra");         
-        //this.ContactType = root.lookupEnum("commander.ContactType");  
-        //this.EventType = root.lookupEnum("commander.EventType");    
-        //this.KeyType = root.lookupEnum("commander.KeyType"); 
-        //this.BodyInfo = root.lookupType("commander.BodyInfo");
         this.Head = root.lookupEnum("commander.Head");
-        this.InitInfo = root.lookupType("commander.InitInfo");
-        this.CmdType = root.lookupEnum("commander.CmdType");
+        this.CStageInfo = root.lookupType("commander.CStageInfo");
         this.Cmd = root.lookupType("commander.Cmd");
-        //console.log(this.InitInfo);
         this.CmdInfo = root.lookupType("commander.CmdInfo");
         this.JoystickDirectionals = root.lookupEnum("commander.JoystickDirectionals");
         this.JoystickMoveDirectional = root.lookupEnum("commander.JoystickMoveDirectional");
@@ -314,7 +241,6 @@ var Ngin = /** @class */ (function () {
         this.BodyInfoQuery = root.lookupType("commander.BodyInfoQuery");
         this.BodyInfoQueryResult = root.lookupType("commander.BodyInfoQueryResult");
         this.QueryInfo = root.lookupType("commander.QueryInfo");
-        //this.eventEmitter = new EventEmitter();
         this.walls = new Set();
         ngin = this;
     }
@@ -356,10 +282,8 @@ var Ngin = /** @class */ (function () {
                             cobj.physical.type = this.BodyType.values[cobj.physical.type];
                         }
                         buf_cobj = this.CObject.encode(cobj).finish();
-                        //console.log(info.bid, info);  
                         return [4 /*yield*/, this.send(buf_cobj, this.Head.values.cobject)];
                     case 1:
-                        //console.log(info.bid, info);  
                         _a.sent();
                         return [2 /*return*/];
                 }
@@ -384,7 +308,7 @@ var Ngin = /** @class */ (function () {
                         if ('button2' in info) {
                             info.button2 = this.ActionEvent.values[info.button2];
                         }
-                        return [4 /*yield*/, this.InitInfo.encode(info).finish()];
+                        return [4 /*yield*/, this.CStageInfo.encode(info).finish()];
                     case 1:
                         buf_body = _a.sent();
                         return [4 /*yield*/, this.send(buf_body, this.Head.values.init)];
@@ -470,16 +394,6 @@ var Ngin = /** @class */ (function () {
             });
         });
     };
-    /*
-    async setBodyOp(bid, op, x, y) {
-      const buf_body = this.BodyOpInfo.encode({
-        bid:bid,
-        op:this.BodyOp.values[op],
-        x:x,
-        y:y,
-      }).finish();
-      await this.send(buf_body, this.Head.values.bodyop);
-    } */
     Ngin.prototype.send = function (buf_body, head) {
         return __awaiter(this, void 0, void 0, function () {
             var buf_head, buf_len, buf;
@@ -491,12 +405,8 @@ var Ngin = /** @class */ (function () {
                         buf_len = Buffer.alloc(4);
                         buf_len.writeUInt32LE(buf_body.length);
                         buf = Buffer.concat([buf_head, buf_len, buf_body]);
-                        //console.log(head, buf_body.length);
-                        //console.log(buf);
                         return [4 /*yield*/, client.write(buf)];
                     case 1:
-                        //console.log(head, buf_body.length);
-                        //console.log(buf);
                         _a.sent();
                         return [2 /*return*/];
                 }
@@ -517,7 +427,6 @@ var Ngin = /** @class */ (function () {
                         return [4 /*yield*/, EventEmitter.once(this.bodyinfoEmitter, 'bodyinfo')];
                     case 2:
                         value = (_a.sent())[0];
-                        //console.log('bodyinfo', value);
                         return [2 /*return*/, value];
                 }
             });

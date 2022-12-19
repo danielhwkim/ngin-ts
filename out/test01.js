@@ -74,7 +74,7 @@ function test01(ngin, width, height, margin, func, stopwatch) {
                     obj.visible = new cobj_js_1.CVisible([new cobj_js_1.CAction(util.drawSvgGrid(width, height, func), new cobj_js_1.CSize(width, height), [], cobj_js_1.CActionType.svg)]);
                     obj.visible.current = cobj_js_1.CActionType.svg;
                     obj.visible.size = new cobj_js_1.CSize(width, height);
-                    obj.visible.anchor = new cobj_js_1.CVector2(0, 0);
+                    obj.visible.anchor = new cobj_js_1.CVec2(0, 0);
                     return [4 /*yield*/, ngin.addCObjectInternal(obj.build())];
                 case 2:
                     _a.sent();
@@ -113,7 +113,7 @@ function test01(ngin, width, height, margin, func, stopwatch) {
                     obj.visible = new cobj_js_1.CVisible([new cobj_js_1.CAction(util.drawSvgTextFullScreen(width + margin, height, message, size, fill, fillopacity), new cobj_js_1.CSize(width, height), [], cobj_js_1.CActionType.svg)]);
                     obj.visible.current = cobj_js_1.CActionType.svg;
                     obj.visible.size = new cobj_js_1.CSize(width + margin, height);
-                    obj.visible.anchor = new cobj_js_1.CVector2(0, 0);
+                    obj.visible.anchor = new cobj_js_1.CVec2(0, 0);
                     return [4 /*yield*/, ngin.addCObjectInternal(obj.build())];
                 case 7:
                     _a.sent();
