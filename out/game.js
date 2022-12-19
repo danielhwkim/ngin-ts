@@ -1,23 +1,71 @@
+"use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
 var fs = require('fs');
-var {EventHandler} = require("./ngin");
-import {main} from "./nx";
-import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, CStage, CPos, CSize, CBodyType, CBodyShape, CJoystickDirectionals} from "./cobj";
-
-
+var EventHandler = require("./ngin").EventHandler;
+var nx_1 = require("./nx");
 function conv(v, tileSize) {
-    return Math.round(v*2.0/tileSize)/2.0;
+    return Math.round(v * 2.0 / tileSize) / 2.0;
 }
-
 function convInfo(info, tileSize) {
     info.x = conv(info.x, tileSize);
     info.y = conv(info.y, tileSize);
     info.width = conv(info.width, tileSize);
     info.height = conv(info.height, tileSize);
     return info;
-}  
-
+}
 function getGameData() {
-  return '{ "compressionlevel":-1,\
+    return '{ "compressionlevel":-1,\
 "height":17,\
 "infinite":false,\
 "layers":[\
@@ -468,380 +516,94 @@ function getGameData() {
 "width":32\
 }';
 }
-
-
-main('192.168.86.68', 4040, async (ngin) =>  {
-    ngin.eventHandler = new InputHandler(ngin);
-    //const d = fs.readFileSync('/Users/dkim/development/dengine/assets/images/Terrain/level03.json', 'utf8');
-    const j = JSON.parse(getGameData());
-  
-    const tiles = j.layers[0];
-    const objlayer = j.layers[1];
-    const data = tiles['data'];
-    const tileSize = j['tilewidth'];
-    const precision = 3;
-  
-    await ngin.initScreen({
-        background: 'Blue',
-        gravityX: 0.0,
-        gravityY: 60.0,    
-        width: tiles.width,
-        height: tiles.height,
-        debug: false,
-        joystickDirectionals: 'horizontal',
-        joystickPrecision: precision,
-        button1: 'DOWN',
-        button2: 'DOWN',
-    });
-
-    /*
-    await ngin.addBody({
-        name:'tiles',
-        skin:'tiles',
-        width:tiles.width,
-        height:tiles.height,
-        tilesInfo: {
-            path:'Terrain/Terrain (16x16).png',
-            tileSizeX:tileSize,
-            tileSizeY:tileSize,
-            tileColumns:22,
-            data:data,
+(0, nx_1.main)('192.168.86.68', 4040, function (ngin) { return __awaiter(void 0, void 0, void 0, function () {
+    var j, tiles, objlayer, data, tileSize, precision;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                ngin.eventHandler = new InputHandler(ngin);
+                j = JSON.parse(getGameData());
+                tiles = j.layers[0];
+                objlayer = j.layers[1];
+                data = tiles['data'];
+                tileSize = j['tilewidth'];
+                precision = 3;
+                return [4 /*yield*/, ngin.initScreen({
+                        background: 'Blue',
+                        gravityX: 0.0,
+                        gravityY: 60.0,
+                        width: tiles.width,
+                        height: tiles.height,
+                        debug: false,
+                        joystickDirectionals: 'horizontal',
+                        joystickPrecision: precision,
+                        button1: 'DOWN',
+                        button2: 'DOWN',
+                    })];
+            case 1:
+                _a.sent();
+                return [2 /*return*/];
         }
     });
-    ngin.eventHandler.ready = true;
-    const objs = objlayer.objects;
-  
-    for (let key in objs) {
-      let obj = objs[key];
-      console.log(obj.name, obj.id);
-      obj.bid = obj.id;
-      switch(obj.name) {
-        case 'Apple':
-        case 'Bananas':
-        case 'Cherries':
-        case 'Kiwi':
-        case 'Orange':
-        case 'Pineapple':
-        case 'Strawberry':
-          obj.skin = obj.name;
-          obj.name = 'fruit';
-          obj.isSensor = true;
-          convInfo(obj, tileSize);
-          await ngin.addBody(obj);
-          break;
-  
-        case 'hero':
-          obj.width *= 2;
-          obj.height *= 2;
-          obj.x -= 0.5*tileSize;
-          obj.y -= 2*tileSize;
-          obj.name = 'actor';
-          obj.skin = 'Mask Dude';
-          obj.shape = 'actor';
-          obj.type = 'dynamicBody';
-          obj.maskBits = 0x00FF;
-          obj.facingLeft = false;
-          obj.contactReport = true;
-          if (ngin.eventHandler) {
-              ngin.eventHandler.actorBid = obj.bid;
-          }
-          convInfo(obj, tileSize);
-          await ngin.addBody(obj);
-          break;
-          
-        case 'floor':
-        case 'bar':
-          obj.skin = obj.name;
-          obj.name = 'void';
-          obj.trackable = false;
-          convInfo(obj, tileSize);
-          await ngin.addBody(obj);
-          break;
-  
-        case 'Box1':
-        case 'Box2':
-        case 'Box3':
-          obj.skin = obj.name
-          obj.name = 'box'
-          convInfo(obj, tileSize);
-          await ngin.addBody(obj);
-          break;
-  
-        case 'Trampoline':
-          obj.skin = obj.name
-          obj.name = 'trampoline'
-          convInfo(obj, tileSize);
-          await ngin.addBody(obj);	
-          break;
-  
-        default:
-          break;
-      }
-    }
-
-    await ngin.command({strings:['wakelock'], ints:[1]});*/
-});
-
-class InputHandler extends EventHandler {
-
+}); });
+var InputHandler = /** @class */ (function (_super) {
+    __extends(InputHandler, _super);
     //nginx;
-    constructor(ngin) {
-        super(ngin);
-        this.nginx = ngin;
-        this.key_down_left = false;
-        this.key_down_right = false;
+    function InputHandler(ngin) {
+        var _this = _super.call(this, ngin) || this;
+        _this.nginx = ngin;
+        _this.key_down_left = false;
+        _this.key_down_right = false;
         //actor_contact_count = 0;
-        this.actor_contacts = new Set();
-        this.actor_jump_count = 0;
-        this.dynamic_id = 1000;
-        this.facingLeft = false;  
-        this.ready = false;      
+        _this.actor_contacts = new Set();
+        _this.actor_jump_count = 0;
+        _this.dynamic_id = 1000;
+        _this.facingLeft = false;
+        _this.ready = false;
+        return _this;
     }
-
-
-  
-    async handleContact(contact) {
-      if (!this.ready) return;
-      console.log(contact);
-      /*
-      if (contact.name1 == 'actor') {
-        switch(contact.name2) {
-          case 'void':
-            if (contact.type == 'begin') {
-              if (contact.y < 0) {
-                if (this.actor_contacts.size == 0) {
-                  if (this.key_down_left || this.key_down_right) {
-                    await this.nginx.playRun(contact.bid1, this.facingLeft);
-                  } else {
-                    await this.nginx.playIdle(contact.bid1, this.facingLeft);              
-                  }
-                  this.actor_jump_count = 0;                
-                }
-                this.actor_contacts.add(contact.bid2);
-              }
-            } else {
-              if (this.actor_contacts.has(contact.bid2)) {
-                this.actor_contacts.delete(contact.bid2);
-              }
-            }
-            break;
-          case 'fruit':
-            if (contact.type == 'begin') {
-              await this.nginx.playHitNotify(contact.bid2, this.facingLeft);
-            }
-            break;
-          case 'box':
-            if (contact.type == 'begin') {
-              //print(contact.x, contact.y)
-              if (Math.abs(contact.y) > Math.abs(contact.x)) {
-                const obj = this.nginx.omap.get(contact.bid2);
-                if (obj.count) {
-                  obj.count += 1
-                } else {
-                  obj.count = 1
-                }
-                await this.nginx.playHitOnce(contact.bid2, this.facingLeft);
-              }
-              if (contact.y < 0) {
-                this.actor_jump_count = 0;
-                await this.nginx.opVel(this.actorBid, 0, -20);
-              }
-            }
-            break;
-          case 'trampoline':
-            if (contact.type == 'begin') {
-              await this.nginx.playHitOnce(contact.bid2, this.facingLeft);
-              await this.nginx.opVelY(this.actorBid, -30);
-              this.actor_jump_count = 0;
-            }
-            break;
-          case 'Blocks':
-            if (contact.type == 'begin') {
-              await this.nginx.cmdIF2('action', contact.bid2, contact.x, contact.y);
-            }
-            break;         
-        }
-      }*/
-    }
-  
-    async handleEvent(event) {
-      console.log(event);
-      /*
-      const c = event;
-      if (c.type == 'ready')
-        return;
-  
-      //const obj = this.nginx.getObj(c.bid)
-      //const name = obj['name'];
-  
-      switch(event.name) {
-        case 'box':
-          //print(f"box - {omap[c.bid]['count']}")
-          if (obj.count == 2) {
-            //print(obj)
-            await this.nginx.opAction(c.bid, c.x, c.y);
-            await this.nginx.addBody({
-              bid:this.dynamic_id, 
-              name:'fruit', 
-              skin:'Bananas', 
-              type:'dynamic', 
-              x:c.x-0.5, 
-              y:c.y-0.5, 
-              width:1, 
-              height:1});
-            this.dynamic_id += 1
-            } else {
-              await this.nginx.playIdle(c.bid, this.facingLeft);
-            }
-  
-          break;
-        case 'fruit':
-            await this.nginx.opRemove(c.bid, c.x, c.y);
-            break;
-        case 'actor':
-            await this.nginx.playJump(this.actorBid, this.facingLeft);
-            break; 
-      }*/
-    }
-  
-    async handleKey(key) {
-      console.log(key);
-      /*
-      const c = key;
-      if (c.type == 'up') {
-        switch (c.name) {
-          case 'Arrow Left':
-            this.key_down_left = false;
-            if (this.key_down_right) {
-                //this.nginx.facingRight(this.actorBid);
-                this.facingLeft = false;
-                //this.nginx.facingRight = true;
-                await this.nginx.opVelXright(this.actorBid, 7.0);
-                if (this.actor_contacts.size != 0) {
-                    await this.nginx.playRun(this.actorBid, this.facingLeft);
-                }
-            } else {
-              await this.nginx.opVelXleft(this.actorBid, 0.0);
-              if (this.actor_contacts.size != 0) {
-                  await this.nginx.playIdle(this.actorBid, this.facingLeft);            	
-              } else {
-                  await this.nginx.playNoChange(this.actorBid, this.facingLeft);
-              }			
-            }
-          break;					
-          case 'Arrow Right':
-            this.key_down_right = false;
-            if (this.key_down_left) {
-                //this.nginx.facingLeft(this.actorBid);
-                //this.nginx.facingRight = false;
-                this.facingLeft = true;
-                await this.nginx.opVelXleft(this.actorBid, 7.0);
-                if (this.actor_contacts.size != 0) { 
-                    await this.nginx.playRun(this.actorBid, this.facingLeft);            
-                }
-            } else {
-                await this.nginx.opVelXright(this.actorBid, 0.0)
-                if (this.actor_contacts.size != 0) {					
-                    await this.nginx.playIdle(this.actorBid, this.facingLeft);             
-                } else {
-                    await this.nginx.playNoChange(this.actorBid, this.facingLeft);        					
-                }
-            }
-          break;
-        }
-      } else {
-        switch (c.name) {
-          case 'Arrow Left':
-            if (! this.key_down_left) {
-                this.key_down_left = true;
-                //this.nginx.facingRight = false;
-                this.facingLeft = true;
-                //this.nginx.facingLeft(this.actorBid);
-                await this.nginx.opVelXleft(this.actorBid, 7);				
-                if (this.actor_contacts.size != 0) { 
-                    await this.nginx.playRun(this.actorBid, this.facingLeft);
-                }
-            } else {
-                await this.nginx.playNoChange(this.actorBid);   
-            }
-            break;
-          case 'Arrow Right':
-            if (! this.key_down_right) {
-                this.key_down_right = true;
-                //this.nginx.facingRight(this.actorBid);
-                this.facingLeft = false;
-                //this.nginx.facingRight = true;
-                await this.nginx.opVelXright(this.actorBid, 7);
-                if (this.actor_contacts.size != 0) { 		
-                    await this.nginx.playRun(this.actorBid, this.facingLeft);          				
-                }
-            } else {
-                await this.nginx.playNoChange(this.actorBid, this.facingLeft);
-            }
-            break;				
-          case 'Arrow Up':	
-            if (this.actor_contacts.size != 0) { 
-                await this.nginx.opVelY(this.actorBid, -20)	
-                await this.nginx.playJump(this.actorBid, this.facingLeft);         
-                this.actor_jump_count = 0
-            }
-            else if (this.actor_jump_count < 1) {
-                await this.nginx.opVelY(this.actorBid,  -20)
-                await this.nginx.playDoubleJumpNotify(this.actorBid, this.facingLeft);
-                this.actor_jump_count = 1   
-            }
-            break;
-          }
-      }*/
-    }  
-  
-    
-    async handleDirectional(directional) {
-      console.log(directional);
-      /*
-      const c = directional;
-      switch(c.direction) {
-        case 'IDLE':
-            await this.nginx.playIdle(this.actorBid, this.facingLeft);     
-            await this.nginx.opVelXright(this.actorBid, 0)
-            this.key_down_right = false;
-            this.key_down_left = false;
-            break;
-        case 'MOVE_RIGHT':
-            //this.nginx.facingRight(this.actorBid);
-            this.facingLeft = false;
-            //this.nginx.facingRight = true;
-            await this.nginx.playRun(this.actorBid, this.facingLeft);     
-            await this.nginx.opVelXright(this.actorBid, 7*c.intensity/this.nginx.precision)
-            this.key_down_right = true;
-            this.key_down_left = true;					
-            break;
-        case 'MOVE_LEFT':
-            //this.nginx.facingLeft(this.actorBid);
-            this.facingLeft = true;
-            //this.nginx.facingRight = false;
-            await this.nginx.playRun(this.actorBid, this.facingLeft);
-            await this.nginx.opVelXleft(this.actorBid, 7*c.intensity/this.nginx.precision)
-            this.key_down_right = true;
-            this.key_down_left = true;	  
-            break;
-      }
-      console.log(c.direction);*/
-    }
-  
-    async handleButton(button) {
-      console.log(button);
-      /*
-      if (this.actor_contacts.size != 0) { 
-        await this.nginx.opVelY(this.actorBid, -20);
-        await this.nginx.playJump(this.actorBid, this.facingLeft);    
-        this.actor_jump_count = 0;
-      } else if (this.actor_jump_count < 1) {
-        await this.nginx.opVelY(this.actorBid, -20);
-        await this.nginx.playDoubleJumpNotify(this.actorBid, this.facingLeft);     			
-        this.actor_jump_count = 1;
-      }  */
-    }  
-}
-  
-  
+    InputHandler.prototype.handleContact = function (contact) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                if (!this.ready)
+                    return [2 /*return*/];
+                console.log(contact);
+                return [2 /*return*/];
+            });
+        });
+    };
+    InputHandler.prototype.handleEvent = function (event) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                console.log(event);
+                return [2 /*return*/];
+            });
+        });
+    };
+    InputHandler.prototype.handleKey = function (key) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                console.log(key);
+                return [2 /*return*/];
+            });
+        });
+    };
+    InputHandler.prototype.handleDirectional = function (directional) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                console.log(directional);
+                return [2 /*return*/];
+            });
+        });
+    };
+    InputHandler.prototype.handleButton = function (button) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                console.log(button);
+                return [2 /*return*/];
+            });
+        });
+    };
+    return InputHandler;
+}(EventHandler));
+//# sourceMappingURL=game.js.map

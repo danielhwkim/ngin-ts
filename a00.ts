@@ -1,7 +1,7 @@
 var fs = require('fs');
 var {EventHandler} = require("./ngin");
 import {main, Nx} from "./nx";
-import {CObject, CAction, CActionType, CPhysical, CVisible, CTileObject, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./cobj";
+import {CObject, CAction, CActionType, CPhysical, CVisible, CTileObject, CStage, CPos, CSize, CBodyType, CBodyShape, CJoystickDirectionals} from "./cobj";
 var {run} = require("./testutil.js");
 
 async function aaa(nx) {

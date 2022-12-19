@@ -1,7 +1,7 @@
 var fs = require('fs');
 const {Ngin, EventHandler, mainInternal} = require("./ngin");
 const EventEmitter = require('events');
-import {CObject, CActionType, CAction, CPhysical, CVisible, Buildable, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals, buildCActionType, CObjectInfo} from "./cobj";
+import {CObject, CActionType, CAction, CPhysical, CVisible, CBuildable, CStage, CPos, CSize, CBodyType, CBodyShape, CJoystickDirectionals, buildCActionType, CObjectInfo} from "./cobj";
 const { NginX } = require("./nginx");
 const {l1, l2} = require("./gen");//
 
@@ -11,15 +11,15 @@ export class Nx extends NginX {
     }
 
     
-    async sendObj(obj:Buildable) {
+    async sendObj(obj:CBuildable) {
         if (obj instanceof CObject) {
             await this.addCObjectInternal(obj.build());
-        } else if (obj instanceof Stage) {
+        } else if (obj instanceof CStage) {
             await this.initScreen(obj.build());
         }
     }
 
-    async sendObjWait(obj:Buildable) {
+    async sendObjWait(obj:CBuildable) {
         this.ackEmitter = new EventEmitter();         
         await this.sendObj(obj);
         return await EventEmitter.once(this.ackEmitter, 'ack');
@@ -32,26 +32,26 @@ export class Nx extends NginX {
     async addFruit(id, x, y, fruit) {
         var obj = new CObject(id);
         obj.info = "fruit";
-        obj.physical = new CPhysical(BodyShape.circle, new Pos(x,y), BodyType.static);
+        obj.physical = new CPhysical(CBodyShape.circle, new CPos(x,y), CBodyType.static);
         //obj.physical.isSensor = true;
-        var a1 = new CAction('Items/Fruits/' + fruit + '.png', new Size(32, 32), [/*0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16*/], CActionType.idle);
+        var a1 = new CAction('Items/Fruits/' + fruit + '.png', new CSize(32, 32), [/*0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16*/], CActionType.idle);
         a1.stepTime = 50/1000;
         obj.visible = new CVisible([a1]);
-        obj.visible.scale = new Pos(1.5, 1.5);
+        obj.visible.scale = new CPos(1.5, 1.5);
         await this.sendObj(obj);
     }
 
-    async addStage(bid, x, y, width, height) {
+    async addCStage(bid, x, y, width, height) {
         let data = [];
     
         l1(width, height, data);
 
         var obj = new CObject(bid);
-        obj.visible = new CVisible([ new CAction('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new Size(16, 16), data, CActionType.idle)]);
+        obj.visible = new CVisible([ new CAction('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new CSize(16, 16), data, CActionType.idle)]);
         obj.visible.current = CActionType.tiles;
-        obj.visible.pos = new Pos(x,y);
-        obj.visible.size = new Size(width, height);
-        obj.visible.anchor = new Pos(0,0);
+        obj.visible.pos = new CPos(x,y);
+        obj.visible.size = new CSize(width, height);
+        obj.visible.anchor = new CPos(0,0);
         //obj.visible.priority = 0;
         await this.sendObj(obj);
 
@@ -83,8 +83,8 @@ export class Nx extends NginX {
   
         var obj = new CObject(bid);
         obj.info = "wall";
-        obj.physical = new CPhysical(BodyShape.rectangle, new Pos(x, y), BodyType.static);
-        obj.physical.size = new Size(width, height);
+        obj.physical = new CPhysical(CBodyShape.rectangle, new CPos(x, y), CBodyType.static);
+        obj.physical.size = new CSize(width, height);
         await this.sendObj(obj);
     }
 
@@ -92,18 +92,18 @@ export class Nx extends NginX {
     async addSpike(id, x, y) {
         var obj = new CObject(id);
         obj.info = "spike";
-        obj.physical = new CPhysical(BodyShape.rectangle, new Pos(x,y), BodyType.static);
+        obj.physical = new CPhysical(CBodyShape.rectangle, new CPos(x,y), CBodyType.static);
         obj.physical.isSensor = true;
-        obj.visible = new CVisible([new CAction('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new Size(16, 16), [929,930,931,932, 931, 930], CActionType.idle)]);
+        obj.visible = new CVisible([new CAction('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new CSize(16, 16), [929,930,931,932, 931, 930], CActionType.idle)]);
         await this.sendObj(obj);
     }
 
     async addCoin(id, x, y) {
         var obj = new CObject(id);
         obj.info = "coin";
-        obj.physical = new CPhysical(BodyShape.rectangle, new Pos(x,y), BodyType.static);
+        obj.physical = new CPhysical(CBodyShape.rectangle, new CPos(x,y), CBodyType.static);
         obj.physical.isSensor = true;
-        obj.visible = new CVisible([new CAction('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new Size(16, 16), [403,404,405,406], CActionType.idle)]);
+        obj.visible = new CVisible([new CAction('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new CSize(16, 16), [403,404,405,406], CActionType.idle)]);
         await this.sendObj(obj);
     }
 
@@ -113,26 +113,26 @@ export class Nx extends NginX {
 
         var obj = new CObject(id);
         obj.info = "actor";
-        obj.physical = new CPhysical(BodyShape.polygon, new Pos(x,y), BodyType.dynamic);
+        obj.physical = new CPhysical(CBodyShape.polygon, new CPos(x,y), CBodyType.dynamic);
         obj.physical.floats = [-hx, -hy, -hx, hy, hx, hy, hx, -hy];
         obj.physical.fixedRotation = true;
-        //obj.physical.size = new Size(0.5, 0.5);
+        //obj.physical.size = new CSize(0.5, 0.5);
         
         obj.visible = new CVisible([
-            new CAction('Main Characters/' + character +'/Idle (32x32).png', new Size(32, 32), [], CActionType.idle),
-            new CAction('Main Characters/' + character +'/Run (32x32).png', new Size(32, 32), [], CActionType.run),
-            new CAction('Main Characters/' + character +'/Jump (32x32).png', new Size(32, 32), [], CActionType.jump),
-            new CAction('Main Characters/' + character +'/Hit (32x32).png', new Size(32, 32), [], CActionType.hit),
-            new CAction('Main Characters/' + character +'/Fall (32x32).png', new Size(32, 32), [], CActionType.fall),
-            new CAction('Main Characters/' + character +'/Wall Jump (32x32).png', new Size(32, 32), [], CActionType.wallJump),
-            new CAction('Main Characters/' + character +'/Double Jump (32x32).png', new Size(32, 32), [], CActionType.doubleJump),
+            new CAction('Main Characters/' + character +'/Idle (32x32).png', new CSize(32, 32), [], CActionType.idle),
+            new CAction('Main Characters/' + character +'/Run (32x32).png', new CSize(32, 32), [], CActionType.run),
+            new CAction('Main Characters/' + character +'/Jump (32x32).png', new CSize(32, 32), [], CActionType.jump),
+            new CAction('Main Characters/' + character +'/Hit (32x32).png', new CSize(32, 32), [], CActionType.hit),
+            new CAction('Main Characters/' + character +'/Fall (32x32).png', new CSize(32, 32), [], CActionType.fall),
+            new CAction('Main Characters/' + character +'/Wall Jump (32x32).png', new CSize(32, 32), [], CActionType.wallJump),
+            new CAction('Main Characters/' + character +'/Double Jump (32x32).png', new CSize(32, 32), [], CActionType.doubleJump),
         ]);
         for (var i=0; i<obj.visible.actions.length; i++) {
             obj.visible.actions[i].stepTime = 50/1000;
         }
-        obj.visible.pos = new Pos(0, -0.2);
+        obj.visible.pos = new CPos(0, -0.2);
         
-        //obj.visible.scale = new Pos(1.5, 1.5);
+        //obj.visible.scale = new CPos(1.5, 1.5);
         return obj;
     }
 
@@ -147,7 +147,7 @@ export class Nx extends NginX {
         return new CObjectInfo(await this.getObjinfo(id));
     }
 
-    async linearTo(id, pos:Pos, speed) {
+    async linearTo(id, pos:CPos, speed) {
         this.cmdEmitter = new EventEmitter();        
         await this.command({
             strings:['linearTo'], 

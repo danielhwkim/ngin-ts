@@ -1,6 +1,6 @@
 var {EventHandler, Ngin, mainInternal} = require("./ngin");
 import {main} from "./nx";
-import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./cobj";
+import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, CStage, CPos, CSize, CBodyType, CBodyShape, CJoystickDirectionals} from "./cobj";
 
 export class TestUtil {
     ngin;
@@ -43,10 +43,10 @@ export class TestUtil {
         const textsize = 5;
 
         var obj = new CObject(100+num);
-        obj.visible = new CVisible([new CAction(this.drawSvgTextFullScreen(width, height, `${num}`, textsize, "#111", fillopacity), new Size(width, height), [], CActionType.svg)]);
+        obj.visible = new CVisible([new CAction(this.drawSvgTextFullScreen(width, height, `${num}`, textsize, "#111", fillopacity), new CSize(width, height), [], CActionType.svg)]);
         obj.visible.current = CActionType.svg;
-        obj.visible.size = new Size(width, height);
-        obj.visible.anchor = new Pos(0,0);
+        obj.visible.size = new CSize(width, height);
+        obj.visible.anchor = new CPos(0,0);
         await this.ngin.addCObjectInternal(obj.build());
 
         await this.ngin.command({
@@ -65,10 +65,10 @@ export class TestUtil {
             num--;
 
             obj = new CObject(100+num);
-            obj.visible = new CVisible([new CAction(this.drawSvgTextFullScreen(width, height, `${num}`, textsize, "#111", fillopacity), new Size(width, height), [], CActionType.svg)]);
+            obj.visible = new CVisible([new CAction(this.drawSvgTextFullScreen(width, height, `${num}`, textsize, "#111", fillopacity), new CSize(width, height), [], CActionType.svg)]);
             obj.visible.current = CActionType.svg;
-            obj.visible.size = new Size(width, height);
-            obj.visible.anchor = new Pos(0,0);
+            obj.visible.size = new CSize(width, height);
+            obj.visible.anchor = new CPos(0,0);
             await this.ngin.addCObjectInternal(obj.build());
 
         
@@ -153,11 +153,11 @@ export class Stopwatch {
         this.num += 1;
 
         var obj = new CObject(this.oid);
-        obj.visible = new CVisible([new CAction(this.util.drawSvgText(this.w, this.h, `${this.num}`), new Size(this.w, this.h), [], CActionType.svg)]);
+        obj.visible = new CVisible([new CAction(this.util.drawSvgText(this.w, this.h, `${this.num}`), new CSize(this.w, this.h), [], CActionType.svg)]);
         obj.visible.current = CActionType.svg;
-        obj.visible.size = new Size(this.w, this.h);
-        obj.visible.pos = new Pos(this.rect[0],this.rect[1]);
-        obj.visible.anchor = new Pos(0,0);        
+        obj.visible.size = new CSize(this.w, this.h);
+        obj.visible.pos = new CPos(this.rect[0],this.rect[1]);
+        obj.visible.anchor = new CPos(0,0);        
         await this.thisNgin.addCObjectInternal(obj.build());
 
     
@@ -170,11 +170,11 @@ export class Stopwatch {
         this.running = true;
 
         var obj = new CObject(this.oid);
-        obj.visible = new CVisible([new CAction(this.util.drawSvgText(this.w, this.h, `${this.num}`), new Size(this.w, this.h), [], CActionType.svg)]);
+        obj.visible = new CVisible([new CAction(this.util.drawSvgText(this.w, this.h, `${this.num}`), new CSize(this.w, this.h), [], CActionType.svg)]);
         obj.visible.current = CActionType.svg;
-        obj.visible.size = new Size(this.w, this.h);
-        obj.visible.pos = new Pos(this.rect[0],this.rect[1]);        
-        obj.visible.anchor = new Pos(0,0);
+        obj.visible.size = new CSize(this.w, this.h);
+        obj.visible.pos = new CPos(this.rect[0],this.rect[1]);        
+        obj.visible.anchor = new CPos(0,0);
         await this.thisNgin.addCObjectInternal(obj.build());
 
     

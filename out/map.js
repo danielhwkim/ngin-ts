@@ -61,14 +61,14 @@ var cobj_1 = require("./cobj");
         switch (_a.label) {
             case 0:
                 nx.eventHandler = new GameInputHandler(nx);
-                size = new cobj_1.Size(12, 12);
-                stage = new cobj_1.Stage(size);
+                size = new cobj_1.CSize(12, 12);
+                stage = new cobj_1.CStage(size);
                 stage.debug = true;
-                stage.joystickDirectionals = cobj_1.JoystickDirectionals.horizontal;
+                stage.joystickDirectionals = cobj_1.CJoystickDirectionals.horizontal;
                 return [4 /*yield*/, nx.sendObjWait(stage)];
             case 1:
                 _a.sent();
-                return [4 /*yield*/, nx.addStage(0, 0, 0, size.w, size.h)];
+                return [4 /*yield*/, nx.addCStage(0, 0, 0, size.w, size.h)];
             case 2:
                 _a.sent();
                 gid = 300;
@@ -99,7 +99,7 @@ var cobj_1 = require("./cobj");
                 return [4 /*yield*/, nx.setActionType(1, cobj_1.CActionType.run, true)];
             case 11:
                 _a.sent();
-                return [4 /*yield*/, nx.linearTo(1, new cobj_1.Pos(info.pos.x - 1, info.pos.y), 2)];
+                return [4 /*yield*/, nx.linearTo(1, new cobj_1.CPos(info.pos.x - 1, info.pos.y), 2)];
             case 12:
                 _a.sent();
                 return [4 /*yield*/, nx.setActionType(1, cobj_1.CActionType.idle, true)];

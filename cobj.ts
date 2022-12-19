@@ -1,4 +1,4 @@
-export class Pos {
+export class CPos {
     constructor(x:number = 0, y:number = 0) {
       this.x = x;
       this.y = y;
@@ -8,7 +8,7 @@ export class Pos {
     y: number = 0;
 }
   
-export class Size {
+export class CSize {
     constructor(w:number, h:number) {
       this.w = w;
       this.h = h;
@@ -18,13 +18,13 @@ export class Size {
     h: number = 1;
 }
   
-export enum BodyType {
+export enum CBodyType {
     static,
     kinematic,  
     dynamic,
 }
   
-export enum BodyShape {
+export enum CBodyShape {
     rectangle, 
     actor,
     circle,
@@ -33,7 +33,7 @@ export enum BodyShape {
     polygon,
 }
   
-export enum ActionEvent { 
+export enum CActionEvent { 
     DOWN,
     UP,
     MOVE,
@@ -44,7 +44,7 @@ export enum ActionEvent {
     UP_MOVE, 
 }
   
-export enum JoystickDirectionals {
+export enum CJoystickDirectionals {
     none,
     all,
     horizontal,
@@ -72,7 +72,7 @@ export enum CActionType {
     svg,
 }
 
-export interface Buildable {
+export interface CBuildable {
     build();
 }
 
@@ -99,34 +99,34 @@ export function buildCActionType(type:CActionType) {
     }
 }
 
-function buildType(type:BodyType) {
+function buildType(type:CBodyType) {
     switch(type) {
-        case BodyType.static: return "static";
-        case BodyType.kinematic: return "kinematic";
-        case BodyType.dynamic: return "dynamic";
+        case CBodyType.static: return "static";
+        case CBodyType.kinematic: return "kinematic";
+        case CBodyType.dynamic: return "dynamic";
     }
 }
 
 
-function buildShape(shape:BodyShape) {
+function buildShape(shape:CBodyShape) {
     switch(shape) {
-        case BodyShape.rectangle: return "rectangle";
-        case BodyShape.actor: return "actor";
-        case BodyShape.circle: return "circle";
-        case BodyShape.triangle: return "triangle";
-        case BodyShape.edge: return "edge";
-        case BodyShape.polygon: return "polygon";
+        case CBodyShape.rectangle: return "rectangle";
+        case CBodyShape.actor: return "actor";
+        case CBodyShape.circle: return "circle";
+        case CBodyShape.triangle: return "triangle";
+        case CBodyShape.edge: return "edge";
+        case CBodyShape.polygon: return "polygon";
     }
 }
 
-export class CAction implements Buildable {
+export class CAction implements CBuildable {
     path: string;
-    tileSize: Size;
+    tileSize: CSize;
     indices: number[];
     stepTime: number = 0.2;
     type: CActionType;
     repeat: boolean = true;
-    constructor(path:string, tileSize:Size, indices:number[], type:CActionType) {
+    constructor(path:string, tileSize:CSize, indices:number[], type:CActionType) {
         this.path = path;
         this.tileSize = tileSize;
         this.indices = indices;
@@ -145,13 +145,13 @@ export class CAction implements Buildable {
     }
 }
 
-export class CVisible implements Buildable {
+export class CVisible implements CBuildable {
     current: CActionType = CActionType.idle;
     priority: number = 0;
-    pos: Pos = new Pos(0,0);
-    size: Size = new Size(1,1);
-    scale: Pos = new Pos(1,1);
-    anchor: Pos = new Pos(0.5,0.5);
+    pos: CPos = new CPos(0,0);
+    size: CSize = new CSize(1,1);
+    scale: CPos = new CPos(1,1);
+    anchor: CPos = new CPos(0.5,0.5);
     actions: CAction[];
     tid: number = 0;
     constructor(actions: CAction[]) {
@@ -181,10 +181,10 @@ export class CVisible implements Buildable {
     }
 }
 
-export class CPhysical implements Buildable {
-    shape: BodyShape;
-    pos: Pos;
-    size: Size = new Size(1,1);
+export class CPhysical implements CBuildable {
+    shape: CBodyShape;
+    pos: CPos;
+    size: CSize = new CSize(1,1);
     restitution: number = 0;
     friction: number = 0;
     density: number = 0;
@@ -193,11 +193,11 @@ export class CPhysical implements Buildable {
     categoryBits: number = 0x0001;
     maskBits: number = 0xFFFF;
     fixedRotation: boolean= true;
-    type: BodyType = BodyType.dynamic;
+    type: CBodyType = CBodyType.dynamic;
     trackable: boolean = true;
     contactReport: boolean = true;
     floats: number[];
-    constructor(shape:BodyShape, pos:Pos, type:BodyType) {
+    constructor(shape:CBodyShape, pos:CPos, type:CBodyType) {
         this.shape = shape;
         this.pos = pos;
         this.type = type;
@@ -227,7 +227,7 @@ export class CPhysical implements Buildable {
 
 
 
-export class CObject implements Buildable {
+export class CObject implements CBuildable {
     constructor(id:number) {
       this.id = id;
     }
@@ -266,49 +266,49 @@ export class CObject implements Buildable {
     }
 }
 
-export function CTileObject(path:string, tileSize:Size, data:number[], pos:Pos, size:Size) {
+export function CTileObject(path:string, tileSize:CSize, data:number[], pos:CPos, size:CSize) {
     var obj = new CObject(0);
     obj.visible = new CVisible([ new CAction(path, tileSize, data, CActionType.tiles)]);
     obj.visible.current = CActionType.tiles;
     obj.visible.pos = pos;
-    obj.visible.anchor = new Pos(0,0);
+    obj.visible.anchor = new CPos(0,0);
     obj.visible.size = size;
     return obj;
 }
 
-export class Stage implements Buildable {
-    constructor(size:Size) {
+export class CStage implements CBuildable {
+    constructor(size:CSize) {
       this.size = size;
     }
     background: string;
-    gravity: Pos = new Pos(0, 0);
-    size: Size;
-    pos: Pos = new Pos(0, 0);
+    gravity: CPos = new CPos(0, 0);
+    size: CSize;
+    pos: CPos = new CPos(0, 0);
     debug: boolean = false;
-    joystickDirectionals:JoystickDirectionals = JoystickDirectionals.none;
+    joystickDirectionals:CJoystickDirectionals = CJoystickDirectionals.none;
     joystickPrecision: number = 3;
-    button1:ActionEvent = ActionEvent.DOWN;
-    button2:ActionEvent = ActionEvent.DOWN; 
+    button1:CActionEvent = CActionEvent.DOWN;
+    button2:CActionEvent = CActionEvent.DOWN; 
   
-    buildJoystickDirectionals(directions:JoystickDirectionals) {
+    buildJoystickDirectionals(directions:CJoystickDirectionals) {
       switch(directions) {
-        case JoystickDirectionals.none: return "none";
-        case JoystickDirectionals.all: return "all";
-        case JoystickDirectionals.horizontal: return "horizontal";
-        case JoystickDirectionals.vertical: return "vertical";
+        case CJoystickDirectionals.none: return "none";
+        case CJoystickDirectionals.all: return "all";
+        case CJoystickDirectionals.horizontal: return "horizontal";
+        case CJoystickDirectionals.vertical: return "vertical";
       }
     }
   
-    buildActionEvent(event:ActionEvent) {
+    buildCActionEvent(event:CActionEvent) {
       switch(event) {
-        case ActionEvent.DOWN: return "DOWN";
-        case ActionEvent.UP: return "UP";
-        case ActionEvent.MOVE: return "MOVE";
-        case ActionEvent.NONE: return "NONE";
-        case ActionEvent.UP_DOWN: return "UP_DOWN";
-        case ActionEvent.DOWN_MOVE: return "DOWN_MOVE";
-        case ActionEvent.ALL: return "ALL";
-        case ActionEvent.UP_MOVE: return "UP_MOVE";      
+        case CActionEvent.DOWN: return "DOWN";
+        case CActionEvent.UP: return "UP";
+        case CActionEvent.MOVE: return "MOVE";
+        case CActionEvent.NONE: return "NONE";
+        case CActionEvent.UP_DOWN: return "UP_DOWN";
+        case CActionEvent.DOWN_MOVE: return "DOWN_MOVE";
+        case CActionEvent.ALL: return "ALL";
+        case CActionEvent.UP_MOVE: return "UP_MOVE";      
       }
     }  
   
@@ -324,8 +324,8 @@ export class Stage implements Buildable {
         debug: this.debug,
         joystickDirectionals: this.buildJoystickDirectionals(this.joystickDirectionals),
         joystickPrecision: this.joystickPrecision,
-        button1: this.buildActionEvent(this.button1),
-        button2: this.buildActionEvent(this.button2),
+        button1: this.buildCActionEvent(this.button1),
+        button2: this.buildCActionEvent(this.button2),
       };
     }
 }
@@ -333,15 +333,15 @@ export class Stage implements Buildable {
 
 export class CObjectInfo{
     constructor(info:number[]) {
-        this.pos = new Pos(info[0], info[1]);
-        this.size = new Size(info[2], info[3]);
+        this.pos = new CPos(info[0], info[1]);
+        this.size = new CSize(info[2], info[3]);
         this.angle = info[4];
-        this.linear = new Pos(info[5], info[6]);
+        this.linear = new CPos(info[5], info[6]);
         this.angular = info[7];
     }
-    pos:Pos;
-    size:Size;
+    pos:CPos;
+    size:CSize;
     angle:number;
-    linear:Pos;
+    linear:CPos;
     angular:number;
 }

@@ -1,4 +1,4 @@
-import { CAction, CActionType, CObject, CVisible, Pos, Size } from "./cobj.js";
+import { CAction, CActionType, CObject, CVisible, CPos, CSize } from "./cobj.js";
 import {run, TestUtil, Stopwatch} from "./testutil.js";
 
 export async function test01(ngin, width, height, margin, func, stopwatch) {
@@ -28,10 +28,10 @@ export async function test01(ngin, width, height, margin, func, stopwatch) {
     await ngin.command({strings:['enable'], ints:[4041, 0]});    
 
     var obj = new CObject(100);
-    obj.visible = new CVisible([new CAction(util.drawSvgGrid(width, height, func), new Size(width, height), [], CActionType.svg)]);
+    obj.visible = new CVisible([new CAction(util.drawSvgGrid(width, height, func), new CSize(width, height), [], CActionType.svg)]);
     obj.visible.current = CActionType.svg;
-    obj.visible.size = new Size(width, height);
-    obj.visible.anchor = new Pos(0,0);    
+    obj.visible.size = new CSize(width, height);
+    obj.visible.anchor = new CPos(0,0);    
     await ngin.addCObjectInternal(obj.build());
 
     await util.countDown(width, height, 3, 1);
@@ -66,10 +66,10 @@ export async function test01(ngin, width, height, margin, func, stopwatch) {
 
 
     obj = new CObject(10000);
-    obj.visible = new CVisible([new CAction(util.drawSvgTextFullScreen(width+margin, height, message, size, fill, fillopacity), new Size(width, height), [], CActionType.svg)]);
+    obj.visible = new CVisible([new CAction(util.drawSvgTextFullScreen(width+margin, height, message, size, fill, fillopacity), new CSize(width, height), [], CActionType.svg)]);
     obj.visible.current = CActionType.svg;
-    obj.visible.size = new Size(width+margin, height);
-    obj.visible.anchor = new Pos(0,0);
+    obj.visible.size = new CSize(width+margin, height);
+    obj.visible.anchor = new CPos(0,0);
     await ngin.addCObjectInternal(obj.build());
 
 

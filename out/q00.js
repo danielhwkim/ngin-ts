@@ -90,11 +90,11 @@ From **Highest** to **Lowest** precedence:\n\
                 height = 12;
                 margin = 3;
                 gid = 100;
-                size = new cobj_1.Size(width + margin, height);
-                stage = new cobj_1.Stage(size);
+                size = new cobj_1.CSize(width + margin, height);
+                stage = new cobj_1.CStage(size);
                 stage.background = 'Blue';
                 //stage.debug = true;
-                stage.joystickDirectionals = cobj_1.JoystickDirectionals.horizontal;
+                stage.joystickDirectionals = cobj_1.CJoystickDirectionals.horizontal;
                 return [4 /*yield*/, nx.sendObjWait(stage)];
             case 1:
                 _a.sent();

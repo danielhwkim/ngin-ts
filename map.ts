@@ -2,21 +2,21 @@
 var {EventHandler, Ngin} = require("./ngin");
 var fs = require('fs');
 import {main, Nx} from "./nx";
-import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, Stage, Pos, Size, BodyType, BodyShape, JoystickDirectionals} from "./cobj";
+import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, CStage, CPos, CSize, CBodyType, CBodyShape, CJoystickDirectionals} from "./cobj";
 
 
 main('127.0.0.1', 4040, async (nx:Nx) =>  {
     nx.eventHandler = new GameInputHandler(nx);
 
-    const size = new Size(12, 12);
+    const size = new CSize(12, 12);
 
-    var stage = new Stage(size);
+    var stage = new CStage(size);
     stage.debug = true;
-    stage.joystickDirectionals = JoystickDirectionals.horizontal;
+    stage.joystickDirectionals = CJoystickDirectionals.horizontal;
     await nx.sendObjWait(stage);
     
 
-    await nx.addStage(0, 0, 0, size.w, size.h);
+    await nx.addCStage(0, 0, 0, size.w, size.h);
     var gid = 300;
     for (var i = 2; i<10; i++) {
         await nx.addFruit(gid++, i, 3, 'Bananas');
@@ -29,7 +29,7 @@ main('127.0.0.1', 4040, async (nx:Nx) =>  {
     var info = await nx.getCObjectInfo(1);
     console.log(info);
     await nx.setActionType(1, CActionType.run, true);    
-    await nx.linearTo(1, new Pos(info.pos.x - 1, info.pos.y), 2);
+    await nx.linearTo(1, new CPos(info.pos.x - 1, info.pos.y), 2);
     await nx.setActionType(1, CActionType.idle, true);
     
     //await nx.setActionType(1, CActionType.run, true);

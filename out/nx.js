@@ -74,7 +74,7 @@ var Nx = /** @class */ (function (_super) {
                         _a.sent();
                         return [3 /*break*/, 4];
                     case 2:
-                        if (!(obj instanceof cobj_1.Stage)) return [3 /*break*/, 4];
+                        if (!(obj instanceof cobj_1.CStage)) return [3 /*break*/, 4];
                         return [4 /*yield*/, this.initScreen(obj.build())];
                     case 3:
                         _a.sent();
@@ -119,11 +119,11 @@ var Nx = /** @class */ (function (_super) {
                     case 0:
                         obj = new cobj_1.CObject(id);
                         obj.info = "fruit";
-                        obj.physical = new cobj_1.CPhysical(cobj_1.BodyShape.circle, new cobj_1.Pos(x, y), cobj_1.BodyType.static);
-                        a1 = new cobj_1.CAction('Items/Fruits/' + fruit + '.png', new cobj_1.Size(32, 32), [ /*0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16*/], cobj_1.CActionType.idle);
+                        obj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.circle, new cobj_1.CPos(x, y), cobj_1.CBodyType.static);
+                        a1 = new cobj_1.CAction('Items/Fruits/' + fruit + '.png', new cobj_1.CSize(32, 32), [ /*0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16*/], cobj_1.CActionType.idle);
                         a1.stepTime = 50 / 1000;
                         obj.visible = new cobj_1.CVisible([a1]);
-                        obj.visible.scale = new cobj_1.Pos(1.5, 1.5);
+                        obj.visible.scale = new cobj_1.CPos(1.5, 1.5);
                         return [4 /*yield*/, this.sendObj(obj)];
                     case 1:
                         _a.sent();
@@ -132,7 +132,7 @@ var Nx = /** @class */ (function (_super) {
             });
         });
     };
-    Nx.prototype.addStage = function (bid, x, y, width, height) {
+    Nx.prototype.addCStage = function (bid, x, y, width, height) {
         return __awaiter(this, void 0, void 0, function () {
             var data, obj;
             return __generator(this, function (_a) {
@@ -141,11 +141,11 @@ var Nx = /** @class */ (function (_super) {
                         data = [];
                         l1(width, height, data);
                         obj = new cobj_1.CObject(bid);
-                        obj.visible = new cobj_1.CVisible([new cobj_1.CAction('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new cobj_1.Size(16, 16), data, cobj_1.CActionType.idle)]);
+                        obj.visible = new cobj_1.CVisible([new cobj_1.CAction('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new cobj_1.CSize(16, 16), data, cobj_1.CActionType.idle)]);
                         obj.visible.current = cobj_1.CActionType.tiles;
-                        obj.visible.pos = new cobj_1.Pos(x, y);
-                        obj.visible.size = new cobj_1.Size(width, height);
-                        obj.visible.anchor = new cobj_1.Pos(0, 0);
+                        obj.visible.pos = new cobj_1.CPos(x, y);
+                        obj.visible.size = new cobj_1.CSize(width, height);
+                        obj.visible.anchor = new cobj_1.CPos(0, 0);
                         //obj.visible.priority = 0;
                         return [4 /*yield*/, this.sendObj(obj)];
                     case 1:
@@ -194,8 +194,8 @@ var Nx = /** @class */ (function (_super) {
                         }
                         obj = new cobj_1.CObject(bid);
                         obj.info = "wall";
-                        obj.physical = new cobj_1.CPhysical(cobj_1.BodyShape.rectangle, new cobj_1.Pos(x, y), cobj_1.BodyType.static);
-                        obj.physical.size = new cobj_1.Size(width, height);
+                        obj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.rectangle, new cobj_1.CPos(x, y), cobj_1.CBodyType.static);
+                        obj.physical.size = new cobj_1.CSize(width, height);
                         return [4 /*yield*/, this.sendObj(obj)];
                     case 1:
                         _a.sent();
@@ -212,9 +212,9 @@ var Nx = /** @class */ (function (_super) {
                     case 0:
                         obj = new cobj_1.CObject(id);
                         obj.info = "spike";
-                        obj.physical = new cobj_1.CPhysical(cobj_1.BodyShape.rectangle, new cobj_1.Pos(x, y), cobj_1.BodyType.static);
+                        obj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.rectangle, new cobj_1.CPos(x, y), cobj_1.CBodyType.static);
                         obj.physical.isSensor = true;
-                        obj.visible = new cobj_1.CVisible([new cobj_1.CAction('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new cobj_1.Size(16, 16), [929, 930, 931, 932, 931, 930], cobj_1.CActionType.idle)]);
+                        obj.visible = new cobj_1.CVisible([new cobj_1.CAction('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new cobj_1.CSize(16, 16), [929, 930, 931, 932, 931, 930], cobj_1.CActionType.idle)]);
                         return [4 /*yield*/, this.sendObj(obj)];
                     case 1:
                         _a.sent();
@@ -231,9 +231,9 @@ var Nx = /** @class */ (function (_super) {
                     case 0:
                         obj = new cobj_1.CObject(id);
                         obj.info = "coin";
-                        obj.physical = new cobj_1.CPhysical(cobj_1.BodyShape.rectangle, new cobj_1.Pos(x, y), cobj_1.BodyType.static);
+                        obj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.rectangle, new cobj_1.CPos(x, y), cobj_1.CBodyType.static);
                         obj.physical.isSensor = true;
-                        obj.visible = new cobj_1.CVisible([new cobj_1.CAction('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new cobj_1.Size(16, 16), [403, 404, 405, 406], cobj_1.CActionType.idle)]);
+                        obj.visible = new cobj_1.CVisible([new cobj_1.CAction('tiled/tileset/0x72_DungeonTilesetII_v1.3.png', new cobj_1.CSize(16, 16), [403, 404, 405, 406], cobj_1.CActionType.idle)]);
                         return [4 /*yield*/, this.sendObj(obj)];
                     case 1:
                         _a.sent();
@@ -247,24 +247,24 @@ var Nx = /** @class */ (function (_super) {
         var hy = 0.25;
         var obj = new cobj_1.CObject(id);
         obj.info = "actor";
-        obj.physical = new cobj_1.CPhysical(cobj_1.BodyShape.polygon, new cobj_1.Pos(x, y), cobj_1.BodyType.dynamic);
+        obj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.polygon, new cobj_1.CPos(x, y), cobj_1.CBodyType.dynamic);
         obj.physical.floats = [-hx, -hy, -hx, hy, hx, hy, hx, -hy];
         obj.physical.fixedRotation = true;
-        //obj.physical.size = new Size(0.5, 0.5);
+        //obj.physical.size = new CSize(0.5, 0.5);
         obj.visible = new cobj_1.CVisible([
-            new cobj_1.CAction('Main Characters/' + character + '/Idle (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CActionType.idle),
-            new cobj_1.CAction('Main Characters/' + character + '/Run (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CActionType.run),
-            new cobj_1.CAction('Main Characters/' + character + '/Jump (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CActionType.jump),
-            new cobj_1.CAction('Main Characters/' + character + '/Hit (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CActionType.hit),
-            new cobj_1.CAction('Main Characters/' + character + '/Fall (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CActionType.fall),
-            new cobj_1.CAction('Main Characters/' + character + '/Wall Jump (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CActionType.wallJump),
-            new cobj_1.CAction('Main Characters/' + character + '/Double Jump (32x32).png', new cobj_1.Size(32, 32), [], cobj_1.CActionType.doubleJump),
+            new cobj_1.CAction('Main Characters/' + character + '/Idle (32x32).png', new cobj_1.CSize(32, 32), [], cobj_1.CActionType.idle),
+            new cobj_1.CAction('Main Characters/' + character + '/Run (32x32).png', new cobj_1.CSize(32, 32), [], cobj_1.CActionType.run),
+            new cobj_1.CAction('Main Characters/' + character + '/Jump (32x32).png', new cobj_1.CSize(32, 32), [], cobj_1.CActionType.jump),
+            new cobj_1.CAction('Main Characters/' + character + '/Hit (32x32).png', new cobj_1.CSize(32, 32), [], cobj_1.CActionType.hit),
+            new cobj_1.CAction('Main Characters/' + character + '/Fall (32x32).png', new cobj_1.CSize(32, 32), [], cobj_1.CActionType.fall),
+            new cobj_1.CAction('Main Characters/' + character + '/Wall Jump (32x32).png', new cobj_1.CSize(32, 32), [], cobj_1.CActionType.wallJump),
+            new cobj_1.CAction('Main Characters/' + character + '/Double Jump (32x32).png', new cobj_1.CSize(32, 32), [], cobj_1.CActionType.doubleJump),
         ]);
         for (var i = 0; i < obj.visible.actions.length; i++) {
             obj.visible.actions[i].stepTime = 50 / 1000;
         }
-        obj.visible.pos = new cobj_1.Pos(0, -0.2);
-        //obj.visible.scale = new Pos(1.5, 1.5);
+        obj.visible.pos = new cobj_1.CPos(0, -0.2);
+        //obj.visible.scale = new CPos(1.5, 1.5);
         return obj;
     };
     Nx.prototype.setActionType = function (id, actionType, isFlipHorizontal) {

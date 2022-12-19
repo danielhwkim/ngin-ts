@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CObjectInfo = exports.Stage = exports.CTileObject = exports.CObject = exports.CPhysical = exports.CVisible = exports.CAction = exports.buildCActionType = exports.CActionType = exports.JoystickDirectionals = exports.ActionEvent = exports.BodyShape = exports.BodyType = exports.Size = exports.Pos = void 0;
-var Pos = /** @class */ (function () {
-    function Pos(x, y) {
+exports.CObjectInfo = exports.CStage = exports.CTileObject = exports.CObject = exports.CPhysical = exports.CVisible = exports.CAction = exports.buildCActionType = exports.CActionType = exports.CJoystickDirectionals = exports.CActionEvent = exports.CBodyShape = exports.CBodyType = exports.CSize = exports.CPos = void 0;
+var CPos = /** @class */ (function () {
+    function CPos(x, y) {
         if (x === void 0) { x = 0; }
         if (y === void 0) { y = 0; }
         this.x = 0;
@@ -10,52 +10,52 @@ var Pos = /** @class */ (function () {
         this.x = x;
         this.y = y;
     }
-    return Pos;
+    return CPos;
 }());
-exports.Pos = Pos;
-var Size = /** @class */ (function () {
-    function Size(w, h) {
+exports.CPos = CPos;
+var CSize = /** @class */ (function () {
+    function CSize(w, h) {
         this.w = 1;
         this.h = 1;
         this.w = w;
         this.h = h;
     }
-    return Size;
+    return CSize;
 }());
-exports.Size = Size;
-var BodyType;
-(function (BodyType) {
-    BodyType[BodyType["static"] = 0] = "static";
-    BodyType[BodyType["kinematic"] = 1] = "kinematic";
-    BodyType[BodyType["dynamic"] = 2] = "dynamic";
-})(BodyType = exports.BodyType || (exports.BodyType = {}));
-var BodyShape;
-(function (BodyShape) {
-    BodyShape[BodyShape["rectangle"] = 0] = "rectangle";
-    BodyShape[BodyShape["actor"] = 1] = "actor";
-    BodyShape[BodyShape["circle"] = 2] = "circle";
-    BodyShape[BodyShape["triangle"] = 3] = "triangle";
-    BodyShape[BodyShape["edge"] = 4] = "edge";
-    BodyShape[BodyShape["polygon"] = 5] = "polygon";
-})(BodyShape = exports.BodyShape || (exports.BodyShape = {}));
-var ActionEvent;
-(function (ActionEvent) {
-    ActionEvent[ActionEvent["DOWN"] = 0] = "DOWN";
-    ActionEvent[ActionEvent["UP"] = 1] = "UP";
-    ActionEvent[ActionEvent["MOVE"] = 2] = "MOVE";
-    ActionEvent[ActionEvent["NONE"] = 3] = "NONE";
-    ActionEvent[ActionEvent["UP_DOWN"] = 4] = "UP_DOWN";
-    ActionEvent[ActionEvent["DOWN_MOVE"] = 5] = "DOWN_MOVE";
-    ActionEvent[ActionEvent["ALL"] = 6] = "ALL";
-    ActionEvent[ActionEvent["UP_MOVE"] = 7] = "UP_MOVE";
-})(ActionEvent = exports.ActionEvent || (exports.ActionEvent = {}));
-var JoystickDirectionals;
-(function (JoystickDirectionals) {
-    JoystickDirectionals[JoystickDirectionals["none"] = 0] = "none";
-    JoystickDirectionals[JoystickDirectionals["all"] = 1] = "all";
-    JoystickDirectionals[JoystickDirectionals["horizontal"] = 2] = "horizontal";
-    JoystickDirectionals[JoystickDirectionals["vertical"] = 3] = "vertical";
-})(JoystickDirectionals = exports.JoystickDirectionals || (exports.JoystickDirectionals = {}));
+exports.CSize = CSize;
+var CBodyType;
+(function (CBodyType) {
+    CBodyType[CBodyType["static"] = 0] = "static";
+    CBodyType[CBodyType["kinematic"] = 1] = "kinematic";
+    CBodyType[CBodyType["dynamic"] = 2] = "dynamic";
+})(CBodyType = exports.CBodyType || (exports.CBodyType = {}));
+var CBodyShape;
+(function (CBodyShape) {
+    CBodyShape[CBodyShape["rectangle"] = 0] = "rectangle";
+    CBodyShape[CBodyShape["actor"] = 1] = "actor";
+    CBodyShape[CBodyShape["circle"] = 2] = "circle";
+    CBodyShape[CBodyShape["triangle"] = 3] = "triangle";
+    CBodyShape[CBodyShape["edge"] = 4] = "edge";
+    CBodyShape[CBodyShape["polygon"] = 5] = "polygon";
+})(CBodyShape = exports.CBodyShape || (exports.CBodyShape = {}));
+var CActionEvent;
+(function (CActionEvent) {
+    CActionEvent[CActionEvent["DOWN"] = 0] = "DOWN";
+    CActionEvent[CActionEvent["UP"] = 1] = "UP";
+    CActionEvent[CActionEvent["MOVE"] = 2] = "MOVE";
+    CActionEvent[CActionEvent["NONE"] = 3] = "NONE";
+    CActionEvent[CActionEvent["UP_DOWN"] = 4] = "UP_DOWN";
+    CActionEvent[CActionEvent["DOWN_MOVE"] = 5] = "DOWN_MOVE";
+    CActionEvent[CActionEvent["ALL"] = 6] = "ALL";
+    CActionEvent[CActionEvent["UP_MOVE"] = 7] = "UP_MOVE";
+})(CActionEvent = exports.CActionEvent || (exports.CActionEvent = {}));
+var CJoystickDirectionals;
+(function (CJoystickDirectionals) {
+    CJoystickDirectionals[CJoystickDirectionals["none"] = 0] = "none";
+    CJoystickDirectionals[CJoystickDirectionals["all"] = 1] = "all";
+    CJoystickDirectionals[CJoystickDirectionals["horizontal"] = 2] = "horizontal";
+    CJoystickDirectionals[CJoystickDirectionals["vertical"] = 3] = "vertical";
+})(CJoystickDirectionals = exports.CJoystickDirectionals || (exports.CJoystickDirectionals = {}));
 var CActionType;
 (function (CActionType) {
     CActionType[CActionType["idle"] = 0] = "idle";
@@ -102,19 +102,19 @@ function buildCActionType(type) {
 exports.buildCActionType = buildCActionType;
 function buildType(type) {
     switch (type) {
-        case BodyType.static: return "static";
-        case BodyType.kinematic: return "kinematic";
-        case BodyType.dynamic: return "dynamic";
+        case CBodyType.static: return "static";
+        case CBodyType.kinematic: return "kinematic";
+        case CBodyType.dynamic: return "dynamic";
     }
 }
 function buildShape(shape) {
     switch (shape) {
-        case BodyShape.rectangle: return "rectangle";
-        case BodyShape.actor: return "actor";
-        case BodyShape.circle: return "circle";
-        case BodyShape.triangle: return "triangle";
-        case BodyShape.edge: return "edge";
-        case BodyShape.polygon: return "polygon";
+        case CBodyShape.rectangle: return "rectangle";
+        case CBodyShape.actor: return "actor";
+        case CBodyShape.circle: return "circle";
+        case CBodyShape.triangle: return "triangle";
+        case CBodyShape.edge: return "edge";
+        case CBodyShape.polygon: return "polygon";
     }
 }
 var CAction = /** @class */ (function () {
@@ -144,10 +144,10 @@ var CVisible = /** @class */ (function () {
     function CVisible(actions) {
         this.current = CActionType.idle;
         this.priority = 0;
-        this.pos = new Pos(0, 0);
-        this.size = new Size(1, 1);
-        this.scale = new Pos(1, 1);
-        this.anchor = new Pos(0.5, 0.5);
+        this.pos = new CPos(0, 0);
+        this.size = new CSize(1, 1);
+        this.scale = new CPos(1, 1);
+        this.anchor = new CPos(0.5, 0.5);
         this.tid = 0;
         this.actions = actions;
     }
@@ -176,7 +176,7 @@ var CVisible = /** @class */ (function () {
 exports.CVisible = CVisible;
 var CPhysical = /** @class */ (function () {
     function CPhysical(shape, pos, type) {
-        this.size = new Size(1, 1);
+        this.size = new CSize(1, 1);
         this.restitution = 0;
         this.friction = 0;
         this.density = 0;
@@ -185,7 +185,7 @@ var CPhysical = /** @class */ (function () {
         this.categoryBits = 0x0001;
         this.maskBits = 0xFFFF;
         this.fixedRotation = true;
-        this.type = BodyType.dynamic;
+        this.type = CBodyType.dynamic;
         this.trackable = true;
         this.contactReport = true;
         this.shape = shape;
@@ -259,43 +259,43 @@ function CTileObject(path, tileSize, data, pos, size) {
     obj.visible = new CVisible([new CAction(path, tileSize, data, CActionType.tiles)]);
     obj.visible.current = CActionType.tiles;
     obj.visible.pos = pos;
-    obj.visible.anchor = new Pos(0, 0);
+    obj.visible.anchor = new CPos(0, 0);
     obj.visible.size = size;
     return obj;
 }
 exports.CTileObject = CTileObject;
-var Stage = /** @class */ (function () {
-    function Stage(size) {
-        this.gravity = new Pos(0, 0);
-        this.pos = new Pos(0, 0);
+var CStage = /** @class */ (function () {
+    function CStage(size) {
+        this.gravity = new CPos(0, 0);
+        this.pos = new CPos(0, 0);
         this.debug = false;
-        this.joystickDirectionals = JoystickDirectionals.none;
+        this.joystickDirectionals = CJoystickDirectionals.none;
         this.joystickPrecision = 3;
-        this.button1 = ActionEvent.DOWN;
-        this.button2 = ActionEvent.DOWN;
+        this.button1 = CActionEvent.DOWN;
+        this.button2 = CActionEvent.DOWN;
         this.size = size;
     }
-    Stage.prototype.buildJoystickDirectionals = function (directions) {
+    CStage.prototype.buildJoystickDirectionals = function (directions) {
         switch (directions) {
-            case JoystickDirectionals.none: return "none";
-            case JoystickDirectionals.all: return "all";
-            case JoystickDirectionals.horizontal: return "horizontal";
-            case JoystickDirectionals.vertical: return "vertical";
+            case CJoystickDirectionals.none: return "none";
+            case CJoystickDirectionals.all: return "all";
+            case CJoystickDirectionals.horizontal: return "horizontal";
+            case CJoystickDirectionals.vertical: return "vertical";
         }
     };
-    Stage.prototype.buildActionEvent = function (event) {
+    CStage.prototype.buildCActionEvent = function (event) {
         switch (event) {
-            case ActionEvent.DOWN: return "DOWN";
-            case ActionEvent.UP: return "UP";
-            case ActionEvent.MOVE: return "MOVE";
-            case ActionEvent.NONE: return "NONE";
-            case ActionEvent.UP_DOWN: return "UP_DOWN";
-            case ActionEvent.DOWN_MOVE: return "DOWN_MOVE";
-            case ActionEvent.ALL: return "ALL";
-            case ActionEvent.UP_MOVE: return "UP_MOVE";
+            case CActionEvent.DOWN: return "DOWN";
+            case CActionEvent.UP: return "UP";
+            case CActionEvent.MOVE: return "MOVE";
+            case CActionEvent.NONE: return "NONE";
+            case CActionEvent.UP_DOWN: return "UP_DOWN";
+            case CActionEvent.DOWN_MOVE: return "DOWN_MOVE";
+            case CActionEvent.ALL: return "ALL";
+            case CActionEvent.UP_MOVE: return "UP_MOVE";
         }
     };
-    Stage.prototype.build = function () {
+    CStage.prototype.build = function () {
         return {
             background: this.background,
             gravityX: this.gravity.x,
@@ -307,19 +307,19 @@ var Stage = /** @class */ (function () {
             debug: this.debug,
             joystickDirectionals: this.buildJoystickDirectionals(this.joystickDirectionals),
             joystickPrecision: this.joystickPrecision,
-            button1: this.buildActionEvent(this.button1),
-            button2: this.buildActionEvent(this.button2),
+            button1: this.buildCActionEvent(this.button1),
+            button2: this.buildCActionEvent(this.button2),
         };
     };
-    return Stage;
+    return CStage;
 }());
-exports.Stage = Stage;
+exports.CStage = CStage;
 var CObjectInfo = /** @class */ (function () {
     function CObjectInfo(info) {
-        this.pos = new Pos(info[0], info[1]);
-        this.size = new Size(info[2], info[3]);
+        this.pos = new CPos(info[0], info[1]);
+        this.size = new CSize(info[2], info[3]);
         this.angle = info[4];
-        this.linear = new Pos(info[5], info[6]);
+        this.linear = new CPos(info[5], info[6]);
         this.angular = info[7];
     }
     return CObjectInfo;

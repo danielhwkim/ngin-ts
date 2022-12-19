@@ -97,10 +97,10 @@ var TestUtil = /** @class */ (function () {
                         fillopacity = 0.5;
                         textsize = 5;
                         obj = new cobj_1.CObject(100 + num);
-                        obj.visible = new cobj_1.CVisible([new cobj_1.CAction(this.drawSvgTextFullScreen(width, height, "".concat(num), textsize, "#111", fillopacity), new cobj_1.Size(width, height), [], cobj_1.CActionType.svg)]);
+                        obj.visible = new cobj_1.CVisible([new cobj_1.CAction(this.drawSvgTextFullScreen(width, height, "".concat(num), textsize, "#111", fillopacity), new cobj_1.CSize(width, height), [], cobj_1.CActionType.svg)]);
                         obj.visible.current = cobj_1.CActionType.svg;
-                        obj.visible.size = new cobj_1.Size(width, height);
-                        obj.visible.anchor = new cobj_1.Pos(0, 0);
+                        obj.visible.size = new cobj_1.CSize(width, height);
+                        obj.visible.anchor = new cobj_1.CPos(0, 0);
                         return [4 /*yield*/, this.ngin.addCObjectInternal(obj.build())];
                     case 1:
                         _a.sent();
@@ -123,10 +123,10 @@ var TestUtil = /** @class */ (function () {
                         _a.sent();
                         num--;
                         obj = new cobj_1.CObject(100 + num);
-                        obj.visible = new cobj_1.CVisible([new cobj_1.CAction(this.drawSvgTextFullScreen(width, height, "".concat(num), textsize, "#111", fillopacity), new cobj_1.Size(width, height), [], cobj_1.CActionType.svg)]);
+                        obj.visible = new cobj_1.CVisible([new cobj_1.CAction(this.drawSvgTextFullScreen(width, height, "".concat(num), textsize, "#111", fillopacity), new cobj_1.CSize(width, height), [], cobj_1.CActionType.svg)]);
                         obj.visible.current = cobj_1.CActionType.svg;
-                        obj.visible.size = new cobj_1.Size(width, height);
-                        obj.visible.anchor = new cobj_1.Pos(0, 0);
+                        obj.visible.size = new cobj_1.CSize(width, height);
+                        obj.visible.anchor = new cobj_1.CPos(0, 0);
                         return [4 /*yield*/, this.ngin.addCObjectInternal(obj.build())];
                     case 5:
                         _a.sent();
@@ -213,11 +213,11 @@ var Stopwatch = /** @class */ (function () {
                         _a.sent();
                         this.num += 1;
                         obj = new cobj_1.CObject(this.oid);
-                        obj.visible = new cobj_1.CVisible([new cobj_1.CAction(this.util.drawSvgText(this.w, this.h, "".concat(this.num)), new cobj_1.Size(this.w, this.h), [], cobj_1.CActionType.svg)]);
+                        obj.visible = new cobj_1.CVisible([new cobj_1.CAction(this.util.drawSvgText(this.w, this.h, "".concat(this.num)), new cobj_1.CSize(this.w, this.h), [], cobj_1.CActionType.svg)]);
                         obj.visible.current = cobj_1.CActionType.svg;
-                        obj.visible.size = new cobj_1.Size(this.w, this.h);
-                        obj.visible.pos = new cobj_1.Pos(this.rect[0], this.rect[1]);
-                        obj.visible.anchor = new cobj_1.Pos(0, 0);
+                        obj.visible.size = new cobj_1.CSize(this.w, this.h);
+                        obj.visible.pos = new cobj_1.CPos(this.rect[0], this.rect[1]);
+                        obj.visible.anchor = new cobj_1.CPos(0, 0);
                         return [4 /*yield*/, this.thisNgin.addCObjectInternal(obj.build())];
                     case 2:
                         _a.sent();
@@ -238,11 +238,11 @@ var Stopwatch = /** @class */ (function () {
                     case 0:
                         this.running = true;
                         obj = new cobj_1.CObject(this.oid);
-                        obj.visible = new cobj_1.CVisible([new cobj_1.CAction(this.util.drawSvgText(this.w, this.h, "".concat(this.num)), new cobj_1.Size(this.w, this.h), [], cobj_1.CActionType.svg)]);
+                        obj.visible = new cobj_1.CVisible([new cobj_1.CAction(this.util.drawSvgText(this.w, this.h, "".concat(this.num)), new cobj_1.CSize(this.w, this.h), [], cobj_1.CActionType.svg)]);
                         obj.visible.current = cobj_1.CActionType.svg;
-                        obj.visible.size = new cobj_1.Size(this.w, this.h);
-                        obj.visible.pos = new cobj_1.Pos(this.rect[0], this.rect[1]);
-                        obj.visible.anchor = new cobj_1.Pos(0, 0);
+                        obj.visible.size = new cobj_1.CSize(this.w, this.h);
+                        obj.visible.pos = new cobj_1.CPos(this.rect[0], this.rect[1]);
+                        obj.visible.anchor = new cobj_1.CPos(0, 0);
                         return [4 /*yield*/, this.thisNgin.addCObjectInternal(obj.build())];
                     case 1:
                         _a.sent();

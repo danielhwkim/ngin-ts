@@ -11,24 +11,24 @@ main('127.0.0.1', 4040, async (nx) =>  {
     const tiles = j.layers[0];
     const objlayer = j.layers[1];
     const data = tiles['data'];
-    const tileSize = j['tilewidth'];
+    const tileCSize = j['tilewidth'];
     const precision = 3;
     console.log(j);
     var size = new CSize(tiles.width, tiles.height);
 
     var stage = new CStage(size);
     //stage.debug = true;
-    stage.joystickDirectionals = JoystickDirectionals.horizontal;
+    stage.joystickDirectionals = CJoystickDirectionals.horizontal;
     await nx.sendObjWait(stage);
 
-    await nx.sendObj(CTileObject('kenney_pixelshmup/tiles_packed.png', new Size(tileSize, tileSize), data, new Pos(0,0), size));
+    await nx.sendObj(CTileObject('kenney_pixelshmup/tiles_packed.png', new CSize(tileCSize, tileCSize), data, new CPos(0,0), size));
 
     var obj = new CObject(100);
-    obj.physical = new CPhysical(BodyShape.circle, new Pos(11,11), BodyType.dynamic);
+    obj.physical = new CPhysical(CBodyShape.circle, new CPos(11,11), CBodyType.dynamic);
     obj.physical.angle = 1.5;
-    obj.physical.size = new Size(2,2);
-    obj.visible = new CVisible([ new CAction('kenney_pixelshmup/ships_packed.png', new Size(32, 32), [1], CActionType.idle)]);
-    obj.visible.size = new Size(2,2);
+    obj.physical.size = new CSize(2,2);
+    obj.visible = new CVisible([ new CAction('kenney_pixelshmup/ships_packed.png', new CSize(32, 32), [1], CActionType.idle)]);
+    obj.visible.size = new CSize(2,2);
     var value = await nx.sendObjWait(obj);
     console.log('1', value);
 
@@ -39,9 +39,9 @@ main('127.0.0.1', 4040, async (nx) =>  {
     await nx.forward(100, 0, 5);
 
     obj.id = 200;
-    obj.physical.pos = new Pos(11, 0);
+    obj.physical.pos = new CPos(11, 0);
     obj.physical.angle = 3;
-    //obj.visible.size = new Size(2,2);    
+    //obj.visible.size = new CSize(2,2);    
     obj.visible.actions[0].indices = [10];
     var value = await nx.sendObjWait(obj);
     console.log('2', value); 
@@ -72,8 +72,8 @@ class InputHandler extends EventHandler {
           await this.nx.remove(contact.id1);
           var obj = new CObject(1000);
           obj.tid = contact.id2;
-          obj.visible = new CVisible([ new CAction('kenney_pixelshmup/tiles_packed.png', new Size(16, 16), [5], CActionType.idle)]);
-          obj.visible.pos = new Pos(0,0);
+          obj.visible = new CVisible([ new CAction('kenney_pixelshmup/tiles_packed.png', new CSize(16, 16), [5], CActionType.idle)]);
+          obj.visible.pos = new CPos(0,0);
           await this.nx.sendObj(obj);
         }
       }
@@ -103,9 +103,9 @@ class InputHandler extends EventHandler {
       var info = await this.nx.getCObjectInfo(100);
 
       var obj = new CObject(101);
-      obj.physical = new CPhysical(BodyShape.rectangle, new Pos(info.pos.x-0.5 + 2*Math.sin(info.angle), info.pos.y-0.5 - 2*Math.cos(info.angle)), BodyType.dynamic);
+      obj.physical = new CPhysical(CBodyShape.rectangle, new CPos(info.pos.x-0.5 + 2*Math.sin(info.angle), info.pos.y-0.5 - 2*Math.cos(info.angle)), CBodyType.dynamic);
       obj.physical.angle = info.angle;
-      obj.visible = new CVisible([ new CAction('kenney_pixelshmup/tiles_packed.png', new Size(16, 16), [1, 2, 3], CActionType.idle)]);
+      obj.visible = new CVisible([ new CAction('kenney_pixelshmup/tiles_packed.png', new CSize(16, 16), [1, 2, 3], CActionType.idle)]);
       var value = await this.nx.sendObjWait(obj);
       console.log('1', value);
       await this.nx.forward(101, 0, 20);
