@@ -98,6 +98,7 @@ main('127.0.0.1', 4040, async (nx:Nx) =>  {
             cobj.info = obj.name;
             cobj.physical = new CPhysical(CBodyShape.rectangle, new CPos(obj.x, obj.y), CBodyType.static);
             cobj.physical.size = new CSize(obj.width,obj.height);
+            cobj.physical.passableBottom = true;
             //cobj.physical.anchor = new CPos(0, 0);
             await nx.sendObj(cobj);            
             break;
@@ -158,6 +159,7 @@ class InputHandler extends EventHandler {
       if (contact.info1 == 'hero') {
         switch(contact.info2) {
           case 'floor':
+          case 'bar':
             if (contact.isEnded == false) {
               if (contact.y < 0) {
                 if (this.hero_contacts.size == 0) {
@@ -389,5 +391,3 @@ class InputHandler extends EventHandler {
       }
     }  
 }
-  
-  

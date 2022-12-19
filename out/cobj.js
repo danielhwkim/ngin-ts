@@ -189,6 +189,7 @@ var CPhysical = /** @class */ (function () {
         this.type = CBodyType.dynamic;
         this.trackable = true;
         this.contactReport = true;
+        this.passableBottom = false;
         this.shape = shape;
         this.pos = pos;
         this.type = type;
@@ -212,6 +213,7 @@ var CPhysical = /** @class */ (function () {
             trackable: this.trackable,
             contactReport: this.contactReport,
             floats: this.floats,
+            passableBottom: this.passableBottom,
         };
     };
     return CPhysical;

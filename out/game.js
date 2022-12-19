@@ -168,6 +168,7 @@ function convInfo(info, tileSize) {
                 cobj.info = obj.name;
                 cobj.physical = new cobj_1.CPhysical(cobj_1.CBodyShape.rectangle, new cobj_1.CPos(obj.x, obj.y), cobj_1.CBodyType.static);
                 cobj.physical.size = new cobj_1.CSize(obj.width, obj.height);
+                cobj.physical.passableBottom = true;
                 //cobj.physical.anchor = new CPos(0, 0);
                 return [4 /*yield*/, nx.sendObj(cobj)];
             case 11:
@@ -240,6 +241,7 @@ var InputHandler = /** @class */ (function (_super) {
                         _a = contact.info2;
                         switch (_a) {
                             case 'floor': return [3 /*break*/, 1];
+                            case 'bar': return [3 /*break*/, 1];
                             case 'fruit': return [3 /*break*/, 10];
                             case 'box': return [3 /*break*/, 13];
                             case 'Trampoline': return [3 /*break*/, 14];

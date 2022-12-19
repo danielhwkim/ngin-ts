@@ -198,6 +198,7 @@ export class CPhysical implements CBuildable {
     trackable: boolean = true;
     contactReport: boolean = true;
     floats: number[];
+    passableBottom: boolean = false;
     constructor(shape:CBodyShape, pos:CPos, type:CBodyType) {
         this.shape = shape;
         this.pos = pos;
@@ -222,6 +223,7 @@ export class CPhysical implements CBuildable {
             trackable:this.trackable,
             contactReport:this.contactReport,
             floats:this.floats,
+            passableBottom:this.passableBottom,
         };
     }
 }

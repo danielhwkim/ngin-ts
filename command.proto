@@ -308,4 +308,5 @@ message CPhysical {
     bool trackable = 15;
     bool contactReport = 16;
     repeated float floats = 17;
+    bool passableBottom = 18;
 }

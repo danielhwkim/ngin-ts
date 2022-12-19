@@ -5,7 +5,7 @@ import {CObject, CActionType, CAction, CPhysical, CVisible, CTileObject, CStage,
 
 main('127.0.0.1', 4040, async (nx) =>  {
     nx.eventHandler = new InputHandler(nx);
-    const d = fs.readFileSync('planes0.tmj', 'utf8');
+    const d = fs.readFileSync('./data/planes0.tmj', 'utf8');
     const j = JSON.parse(d);
   
     const tiles = j.layers[0];

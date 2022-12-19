@@ -61,7 +61,7 @@ var cobj_1 = require("./cobj");
         switch (_a.label) {
             case 0:
                 nx.eventHandler = new InputHandler(nx);
-                d = fs.readFileSync('planes0.tmj', 'utf8');
+                d = fs.readFileSync('./data/planes0.tmj', 'utf8');
                 j = JSON.parse(d);
                 tiles = j.layers[0];
                 objlayer = j.layers[1];
