@@ -226,10 +226,10 @@ class InputHandler extends EventHandler {
     async handleEvent(event) {
       console.log(event);
       const c = event;
-      if (c.type == 'ready')
+      if (c.isEnded == false)
         return;
   
-      switch(event.name) {
+      switch(event.info) {
         case 'box':
           var obj = this.objs[event.id];
           console.log(obj);

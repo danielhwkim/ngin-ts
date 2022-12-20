@@ -101,7 +101,7 @@ var TestUtil = /** @class */ (function () {
                         obj.visible.current = cobj_1.CActionType.svg;
                         obj.visible.size = new cobj_1.CSize(width, height);
                         obj.visible.anchor = new cobj_1.CVec2(0, 0);
-                        return [4 /*yield*/, this.ngin.addCObjectInternal(obj.build())];
+                        return [4 /*yield*/, this.ngin.sendCObjectInternal(obj.build())];
                     case 1:
                         _a.sent();
                         return [4 /*yield*/, this.ngin.command({
@@ -127,7 +127,7 @@ var TestUtil = /** @class */ (function () {
                         obj.visible.current = cobj_1.CActionType.svg;
                         obj.visible.size = new cobj_1.CSize(width, height);
                         obj.visible.anchor = new cobj_1.CVec2(0, 0);
-                        return [4 /*yield*/, this.ngin.addCObjectInternal(obj.build())];
+                        return [4 /*yield*/, this.ngin.sendCObjectInternal(obj.build())];
                     case 5:
                         _a.sent();
                         this.ngin.prepareAck();
@@ -218,7 +218,7 @@ var Stopwatch = /** @class */ (function () {
                         obj.visible.size = new cobj_1.CSize(this.w, this.h);
                         obj.visible.pos = new cobj_1.CVec2(this.rect[0], this.rect[1]);
                         obj.visible.anchor = new cobj_1.CVec2(0, 0);
-                        return [4 /*yield*/, this.thisNgin.addCObjectInternal(obj.build())];
+                        return [4 /*yield*/, this.thisNgin.sendCObjectInternal(obj.build())];
                     case 2:
                         _a.sent();
                         setTimeout(function () {
@@ -243,7 +243,7 @@ var Stopwatch = /** @class */ (function () {
                         obj.visible.size = new cobj_1.CSize(this.w, this.h);
                         obj.visible.pos = new cobj_1.CVec2(this.rect[0], this.rect[1]);
                         obj.visible.anchor = new cobj_1.CVec2(0, 0);
-                        return [4 /*yield*/, this.thisNgin.addCObjectInternal(obj.build())];
+                        return [4 /*yield*/, this.thisNgin.sendCObjectInternal(obj.build())];
                     case 1:
                         _a.sent();
                         setTimeout(function () {

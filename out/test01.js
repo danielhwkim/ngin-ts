@@ -75,7 +75,7 @@ function test01(ngin, width, height, margin, func, stopwatch) {
                     obj.visible.current = cobj_js_1.CActionType.svg;
                     obj.visible.size = new cobj_js_1.CSize(width, height);
                     obj.visible.anchor = new cobj_js_1.CVec2(0, 0);
-                    return [4 /*yield*/, ngin.addCObjectInternal(obj.build())];
+                    return [4 /*yield*/, ngin.sendCObjectInternal(obj.build())];
                 case 2:
                     _a.sent();
                     return [4 /*yield*/, util.countDown(width, height, 3, 1)];
@@ -114,7 +114,7 @@ function test01(ngin, width, height, margin, func, stopwatch) {
                     obj.visible.current = cobj_js_1.CActionType.svg;
                     obj.visible.size = new cobj_js_1.CSize(width + margin, height);
                     obj.visible.anchor = new cobj_js_1.CVec2(0, 0);
-                    return [4 /*yield*/, ngin.addCObjectInternal(obj.build())];
+                    return [4 /*yield*/, ngin.sendCObjectInternal(obj.build())];
                 case 7:
                     _a.sent();
                     stopwatch.stop();

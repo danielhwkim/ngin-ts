@@ -47,7 +47,7 @@ export class TestUtil {
         obj.visible.current = CActionType.svg;
         obj.visible.size = new CSize(width, height);
         obj.visible.anchor = new CVec2(0,0);
-        await this.ngin.addCObjectInternal(obj.build());
+        await this.ngin.sendCObjectInternal(obj.build());
 
         await this.ngin.command({
             strings:['moveTo', "ease"], 
@@ -69,7 +69,7 @@ export class TestUtil {
             obj.visible.current = CActionType.svg;
             obj.visible.size = new CSize(width, height);
             obj.visible.anchor = new CVec2(0,0);
-            await this.ngin.addCObjectInternal(obj.build());
+            await this.ngin.sendCObjectInternal(obj.build());
 
         
             this.ngin.prepareAck();
@@ -158,7 +158,7 @@ export class Stopwatch {
         obj.visible.size = new CSize(this.w, this.h);
         obj.visible.pos = new CVec2(this.rect[0],this.rect[1]);
         obj.visible.anchor = new CVec2(0,0);        
-        await this.thisNgin.addCObjectInternal(obj.build());
+        await this.thisNgin.sendCObjectInternal(obj.build());
 
     
         setTimeout(() => {
@@ -175,7 +175,7 @@ export class Stopwatch {
         obj.visible.size = new CSize(this.w, this.h);
         obj.visible.pos = new CVec2(this.rect[0],this.rect[1]);        
         obj.visible.anchor = new CVec2(0,0);
-        await this.thisNgin.addCObjectInternal(obj.build());
+        await this.thisNgin.sendCObjectInternal(obj.build());
 
     
         setTimeout(() => {

@@ -238,8 +238,8 @@ var Ngin = /** @class */ (function () {
         this.JoystickMoveDirectional = root.lookupEnum("commander.JoystickMoveDirectional");
         this.TouchInputId = root.lookupEnum("commander.TouchInputId");
         this.ActionEvent = root.lookupEnum("commander.ActionEvent");
-        this.BodyInfoQuery = root.lookupType("commander.BodyInfoQuery");
-        this.BodyInfoQueryResult = root.lookupType("commander.BodyInfoQueryResult");
+        //this.BodyInfoQuery = root.lookupType("commander.BodyInfoQuery");
+        //this.BodyInfoQueryResult = root.lookupType("commander.BodyInfoQueryResult");
         this.QueryInfo = root.lookupType("commander.QueryInfo");
         this.walls = new Set();
         ngin = this;
@@ -264,7 +264,7 @@ var Ngin = /** @class */ (function () {
             });
         });
     };
-    Ngin.prototype.addCObjectInternal = function (cobj) {
+    Ngin.prototype.sendCObjectInternal = function (cobj) {
         return __awaiter(this, void 0, void 0, function () {
             var i, a, buf_cobj;
             return __generator(this, function (_a) {
@@ -290,28 +290,15 @@ var Ngin = /** @class */ (function () {
             });
         });
     };
-    Ngin.prototype.initScreen = function (info) {
+    Ngin.prototype.sendCStageInternal = function (info) {
         return __awaiter(this, void 0, void 0, function () {
             var buf_body;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        if (info.joystickPrecision) {
-                            this.precision = info.joystickPrecision;
-                        }
-                        if ('joystickDirectionals' in info) {
-                            info.joystickDirectionals = this.JoystickDirectionals.values[info.joystickDirectionals];
-                        }
-                        if ('button1' in info) {
-                            info.button1 = this.ActionEvent.values[info.button1];
-                        }
-                        if ('button2' in info) {
-                            info.button2 = this.ActionEvent.values[info.button2];
-                        }
-                        return [4 /*yield*/, this.CStageInfo.encode(info).finish()];
+                    case 0: return [4 /*yield*/, this.CStageInfo.encode(info).finish()];
                     case 1:
                         buf_body = _a.sent();
-                        return [4 /*yield*/, this.send(buf_body, this.Head.values.init)];
+                        return [4 /*yield*/, this.send(buf_body, this.Head.values.stage)];
                     case 2:
                         _a.sent();
                         return [2 /*return*/];

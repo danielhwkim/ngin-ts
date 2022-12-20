@@ -71,13 +71,13 @@ var NginX = /** @class */ (function (_super) {
                 switch (_a.label) {
                     case 0:
                         if (!(obj instanceof cobj_1.CObject)) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.addCObjectInternal(obj.build())];
+                        return [4 /*yield*/, this.sendCObjectInternal(obj.build())];
                     case 1:
                         _a.sent();
                         return [3 /*break*/, 4];
                     case 2:
                         if (!(obj instanceof cobj_1.Stage)) return [3 /*break*/, 4];
-                        return [4 /*yield*/, this.initScreen(obj.build())];
+                        return [4 /*yield*/, this.sendCStageInternal(obj.build())];
                     case 3:
                         _a.sent();
                         _a.label = 4;

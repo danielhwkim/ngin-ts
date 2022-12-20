@@ -4,13 +4,8 @@ package commander;
 enum Head {
     cmd = 0;
 
-    init = 0xFF00;
-    bodyinfo = 0xFF01;
-    bodystatus = 0xFF02;
-    bodyop = 0xFF03;
+    stage = 0xFF00;
     query = 0xFF04;
-    bodyinfoquery = 0xFF05;
-
     cobject = 0xFF06;
 
     contact = 0xF0F0;
@@ -21,17 +16,6 @@ enum Head {
     button = 0xF0F5;
     tab = 0xF0F6;
     queryresult = 0xF0F7;
-    bodyinfoqueryresult = 0xF0F8;
-}
-
-message BodyInfoQuery {
-    uint32 qid = 1;
-}
-
-message BodyInfoQueryResult {
-    uint32 qid = 1;
-    float x = 2;
-    float y = 3;     
 }
 
 message QueryInfo {
@@ -62,8 +46,8 @@ enum BodyType {
 
 message EventInfo {
     uint32 id = 1;
-    string name = 2;
-    string skin = 3;
+    string info = 2;
+    string event = 3;
     float x = 4;
     float y = 5;
     bool isCompleted = 6;
@@ -149,8 +133,7 @@ message CmdInfo {
     ButtonInfo button = 7;
     TabInfo tab = 8;
     QueryResult result = 9;
-    BodyInfoQueryResult bodyinfo = 10;
-    Cmd cmd = 11;
+    Cmd cmd = 10;
 }
 
 enum JoystickDirectionals {
@@ -209,8 +192,7 @@ message CStageInfo {
     uint32 joystickPrecision = 8;
     ActionEvent button1 = 9;    
     ActionEvent button2 = 10;
-    ActionEvent tab = 11;    
-    repeated int32 tiles = 12;
+    ActionEvent tab = 11;
 }
 
 message Cmd {

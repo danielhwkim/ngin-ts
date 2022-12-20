@@ -69,13 +69,13 @@ var Nx = /** @class */ (function (_super) {
                 switch (_a.label) {
                     case 0:
                         if (!(obj instanceof cobj_1.CObject)) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.addCObjectInternal(obj.build())];
+                        return [4 /*yield*/, this.sendCObjectInternal(obj.build())];
                     case 1:
                         _a.sent();
                         return [3 /*break*/, 4];
                     case 2:
                         if (!(obj instanceof cobj_1.CStage)) return [3 /*break*/, 4];
-                        return [4 /*yield*/, this.initScreen(obj.build())];
+                        return [4 /*yield*/, this.sendCStageInternal(obj.build())];
                     case 3:
                         _a.sent();
                         _a.label = 4;
@@ -273,8 +273,8 @@ var Nx = /** @class */ (function (_super) {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.command({
-                            strings: ['actionType', (0, cobj_1.buildCActionType)(actionType)],
-                            ints: [id, isFlipHorizontal == true ? 1 : 0],
+                            strings: ['actionType' /*, buildCActionType(actionType)*/],
+                            ints: [id, isFlipHorizontal == true ? 1 : 0, actionType],
                         })];
                     case 1:
                         _a.sent();
@@ -334,6 +334,22 @@ var Nx = /** @class */ (function (_super) {
             });
         });
     };
+    Nx.prototype.linearx = function (id, velocity) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.command({
+                            strings: ['linearx'],
+                            ints: [id],
+                            floats: [velocity],
+                        })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     Nx.prototype.lineary = function (id, velocity) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -373,6 +389,38 @@ var Nx = /** @class */ (function (_super) {
                             strings: ['constx'],
                             ints: [id],
                             floats: [velocity],
+                        })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Nx.prototype.consty = function (id, velocity) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.command({
+                            strings: ['consty'],
+                            ints: [id],
+                            floats: [velocity],
+                        })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Nx.prototype.timer = function (id, time) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.command({
+                            strings: ['timer'],
+                            ints: [id],
+                            floats: [time],
                         })];
                     case 1:
                         _a.sent();

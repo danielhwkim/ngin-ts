@@ -158,8 +158,8 @@ class Ngin {
     this.JoystickMoveDirectional = root.lookupEnum("commander.JoystickMoveDirectional");
     this.TouchInputId = root.lookupEnum("commander.TouchInputId");
     this.ActionEvent = root.lookupEnum("commander.ActionEvent");
-    this.BodyInfoQuery = root.lookupType("commander.BodyInfoQuery");
-    this.BodyInfoQueryResult = root.lookupType("commander.BodyInfoQueryResult");
+    //this.BodyInfoQuery = root.lookupType("commander.BodyInfoQuery");
+    //this.BodyInfoQueryResult = root.lookupType("commander.BodyInfoQueryResult");
     this.QueryInfo = root.lookupType("commander.QueryInfo");
 
     this.walls = new Set();
@@ -180,7 +180,7 @@ class Ngin {
   }
 
 
-  async addCObjectInternal(cobj) {
+  async sendCObjectInternal(cobj) {
     if ('visible' in cobj) {
       cobj.visible.current = this.CActionType.values[cobj.visible.current];
       for (var i = 0; i < cobj.visible.actions.length; i++) {
@@ -198,7 +198,8 @@ class Ngin {
     await this.send(buf_cobj, this.Head.values.cobject);
   }
   
-  async initScreen(info) {
+  async sendCStageInternal(info) {
+    /*
     if (info.joystickPrecision) {
       this.precision = info.joystickPrecision;
     }
@@ -211,9 +212,9 @@ class Ngin {
     }
     if ('button2' in info) {
       info.button2 = this.ActionEvent.values[info.button2];
-    }        
+    }       */ 
     const buf_body = await this.CStageInfo.encode(info).finish();
-    await this.send(buf_body, this.Head.values.init);
+    await this.send(buf_body, this.Head.values.stage);
   }
 
   async onCmd(chunk) {

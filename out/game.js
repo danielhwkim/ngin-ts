@@ -332,9 +332,9 @@ var InputHandler = /** @class */ (function (_super) {
                     case 0:
                         console.log(event);
                         c = event;
-                        if (c.type == 'ready')
+                        if (c.isEnded == false)
                             return [2 /*return*/];
-                        _a = event.name;
+                        _a = event.info;
                         switch (_a) {
                             case 'box': return [3 /*break*/, 1];
                             case 'Trampoline': return [3 /*break*/, 11];

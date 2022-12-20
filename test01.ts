@@ -32,7 +32,7 @@ export async function test01(ngin, width, height, margin, func, stopwatch) {
     obj.visible.current = CActionType.svg;
     obj.visible.size = new CSize(width, height);
     obj.visible.anchor = new CVec2(0,0);    
-    await ngin.addCObjectInternal(obj.build());
+    await ngin.sendCObjectInternal(obj.build());
 
     await util.countDown(width, height, 3, 1);
     stopwatch.run();
@@ -70,7 +70,7 @@ export async function test01(ngin, width, height, margin, func, stopwatch) {
     obj.visible.current = CActionType.svg;
     obj.visible.size = new CSize(width+margin, height);
     obj.visible.anchor = new CVec2(0,0);
-    await ngin.addCObjectInternal(obj.build());
+    await ngin.sendCObjectInternal(obj.build());
 
 
     stopwatch.stop();

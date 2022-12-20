@@ -270,7 +270,6 @@ exports.CTileObject = CTileObject;
 var CStage = /** @class */ (function () {
     function CStage(size) {
         this.gravity = new CVec2(0, 0);
-        this.pos = new CVec2(0, 0);
         this.debug = false;
         this.joystickDirectionals = CJoystickDirectionals.none;
         this.joystickPrecision = 3;
@@ -303,8 +302,6 @@ var CStage = /** @class */ (function () {
             background: this.background,
             gravityX: this.gravity.x,
             gravityY: this.gravity.y,
-            x: this.pos.x,
-            y: this.pos.y,
             width: this.size.w,
             height: this.size.h,
             debug: this.debug,

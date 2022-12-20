@@ -286,7 +286,6 @@ export class CStage implements CBuildable {
     background: string;
     gravity: CVec2 = new CVec2(0, 0);
     size: CSize;
-    pos: CVec2 = new CVec2(0, 0);
     debug: boolean = false;
     joystickDirectionals:CJoystickDirectionals = CJoystickDirectionals.none;
     joystickPrecision: number = 3;
@@ -320,8 +319,6 @@ export class CStage implements CBuildable {
         background: this.background,
         gravityX: this.gravity.x,
         gravityY: this.gravity.y,
-        x: this.pos.x,
-        y: this.pos.y,    
         width: this.size.w,
         height: this.size.h,
         debug: this.debug,

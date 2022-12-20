@@ -25,8 +25,6 @@ class NginX extends Ngin {
         });        
     } 
 
-
-
     async getObjinfo(id) {
         this.cmdEmitter = new EventEmitter();    
         await this.command({
@@ -44,11 +42,6 @@ class NginX extends Ngin {
             floats:[value]
         });        
     }
-
-
-
-
-
 
     async submit() {
         await this.command({strings:['submit'], ints:[4041]});

@@ -13,9 +13,9 @@ export class Nx extends NginX {
     
     async sendObj(obj:CBuildable) {
         if (obj instanceof CObject) {
-            await this.addCObjectInternal(obj.build());
+            await this.sendCObjectInternal(obj.build());
         } else if (obj instanceof CStage) {
-            await this.initScreen(obj.build());
+            await this.sendCStageInternal(obj.build());
         }
     }
 
@@ -138,8 +138,8 @@ export class Nx extends NginX {
 
     async setActionType(id, actionType, isFlipHorizontal = false) {
         await this.command({
-            strings:['actionType', buildCActionType(actionType)], 
-            ints:[id, isFlipHorizontal == true? 1:0],
+            strings:['actionType' /*, buildCActionType(actionType)*/], 
+            ints:[id, isFlipHorizontal == true? 1:0, actionType],
         });      
     }
 
@@ -166,6 +166,13 @@ export class Nx extends NginX {
             floats:[angle, speed],
         });
     }    
+    async linearx(id:number, velocity:number) {
+        await this.command({
+            strings:['linearx'], 
+            ints:[id], 
+            floats:[velocity],
+        });
+    }
 
     async lineary(id:number, velocity:number) {
         await this.command({
@@ -188,7 +195,21 @@ export class Nx extends NginX {
             ints:[id], 
             floats:[velocity],
         });
-    }    
+    }
+    async consty(id:number, velocity:number) {
+        await this.command({
+            strings:['consty'], 
+            ints:[id], 
+            floats:[velocity],
+        });
+    }   
+    async timer(id:number, time:number) {
+        await this.command({
+            strings:['timer'], 
+            ints:[id],
+            floats:[time],
+        });
+    }            
 }
 
 export function main(type, port, body) {
