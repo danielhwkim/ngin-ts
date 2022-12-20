@@ -27,7 +27,7 @@ export async function test01(ngin, width, height, margin, func, stopwatch) {
 
     await ngin.command({strings:['enable'], ints:[4041, 0]});    
 
-    var obj = new CObject(100);
+    let obj = new CObject(100);
     obj.visible = new CVisible([new CAction(util.drawSvgGrid(width, height, func), new CSize(width, height), [], CActionType.svg)]);
     obj.visible.current = CActionType.svg;
     obj.visible.size = new CSize(width, height);

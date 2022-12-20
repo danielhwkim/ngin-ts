@@ -42,7 +42,7 @@ export class TestUtil {
         const fillopacity = 0.5;
         const textsize = 5;
 
-        var obj = new CObject(100+num);
+        let obj = new CObject(100+num);
         obj.visible = new CVisible([new CAction(this.drawSvgTextFullScreen(width, height, `${num}`, textsize, "#111", fillopacity), new CSize(width, height), [], CActionType.svg)]);
         obj.visible.current = CActionType.svg;
         obj.visible.size = new CSize(width, height);
@@ -152,7 +152,7 @@ export class Stopwatch {
     
         this.num += 1;
 
-        var obj = new CObject(this.oid);
+        let obj = new CObject(this.oid);
         obj.visible = new CVisible([new CAction(this.util.drawSvgText(this.w, this.h, `${this.num}`), new CSize(this.w, this.h), [], CActionType.svg)]);
         obj.visible.current = CActionType.svg;
         obj.visible.size = new CSize(this.w, this.h);
@@ -169,7 +169,7 @@ export class Stopwatch {
     async run() {
         this.running = true;
 
-        var obj = new CObject(this.oid);
+        let obj = new CObject(this.oid);
         obj.visible = new CVisible([new CAction(this.util.drawSvgText(this.w, this.h, `${this.num}`), new CSize(this.w, this.h), [], CActionType.svg)]);
         obj.visible.current = CActionType.svg;
         obj.visible.size = new CSize(this.w, this.h);

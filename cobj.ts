@@ -101,9 +101,9 @@ export function buildCActionType(type:CActionType) {
 
 function buildType(type:CBodyType) {
     switch(type) {
-        case CBodyType.static: return "static";
-        case CBodyType.kinematic: return "kinematic";
-        case CBodyType.dynamic: return "dynamic";
+        case CBodyType.static: return "staticBody";
+        case CBodyType.kinematic: return "kinematicBody";
+        case CBodyType.dynamic: return "dynamicBody";
     }
 }
 
@@ -270,7 +270,7 @@ export class CObject implements CBuildable {
 }
 
 export function CTileObject(path:string, tileSize:CSize, data:number[], pos:CVec2, size:CSize) {
-    var obj = new CObject(0);
+    let obj = new CObject(0);
     obj.visible = new CVisible([ new CAction(path, tileSize, data, CActionType.tiles)]);
     obj.visible.current = CActionType.tiles;
     obj.visible.pos = pos;

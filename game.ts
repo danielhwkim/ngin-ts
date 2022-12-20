@@ -231,7 +231,7 @@ class InputHandler extends EventHandler {
   
       switch(event.info) {
         case 'box':
-          var obj = this.objs[event.id];
+          let obj = this.objs[event.id];
           console.log(obj);
           
           if (obj.count == 2) {

@@ -23,7 +23,7 @@ main('127.0.0.1', 4040, async (nx) =>  {
 
     await nx.sendObj(CTileObject('kenney_pixelshmup/tiles_packed.png', new CSize(tileCSize, tileCSize), data, new CVec2(0,0), size));
 
-    var obj = new CObject(100);
+    let obj = new CObject(100);
     obj.physical = new CPhysical(CBodyShape.circle, new CVec2(11,11), CBodyType.dynamic);
     obj.physical.angle = 1.5;
     obj.physical.size = new CSize(2,2);
@@ -70,7 +70,7 @@ class InputHandler extends EventHandler {
       if (contact.isEnded == false) {
         if (contact.id1 == 101) {
           await this.nx.remove(contact.id1);
-          var obj = new CObject(1000);
+          let obj = new CObject(1000);
           obj.tid = contact.id2;
           obj.visible = new CVisible([ new CAction('kenney_pixelshmup/tiles_packed.png', new CSize(16, 16), [5], CActionType.idle)]);
           obj.visible.pos = new CVec2(0,0);
@@ -102,7 +102,7 @@ class InputHandler extends EventHandler {
     {
       var info = await this.nx.getCObjectInfo(100);
 
-      var obj = new CObject(101);
+      let obj = new CObject(101);
       obj.physical = new CPhysical(CBodyShape.rectangle, new CVec2(info.pos.x-0.5 + 2*Math.sin(info.angle), info.pos.y-0.5 - 2*Math.cos(info.angle)), CBodyType.dynamic);
       obj.physical.angle = info.angle;
       obj.visible = new CVisible([ new CAction('kenney_pixelshmup/tiles_packed.png', new CSize(16, 16), [1, 2, 3], CActionType.idle)]);

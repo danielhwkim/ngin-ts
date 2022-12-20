@@ -260,8 +260,9 @@ var Nx = /** @class */ (function (_super) {
             new cobj_1.CAction('Main Characters/' + character + '/Wall Jump (32x32).png', new cobj_1.CSize(32, 32), [], cobj_1.CActionType.wallJump, false),
             new cobj_1.CAction('Main Characters/' + character + '/Double Jump (32x32).png', new cobj_1.CSize(32, 32), [], cobj_1.CActionType.doubleJump, false),
         ]);
-        for (var i = 0; i < obj.visible.actions.length; i++) {
-            obj.visible.actions[i].stepTime = 50 / 1000;
+        for (var _i = 0, _a = obj.visible.actions; _i < _a.length; _i++) {
+            var element = _a[_i];
+            element.stepTime = 50 / 1000;
         }
         obj.visible.pos = new cobj_1.CVec2(0, -0.2);
         //obj.visible.scale = new CVec2(1.5, 1.5);

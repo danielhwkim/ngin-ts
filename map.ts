@@ -100,7 +100,7 @@ class GameInputHandler extends EventHandler {
     async handleEvent(event:any) {
         console.log(event);        
         /*
-        var obj = this.ngin.getObj(event.bid);
+        let obj = this.ngin.getObj(event.bid);
         console.log(obj.name, obj.skin, event);
         switch (obj.name) {
             case 'fruit':

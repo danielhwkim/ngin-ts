@@ -39,9 +39,9 @@ enum BodyShape {
 }
 
 enum BodyType { 
-    static = 0; 
-    kinematic = 1; 
-    dynamic = 2;
+    staticBody = 0; 
+    kinematicBody = 1; 
+    dynamicBody = 2;
 }
 
 message EventInfo {

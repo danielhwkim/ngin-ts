@@ -102,9 +102,9 @@ function buildCActionType(type) {
 exports.buildCActionType = buildCActionType;
 function buildType(type) {
     switch (type) {
-        case CBodyType.static: return "static";
-        case CBodyType.kinematic: return "kinematic";
-        case CBodyType.dynamic: return "dynamic";
+        case CBodyType.static: return "staticBody";
+        case CBodyType.kinematic: return "kinematicBody";
+        case CBodyType.dynamic: return "dynamicBody";
     }
 }
 function buildShape(shape) {

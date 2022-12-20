@@ -201,7 +201,7 @@ var NginX = /** @class */ (function (_super) {
     };
     NginX.prototype.addFruit = function (id, x, y, fruit) {
         return __awaiter(this, void 0, void 0, function () {
-            var obj, a1;
+            let obj, a1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -294,7 +294,7 @@ var NginX = /** @class */ (function (_super) {
     };
     NginX.prototype.addSpike = function (id, x, y) {
         return __awaiter(this, void 0, void 0, function () {
-            var obj;
+            let obj;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -313,7 +313,7 @@ var NginX = /** @class */ (function (_super) {
     };
     NginX.prototype.addCoin = function (id, x, y) {
         return __awaiter(this, void 0, void 0, function () {
-            var obj;
+            let obj;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
